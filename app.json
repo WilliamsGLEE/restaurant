@@ -4,8 +4,8 @@
     "pages/logs/logs",
     "pages/template/commons",
     "pages/commons/relief",
-    "pages/launch/video/index",
     "pages/launch/picture/index",
+    "pages/launch/video/index",
     "pages/user/login"
   ],
   "window": {

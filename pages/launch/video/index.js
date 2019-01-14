@@ -43,7 +43,10 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      showVedio: false
+      updateStatus: 0 // 未上传
+      // updateStatus: 1 // 正在上传
+      // updateStatus: 2 // 上传失败
+      // updateStatus: 4 // 上传成功
     });
   },
 

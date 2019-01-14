@@ -1,67 +1,137 @@
 <!--pages/launch/picture/index.wxml-->
-<view class="container" wx:if="{{is_upload==0}}">
-  <view class='full_width flex_row_center page-top'>
-    <label>视频上传成功后，电视下载完毕开始播放</label>
-  </view>
-  <form class='full_width upoad-form' bindsubmit="up_forscreen">
-    <view class='full_width page-main'>
-      <view class="weui-grids grids-frame">
 
-        <view class="weui-grid" wx:for="{{up_imgs}}" wx:key="key" wx:for-item="img" wx:for-index="index">
-          <view class="pic_show">
-            <image class='pic_show' mode='aspectFill' src="{{img.tmp_img}}"></image>
-            <!--           
-            <view class='upload_success_frame'>
-              <image style='margin:0 0 0 0;width:38rpx;height:38rpx;' src='/images/icon/check_alt_512x512.png'></image>
+<view class="container">
+
+
+  <!-- ================================== 上传图片前 ================================== -->
+  <view class="full_width launch_pic_page_b display_{{(updateStatus == 0) ? 'show' : 'hide'}}">
+    <view class="page_top theme2">
+      <view class='full_width font_666666_26'>
+        <label class='tip_top_lable'>图片加载成功后，选择照片，电视开始展示</label>
+        <label class='link_relief'>
+          <navigator url="/pages/commons/relief">免责声明</navigator>
+        </label>
+      </view>
+    </view>
+    <form bindsubmit="up_forscreen">
+      <view class='page_main'>
+        <view class="weui-grids grids-frame">
+          <view class="weui-grid" wx:for="{{up_imgs}}" wx:key="key" wx:for-item="img" wx:for-index="index">
+            <view class="pic_show">
+              <image class="pic_show {{pic_show_cur[index]?'pic_show_cur':''}}" mode='aspectFill' bindtap='up_single_pic' data-img="{{tmp_imgs[index].oss_img}}" data-boxmac="{{box_mac}}" data-openid="{{openid}}" data-imgindex="{{index}}" data-imglen="{{img_lenth}}"
+                src="{{img.tmp_img}}"></image>
+              <view class='upload_success_frame' wx:if="{{tmp_percent[index].percent >= 100}}">
+                <image style='margin:0 0 0 0;width:38rpx;height:38rpx;' src='/images/check_alt_512x512.png'></image>
+              </view>
+              <view class='upload_mask' wx:if="{{tmp_percent[index].percent < 100}}">
+                <label>{{tmp_percent[index].percent}}%</label>
+              </view>
+              <input class="display_hide" name="upimgs{{index}}" value="{{img.tmp_img}}"></input>
             </view>
-            <view class='upload_mask'>
-              <label>20%</label>
-            </view> -->
-            <input class="display_hide" name="upimgs{{index}}" value="{{img.tmp_img}}"></input>
-            <input class="display_hide" name="upimgsize{{index}}" value="{{img.resource_size}}"></input>
           </view>
         </view>
+        <input class='display_hide' name="img_lenth" value="{{img_lenth}}"></input>
+        <input class="display_hide" name="box_mac" value="{{box_mac}}"></input>
+        <input class="display_hide" name="openid" value="{{openid}}"></input>
+        <input class="display_hide" name="is_pub_hotelinfo" value="{{is_pub_hotelinfo}}"></input>
+        <input class="display_hide" name="is_share" value="{{is_share}}"></input>
+        <input class="display_hide" name="avatarUrl" value="{{avatarUrl}}"></input>
+        <input class="display_hide" name="nickName" value="{{nickName}}"></input>
+        <input class="display_hide" name="is_open_simple" value="{{is_open_simple}}"></input>
 
-      </view>
-      <input class="display_hide" name="box_mac" value="{{box_mac}}"></input>
-      <input class="display_hide" name="openid" value="{{openid}}"></input>
-      <input class='display_hide' name="img_lenth" value="{{img_lenth}}"></input>
-      <input class='display_hide' name="intranet_ip" value="{{intranet_ip}}"> </input>
-      <view class='pic_text'>
-        <label class='font_333333_30'>为所有照片增加文字（选填）</label>
-        <textarea class='text_input' name="forscreen_char" maxlength='30' placeholder='1-30字'></textarea>
-      </view>
-    </view>
-    <view class='full_width page-bottom'>
-      <button form-type="submit" class='button_1' disabled='{{is_btn_disabel}}'>投屏</button>
-    </view>
-  </form>
-  <view class="body-view">
-    <loading hidden="{{hiddens}}" bindchange="loadingChange">亲^_^投屏中,请稍后...</loading>
-  </view>
-</view>
-
-<!-- 上传照片后 -->
-<view class="container" wx:if="{{is_upload>0}}">
-  <view class='full_width flex_row_center page-top'>
-    <label>视频上传成功后，电视下载完毕开始播放</label>
-  </view>
-  <view class='full_width page-main'>
-    <view class="weui-grids grids-frame">
-
-      <view class="weui-grid" wx:for="{{up_imgs}}" wx:key="key" wx:for-item="bean" wx:for-index="index">
-        <view class="pic_show" bindtap='up_single_pic' data-boxmac="{{box_mac}}" data-openid="{{openid}}" data-img_url="{{bean.img_url}}" data-intranet_ip='{{intranet_ip}}' data-filename='{{filename_arr[index]}}' data-forscreen_char='{{forscreen_char}}' data-resouce_size="{{bean.img_size}}"
-          data-choose_key="{{index}}">
-
-          <image wx:if="{{choose_key==index}}" class='pic_show pic_show_cur' mode='aspectFill' src="{{bean.img_url}}"></image>
-          <image wx:else class='pic_show' mode='aspectFill' src="{{bean.img_url}}"></image>
+        <view class='grant_auth'>
+          <view class='title'>
+            <label>播放时间（默认播放一次）</label>
+          </view>
+          <radio-group class="radio-group">
+            <label class="items" wx:for="{{item}}" wx:key="key" wx:for-index="index">
+              <radio value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">{{item.name}}</radio>
+            </label>
+          </radio-group>
+        </view>
+        <view wx:if="{{is_share>0}}" class='speak_with_interest'>
+          <textarea class='text_input' name="public_text" maxlength='200' placeholder='顺便对公众说两句...'></textarea>
         </view>
       </view>
+      <view class='page_bottom'>
+        <button class="full_width savor-btn" form-type="submit" hover-class="none" disabled='{{is_btn_disabel}}'>投屏</button>
+      </view>
+    </form>
+
+    <!-- 打断投屏弹窗 -->
+    <bottomModal show="{{showModal}}" height='auto' width="98%" title-text="" confirm-text="" cancel-text="">
+      <view class='bottom-pop-window-container'>
+        <view class='bottom-pop-window-top'>
+          <view class='title'>
+            <label class='font_333333_34'>确认打断投屏？</label>
+          </view>
+        </view>
+        <view class='bottom-pop-window-main'>
+          <label class='content font_666666_30'>当前电视正在进行投屏，继续投屏有可能打断当前投屏中的内容。</label>
+        </view>
+        <view class='bottom-pop-window-bottom'>
+          <button class='savor-btn' bindtap="">继续投屏</button>
+          <button class='savor-btn theme-menu' bindtap="">取消投屏</button>
+        </view>
+      </view>
+    </bottomModal>
+
+  </view>
+
+
+
+
+
+  <!-- ================================== 上传图片后 ================================== -->
+  <view class="full_width launch_pic_page_a display_{{(updateStatus == 4) ? 'show' : 'hide'}}">
+    <view class="page_top theme2">
+      <view class='full_width font_666666_26'>
+        <label class='tip_top_lable'>图片加载成功后，选择照片，电视开始展示</label>
+        <label class='link_relief'>
+          <navigator url="/pages/commons/relief">免责声明</navigator>
+        </label>
+      </view>
+    </view>
+
+    <view class='page_main'>
+      <form bindsubmit="up_forscreen">
+        <view class="weui-grids grids-frame">
+          <view class="weui-grid" wx:for="{{up_imgs}}" wx:key="key" wx:for-item="img" wx:for-index="index">
+            <view class="pic_show">
+              <image class="pic_show {{pic_show_cur[index]?'pic_show_cur':''}}" mode='aspectFill' bindtap='up_single_pic' data-img="{{tmp_imgs[index].oss_img}}" data-boxmac="{{box_mac}}" data-openid="{{openid}}" data-imgindex="{{index}}" data-imglen="{{img_lenth}}"
+                src="{{img.tmp_img}}"></image>
+              <view class='upload_success_frame' wx:if="{{tmp_percent[index].percent >= 100}}">
+                <image style='margin:0 0 0 0;width:38rpx;height:38rpx;' src='/images/icon2/333333_check_alt_512x512.png'></image>
+              </view>
+              <view class='upload_mask' wx:if="{{tmp_percent[index].percent < 100}}">
+                <label>{{tmp_percent[index].percent}}%</label>
+              </view>
+              <input class="display_hide" name="upimgs{{index}}" value="{{img.tmp_img}}"></input>
+            </view>
+          </view>
+        </view>
+        <input class='display_hide' name="img_lenth" value="{{img_lenth}}"></input>
+        <input class="display_hide" name="box_mac" value="{{box_mac}}"></input>
+        <input class="display_hide" name="openid" value="{{openid}}"></input>
+        <input class="display_hide" name="is_pub_hotelinfo" value="{{is_pub_hotelinfo}}"></input>
+        <input class="display_hide" name="is_share" value="{{is_share}}"></input>
+        <input class="display_hide" name="avatarUrl" value="{{avatarUrl}}"></input>
+        <input class="display_hide" name="nickName" value="{{nickName}}"></input>
+        <input class="display_hide" name="is_open_simple" value="{{is_open_simple}}"></input>
+      </form>
+
 
     </view>
+
+    <!-- 重选 -->
+    <view class="page_bottom theme2">
+      <view class='button_group'>
+        <button class='savor-btn button_space_left' bindtap="chooseImage" data-boxmac="{{box_mac}}" data-openid="{{openid}}" src='/images/button_rechoose_pic.png'>重选照片</button>
+        <button class='savor-btn button_space_right' bindtap="exitForscreen" data-boxmac="{{box_mac}}" src='/images/button_exit_cast_screen.png'>退出投屏</button>
+      </view>
+    </view>
+    <view class='launch_history'>
+    </view>
   </view>
-  <view class='full_width page-bottom'>
-    <button class='button_2' bindtap="chooseImage" data-intranet_ip='{{intranet_ip}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">重选照片</button>
-    <button bindtap='exitForscreen' data-intranet_ip='{{intranet_ip}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}" class='button_2' style='background-color:rgb(153, 153, 153);'>退出投屏</button>
-  </view>
+
 </view>

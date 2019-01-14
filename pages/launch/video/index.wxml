@@ -4,7 +4,7 @@
 
 
   <!-- ================================== 上传视频前 ================================== -->
-  <view class="full_width launch_video_page_b display_{{showVedio?'show':'hide'}}">
+  <view class="full_width launch_video_page_b display_{{(updateStatus == 0) ? 'show' : 'hide'}}">
     <view class='page_top theme2 flex_row_center font_666666_26'>
       <label>视频加载完成后，电视开始加载并自动播放</label>
       <label class='link_relief'>
@@ -66,7 +66,7 @@
 
 
   <!-- ================================== 视频上传中 ================================== -->
-  <!-- <view class="full_width launch_video_page_b display_{{showVedio?'show':'hide'}}">
+  <view class="full_width launch_video_page_b display_{{(updateStatus == 1) ? 'show' : 'hide'}}">
     <view class='page_top theme2 flex_row_center font_666666_26'>
       <label>视频加载完成后，电视开始加载并自动播放</label>
       <label class='link_relief'>
@@ -86,11 +86,11 @@
       <button bindtap='forscreen_video' class="savor-btn savor-btn-size uploading" form-type="submit" hover-class="none" data-box_mac='{{box_mac}}' data-openid='{{openid}}' data-video="{{upload_vedio_temp}}" data-is_pub_hotelinfo='{{is_pub_hotelinfo}}' data-duration="{{duration}}"
         data-is_share='{{is_share}}' data-avatarUrl='{{avatarUrl}}' data-nickName='{{nickName}}' disabled='{{is_btn_disabel}}'>正在上传...</button>
     </view>
-  </view> -->
+  </view>
 
 
   <!-- ================================== 视频上传失败 ================================== -->
-  <!-- <view class="full_width launch_video_page_b display_{{showVedio?'show':'hide'}}">
+  <view class="full_width launch_video_page_b display_{{(updateStatus == 2) ? 'show' : 'hide'}}">
     <view class='page_top theme2 flex_row_center font_666666_26'>
       <label>视频加载完成后，电视开始加载并自动播放</label>
       <label class='link_relief'>
@@ -110,11 +110,11 @@
       <button bindtap='forscreen_video' class="savor-btn savor-btn-size" form-type="submit" hover-class="none" data-box_mac='{{box_mac}}' data-openid='{{openid}}' data-video="{{upload_vedio_temp}}" data-is_pub_hotelinfo='{{is_pub_hotelinfo}}' data-duration="{{duration}}"
         data-is_share='{{is_share}}' data-avatarUrl='{{avatarUrl}}' data-nickName='{{nickName}}' disabled='{{is_btn_disabel}}'>重试</button>
     </view>
-  </view> -->
+  </view>
 
 
   <!-- ================================== 上传视频后 ================================== -->
-  <view class="full_width launch_video_page_a display_{{showVedio?'hide':'show'}}">
+  <view class="full_width launch_video_page_a display_{{(updateStatus == 4) ? 'show' : 'hide'}}">
     <view class='page_top theme2 flex_row_center font_666666_26'>
       <label>视频加载完成后，电视开始加载并自动播放</label>
       <label class='link_relief'>

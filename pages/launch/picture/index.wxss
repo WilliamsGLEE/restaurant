@@ -1,29 +1,6 @@
 /* pages/launch/picture/index.wxss */
 
-.page-top {
-  height: 88rpx;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgb(0, 5, 8);
-  font-size: 14px;
-}
-
-.page-top label {
-  margin-left: 50rpx;
-}
-
-.upoad-form {
-  height: calc(100% - 88rpx);
-}
-
-.page-main {
-  height: calc(100% - 120rpx);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .grids-frame {
-  width: calc(100% - 70rpx);
   height: 458rpx;
   margin: 35rpx calc(100vw - 718rpx) 35rpx calc(100vw - 717rpx);
 }
@@ -42,14 +19,25 @@ image.pic_show {
   background-color: #333;
 }
 
+image.pic_show:active {
+  width: 216rpx;
+  height: 216rpx;
+  border: 4rpx solid #1cbeb6;
+}
+
+image.pic_show::selection {
+  width: 216rpx;
+  height: 216rpx;
+  border: 4rpx solid #1cbeb6;
+}
+
 image.pic_show_cur {
   width: 216rpx;
   height: 216rpx;
-  border: 4rpx solid rgb(28, 190, 182);
+  border: 4rpx solid #1cbeb6;
 }
 
 .upload_mask {
-  margin: 3rpx;
   width: 224rpx;
   height: 224rpx;
   line-height: 224rpx;
@@ -74,41 +62,396 @@ image.pic_show_cur {
   left: 180rpx;
 }
 
-.page-main > .pic_text > label {
-  margin: 25rpx 0 24rpx 28rpx;
+/* ================================== 上传图片前 ================================== */
+
+.launch_pic_page_b {
+  margin: 0;
+  padding: 0;
+  border: 0rpx;
+  height: 100%;
 }
 
-.page-main > .pic_text > textarea {
-  margin: 24rpx 0 180rpx 28rpx;
-  width: 690rpx;
-  height: 148rpx;
-  color: #fff;
-  font-size: 28rpx;
-  border: 1rpx #a5a19d solid;
-  border-radius: 10rpx;
-}
-
-.page-bottom {
-  height: 120rpx;
+.launch_pic_page_b > .page_top {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   text-align: center;
 }
 
-.page-bottom .button_1 {
-  width: 99%;
-  height: 114rpx;
-  line-height: 114rpx;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(28, 190, 182);
+.launch_pic_page_b > .page_top > view > .tip_top_lable {
+  position: relative;
+  float: left;
+  margin-left: 30rpx;
 }
 
-.page-bottom .button_2 {
-  display: inline-block;
-  width: 49%;
-  height: 112rpx;
-  line-height: 112rpx;
-  margin: 0rpx 0.45%;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(28, 190, 182);
+.launch_pic_page_b .page_main {
+  width: 100%;
+  height: calc(100% - 200rpx);
 }
+
+.launch_pic_page_b .page_main > .pic_text {
+  padding: 10rpx 30rpx;
+}
+
+.launch_pic_page_b .page_main > .pic_text > label {
+  margin: 25rpx 0 24rpx 28rpx;
+}
+
+.launch_pic_page_b .page_main > .pic_text > textarea {
+  width: 690rpx;
+  height: 100rpx;
+  color: #fff;
+  font-size: 28rpx;
+  background-color: #0e1c29;
+  text-align: left;
+}
+
+.launch_pic_page_b .page_main > .grant_auth {
+  min-height: 10rpx;
+  margin: 10rpx 0rpx 30rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.launch_pic_page_b .page_main > .grant_auth .title {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.launch_pic_page_b .page_main > .grant_auth .title label {
+  margin-left: 30rpx;
+}
+
+.launch_pic_page_b .page_main > .grant_auth > .radio-group {
+  padding: 0 5%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.launch_pic_page_b .page_main > .grant_auth > .radio-group radio {
+  font-size: 28rpx;
+}
+
+.launch_pic_page_b .page_main > .grant_auth > .radio-group radio .wx-radio-input {
+  width: 30rpx;
+  height: 30rpx;
+  background: unset;
+}
+
+.launch_pic_page_b .page_main > .grant_auth > .radio-group radio .wx-radio-input.wx-radio-input-checked {
+  background: #1cbeb6;
+  border-color: #1cbeb6;
+}
+
+.launch_pic_page_b .page_main > .grant_auth > .radio-group radio .wx-radio-input.wx-radio-input-checked::before {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+.launch_pic_page_b .page_main > .speak_with_interest {
+  padding: 10rpx 30rpx;
+}
+
+.launch_pic_page_b .page_main > .speak_with_interest > textarea {
+  width: 690rpx;
+  height: 200rpx;
+  color: #fff;
+  font-size: 28rpx;
+  background-color: #0e1c29;
+  text-align: left;
+}
+
+.launch_pic_page_b .page_bottom {
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.launch_pic_page_b .page_bottom > button {
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 0px;
+  border-radius: 0rpx;
+}
+
+/* ================================== 上传图片后 ================================== */
+
+.launch_pic_page_a {
+  margin: 0;
+  padding: 0;
+  border: 0rpx;
+  height: 100%;
+}
+
+.launch_pic_page_a > .page_top {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.launch_pic_page_a > .page_top > view > .tip_top_lable {
+  position: relative;
+  float: left;
+  margin-left: 30rpx;
+}
+
+.launch_pic_page_a .page_main {
+  width: 100%;
+  text-align: center;
+}
+
+.launch_pic_page_a .page_main > view.cover {
+  padding-bottom: 10rpx;
+  width: 100%;
+}
+
+.launch_pic_page_a .page_main > view.cover > video {
+  width: 100%;
+  height: 484rpx;
+  background-color: #1cbeb6;
+}
+
+.launch_pic_page_a > .page_bottom {
+  width: 100%;
+  height: 100rpx;
+  margin: 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.launch_pic_page_a > .page_bottom > .button_group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.launch_pic_page_a > .page_bottom > .button_group > button {
+  width: 150rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 25rpx;
+  padding: unset;
+  border: unset;
+  font-size: 28rpx;
+}
+
+.launch_pic_page_a > .page_bottom > .button_group > .button_space_left {
+  margin-left: 40rpx;
+}
+
+.launch_pic_page_a > .page_bottom > .button_group > .button_space_right {
+  margin-right: 40rpx;
+  background-color: #0e1c29;
+}
+
+.row-center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .launch_pic_page_a .launch_history {
+  background: #f6f3ee;
+} */
+
+.launch_pic_page_a .launch_history > .title {
+  text-align: left;
+  padding: 15rpx;
+}
+
+.launch_pic_page_a .launch_history > .title > image {
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.launch_pic_page_a .launch_history > scroll-view {
+  width: 100%;
+  height: calc(100vh - 960rpx);
+}
+
+.launch_pic_page_a .launch_history .no_data {
+  min-height: 300rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.launch_pic_page_a .launch_history .history_list {
+  padding: 0rpx 30rpx 20rpx 30rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .line {
+  width: 100%;
+  height: 0rpx;
+  border: 1rpx solid #333;
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .weui-grids {
+  width: 570rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .weui-grids > .weui-grid {
+  width: 95rpx;
+  height: 100rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .weui-grids > .weui-grid > image {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 10rpx;
+  margin: 5rpx 5rpx 5rpx 0rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .btn {
+  width: calc(100vw - 630rpx);
+  text-align: right;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .btn > button::before,
+.launch_pic_page_a .launch_history .history_list .pic > .btn > button::after {
+  border: unset;
+}
+
+.launch_pic_page_a .launch_history .history_list .pic > .btn > button {
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  padding: 0rpx;
+  margin-top: 5rpx;
+  margin-right: 0rpx;
+  background-color: #0e1c29;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .video {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .cover > navigator {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .cover > navigator > image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+  margin: 5rpx 5rpx 5rpx 0rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .cover > view > navigator {
+  margin-top: -65rpx;
+  margin-left: 25rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .cover > view > navigator > image {
+  width: 100%;
+  height: 100%;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .btn {
+  width: calc(100vw - 150rpx);
+  text-align: right;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .btn > button::before,
+.launch_pic_page_a .launch_history .history_list .video > .btn > button::after {
+  border: unset;
+}
+
+.launch_pic_page_a .launch_history .history_list .video > .btn > button {
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  padding: 0rpx;
+  margin-right: 0rpx;
+  background-color: #0e1c29;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+/* =============== 打断投屏弹窗开始 =============== */
+
+.bottom-pop-window-container {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  border-radius: 10rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-top {
+  padding: 50rpx 0rpx 20rpx 0rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-top > .title > label {
+  font-weight: bold;
+  padding-left: 20rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-main {
+  padding: 20rpx 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-main > .content {
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-bottom {
+  height: 120rpx;
+}
+
+.bottom-pop-window-container > .bottom-pop-window-bottom > button {
+  width: 285rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  display: inline-block;
+  margin: 0rpx 40rpx;
+}
+
+/* =============== 打断投屏弹窗结束 =============== */
