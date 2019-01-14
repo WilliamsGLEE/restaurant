@@ -95,7 +95,8 @@ image.pic_show_cur {
 }
 
 .launch_pic_page_b .page_main > .pic_text > label {
-  margin: 25rpx 0 24rpx 28rpx;
+  margin: 25rpx 0rpx;
+  display: block;
 }
 
 .launch_pic_page_b .page_main > .pic_text > textarea {
