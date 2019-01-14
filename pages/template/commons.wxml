@@ -1,0 +1,28 @@
+<!--pages/template/commons.wxml-->
+
+<!-- 微信授权登录 -->
+<template name="wxAuthLogin">
+  <modal show="{{show}}" height='420rpx' width="90%" background-color='unset' border-radius="0rpx" title-text="" confirm-text="" cancel-text="">
+    <view class='wxAuthLogin-container'>
+      <view class='wxAuthLogin-top'>
+        <view class='opt'>
+          <button class='close' bindtap='closeAuth'>
+            <image src='/images/icon/666666_close.png'></image>
+          </button>
+        </view>
+        <view class='title'>
+          <label class='font_1CBEB6_34'>温馨提示</label>
+        </view>
+      </view>
+      <view class='wxAuthLogin-middle'>
+        <label class='content font_333333_30'>使用“小热点-极简版”过程中，请遵守相关法律法规。</label>
+        <!-- <label class='link_relief'>
+          <navigator url="/pages/forscreen/relief">免责声明</navigator>
+        </label> -->
+      </view>
+      <view class='wxAuthLogin-bottom'>
+        <button class='savor-btn' open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">微信授权登录</button>
+      </view>
+    </view>
+  </modal>
+</template>

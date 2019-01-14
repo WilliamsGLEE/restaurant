@@ -1,10 +1,347 @@
 /**app.wxss**/
+
+/* ================================== 页面 ================================== */
+
 .container {
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  color: #fff;
+  background-color: #06111a;
+}
+
+.display_hide {
+  display: none;
+}
+
+.full_width {
+  width: 100%;
+}
+
+.full_height {
+  height: 100%;
+}
+
+.flex_row_center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex_column_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ================================== 文字 ================================== */
+
+.font_333333_20 {
+  font-size: 20rpx;
+  color: #333;
+}
+
+.font_333333_24 {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.font_333333_26 {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.font_333333_28 {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.font_333333_30 {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.font_333333_32 {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.font_333333_34 {
+  font-size: 34rpx;
+  color: #333;
+}
+
+.font_333333_36 {
+  font-size: 36rpx;
+  color: #333;
+}
+
+.font_666666_30 {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.font_666666_28 {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.font_666666_26 {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.font_666666_24 {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.font_999999_36 {
+  font-size: 36rpx;
+  color: #999;
+}
+
+.font_999999_28 {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.font_999999_24 {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.font_F6F6F6_34 {
+  font-size: 34rpx;
+  color: #f6f6f6;
+}
+
+.font_F6F3EE_20 {
+  font-size: 20rpx;
+  color: #f6f3ee;
+}
+
+.font_F6F6F6_28 {
+  font-size: 28rpx;
+  color: #f6f6f6;
+}
+
+.font_F6F2EC_24 {
+  font-size: 24rpx;
+  color: #f6f2ec;
+}
+
+.font_F6F2EC_34 {
+  font-size: 34rpx;
+  color: #f6f2ec;
+}
+
+.font_F6F2EC_30 {
+  font-size: 30rpx;
+  color: #f6f2ec;
+}
+
+.font_F6F2EC_28 {
+  font-size: 28rpx;
+  color: #f6f2ec;
+}
+
+.font_FFFFFF_36 {
+  font-size: 36rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_34 {
+  font-size: 34rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_32 {
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_30 {
+  font-size: 30rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_28 {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_26 {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.font_FFFFFF_24 {
+  font-size: 24rpx;
+  color: #fff;
+}
+
+.font_1CBEB6_34 {
+  font-size: 34rpx;
+  color: #1cbeb6;
+}
+
+.font_25635f_24 {
+  font-size: 24rpx;
+  color: #25635f;
+}
+
+.font_932C3F_20 {
+  font-size: 20rpx;
+  color: #932c3f;
+}
+
+.font_932C3F_24 {
+  font-size: 24rpx;
+  color: #932c3f;
+}
+
+.font_932C3F_28 {
+  font-size: 28rpx;
+  color: #932c3f;
+}
+
+.font_932C3F_34 {
+  font-size: 34rpx;
+  color: #932c3f;
+}
+
+/* .link_relief {
+  color: #932c3f;
+  text-decoration: underline;
+} */
+
+.link_relief {
+  color: #1cbeb6;
+  text-decoration: underline;
+}
+
+/* ================================== 按钮 ================================== */
+
+.savor-btn {
+  background-color: #1cbeb6;
+  color: #fff;
+  font-size: 34rpx;
+}
+
+/* ================== 表格布局开始 ================== */
+
+.weui-grids {
+  position: relative;
+  overflow: hidden;
+}
+
+.weui-grids::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  /* border-top: 1px solid #d9d9d9; */
+  color: #d9d9d9;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+
+.weui-grids::after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  bottom: 0;
+  /* border-left: 1px solid #d9d9d9; */
+  color: #d9d9d9;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}
+
+.weui-grid {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
   box-sizing: border-box;
-} 
+}
+
+.weui-grid::before {
+  content: " ";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+  bottom: 0;
+  /* border-right: 1px solid #d9d9d9; */
+  color: #d9d9d9;
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}
+
+.weui-grid::after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  /* border-bottom: 1px solid #d9d9d9; */
+  color: #d9d9d9;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+
+.weui-grid:active {
+  background-color: #ececec;
+}
+
+/* .weui-grid__bg {
+    position: relative;
+    float: left;
+    padding: 0px 0px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.weui-grid__icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+}
+.weui-grid__icon image {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.weui-grid__icon + .weui-grid__label {
+    margin-top: 5px;
+}
+.weui-grid__label {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+} */
+
+/* ================== 表格布局结束 ================== */
+
+/* 导入模板样式 */
+@import "pages/template/commons.wxss";

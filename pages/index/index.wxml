@@ -1,13 +1,31 @@
 <!--index.wxml-->
+<import src="/pages/template/commons" />
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <view class='full_width flex_column_center page-top'>
+    <picker class='box_picker' value="{{boxIndex}}" range="{{boxArray}}">
+      <label>{{boxArray[boxIndex]}}</label>
+    </picker>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class='page-main'>
+    <view wx:if="{{is_link ==1}}" class='tip'>
+      <label>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
+    </view>
+    <view class='btn' bindtap="chooseImage" data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+      <image src='/images/icon/f6f3ee_pic.png'></image>
+      <label>照片上电视</label>
+    </view>
+    <view class='btn' bindtap='chooseVideo' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+      <image src='/images/icon/f6f3ee_video.png'></image>
+      <label>视频上电视</label>
+    </view>
+  </view>
+  <view wx:if="{{boxIndex > 0}}" class='full_width page-bottom'>
+    <view class='operation'>
+      <button class='savor-btn'>退出投屏</button>
+      <button class='savor-btn'>音量 + </button>
+      <button class='savor-btn'>音量 - </button>
+    </view>
+  </view>
+  <view wx:else class='full_width page-bottom'>
   </view>
 </view>

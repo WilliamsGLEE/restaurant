@@ -1,0 +1,40 @@
+<!--pages/launch/video/index.wxml-->
+
+<!-- 视频上传前 -->
+<view class="container" wx:if="{{is_upload ==0}}">
+  <view class='full_width flex_row_center page-top'>
+    <label>视频上传成功后，电视下载完毕开始播放</label>
+  </view>
+  <view class='full_width page-main'>
+    <video class='full_width' src='{{video_url}}'></video>
+
+
+    <!-- <view class='full_width upload-progress'>
+      <progress active-color="rgba(28, 190, 182, 0.66)" background-color="#FFFFFF" percent="30"></progress>
+      <label class="font_932C3F_34">0%</label>
+    </view>  -->
+
+  </view>
+  <view class='full_width page-bottom'>
+    <button class='button_1' wx:if="{{is_forscreen==1}}" bindtap="forscreen_video" data-video_url="{{video_url}}" data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}" data-duration="{{duration}}" data-video_size="{{video_size}}">投屏</button>
+    <button class='button_1' wx:if="{{is_forscreen==0}}" style='background-color: rgba(28, 190, 182, 0.66);'>投屏</button>
+  </view>
+  <view class="body-view">
+    <loading hidden="{{hiddens}}" bindchange="loadingChange">亲^_^投屏中,请稍后...</loading>
+  </view>
+</view>
+
+
+<!-- 视频上传成功 -->
+<view class="container" wx:if="{{is_upload >0}}">
+  <view class='full_width flex_row_center page-top'>
+    <label>视频上传成功后，电视下载完毕开始播放</label>
+  </view>
+  <view class='full_width page-main'>
+    <video class='full_width' src="{{vedio_url}}"></video>
+  </view>
+  <view class='full_width page-bottom'>
+    <button class='button_2' bindtap='chooseVedio' data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}">重选视频</button>
+    <button bindtap='exitForscreen' data-intranet_ip='{{intranet_ip}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}" class='button_2' style='background-color:rgb(153, 153, 153);'>退出投屏</button>
+  </view>
+</view>

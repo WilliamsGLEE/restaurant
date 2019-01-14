@@ -1,0 +1,69 @@
+/* pages/template/commons.wxss */
+
+/* ================================= 微信授权登录 ================================= */
+
+.wxAuthLogin-container {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-radius: 20rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-top {
+  padding: 50rpx 0rpx 10rpx 0rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-top > .opt {
+  margin-top: -20rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-top > .opt > .close,
+.wxAuthLogin-container > .wxAuthLogin-top > .opt > .close::before,
+.wxAuthLogin-container > .wxAuthLogin-top > .opt > .close::after {
+  position: fixed;
+  right: 60rpx;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 30rpx;
+  height: 30rpx;
+  background-color: unset;
+  line-height: 0;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-top > .opt > .close > image {
+  margin-right: 10rpx;
+  width: 100%;
+  height: 100%;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-top > .title > label {
+  font-weight: bold;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-middle {
+  padding: 20rpx 40rpx 20rpx 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-middle > .content {
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-middle > .link_relief {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-middle > .link_relief > navigator {
+  font-size: 30rpx;
+  color: #999;
+  text-decoration: underline;
+}
+
+.wxAuthLogin-container > .wxAuthLogin-bottom > button {
+  width: 50%;
+  border-radius: 40rpx;
+}
