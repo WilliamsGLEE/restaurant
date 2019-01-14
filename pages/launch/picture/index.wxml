@@ -122,7 +122,6 @@
         <input class="display_hide" name="is_open_simple" value="{{is_open_simple}}"></input>
       </form>
 
-
     </view>
 
     <!-- 重选 -->
@@ -132,8 +131,10 @@
         <button class='savor-btn button_space_right' bindtap="exitForscreen" data-boxmac="{{box_mac}}" src='/images/button_exit_cast_screen.png'>退出投屏</button>
       </view>
     </view>
+
     <view class='launch_history'>
     </view>
+
   </view>
 
 </view>

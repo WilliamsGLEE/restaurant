@@ -1,1 +1,84 @@
 /* pages/user/login.wxss */
+
+.page_top {
+  height: 140rpx;
+}
+
+.page_main {
+  height: calc(100% - 240rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page_main .brand {
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  font-weight: 900;
+}
+
+.page_main .brand image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+}
+
+.page_main .brand label {
+  height: 100rpx;
+  line-height: 100rpx;
+  display: block;
+}
+
+.page_main .login_form {
+  width: 600rpx;
+  display: block;
+  font-size: 28rpx;
+}
+
+.page_main .login_form input {
+  border-bottom: 1rpx solid #333;
+}
+
+.page_main .login_form .account, .page_main .login_form .invitation,
+.page_main .login_form .verification, .page_main .login_form .login_btn {
+  height: 80rpx;
+}
+
+.page_main .login_form .verification input {
+  width: calc(100% - 200rpx);
+  display: inline-block;
+}
+
+.page_main .login_form .verification button {
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 0 0 0 50rpx;
+  padding: unset;
+  border: unset;
+  font-size: 24rpx;
+  display: inline-block;
+}
+
+.page_main .login_form .verification .gain_btn {
+  color: #fff;
+  background: #999;
+}
+
+.page_main .login_form .login_btn {
+  margin-top: 150rpx;
+}
+
+.page_main .login_form .login_btn button {
+  width: 100%;
+  height: 80rpx;
+  font-size: 30rpx;
+}
+
+.page_bottom {
+  height: 100rpx;
+}

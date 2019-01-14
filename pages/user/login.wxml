@@ -1,2 +1,28 @@
 <!--pages/user/login.wxml-->
-<text>pages/user/login.wxml</text>
+
+<view class="container">
+  <view class='full_width page_top'></view>
+  <view class='full_width page_main'>
+    <view class='brand'>
+      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+      <label>热点投屏 - 餐厅版</label>
+    </view>
+    <form class='login_form'>
+      <view class='account'>
+        <input placeholder="请输入手机号"></input>
+      </view>
+      <view class='invitation '>
+        <input placeholder="请输入邀请码"></input>
+      </view>
+      <view class='verification'>
+        <input placeholder="请输入验证码"></input>
+        <button class='theme-button'>获取验证码</button>
+        <!-- <button class='theme-button gain_btn'>59 S</button> -->
+      </view>
+      <view class='login_btn'>
+        <button class='theme-button'>登陆</button>
+      </view>
+    </form>
+  </view>
+  <view class='full_width page_bottom'></view>
+</view>

@@ -132,8 +132,6 @@
           </view> -->
       </view>
 
-
-
     </view>
 
     <!-- 重选 -->
@@ -146,7 +144,6 @@
 
     <view class='launch_history'>
     </view>
-
 
   </view>
 
