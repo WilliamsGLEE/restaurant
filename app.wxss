@@ -345,3 +345,6 @@
 
 /* 导入模板样式 */
 @import "pages/template/commons.wxss";
+
+/* 导入主题样式 */
+@import "theme.wxss";

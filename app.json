@@ -3,8 +3,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/template/commons",
-    "pages/launch/picture/index",
+    "pages/commons/relief",
     "pages/launch/video/index",
+    "pages/launch/picture/index",
     "pages/user/login"
   ],
   "window": {
