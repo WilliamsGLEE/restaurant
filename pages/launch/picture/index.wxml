@@ -33,11 +33,11 @@
         <input class='display_hide' name="img_lenth" value="{{img_lenth}}"></input>
         <input class="display_hide" name="box_mac" value="{{box_mac}}"></input>
         <input class="display_hide" name="openid" value="{{openid}}"></input>
-        <input class="display_hide" name="is_pub_hotelinfo" value="{{is_pub_hotelinfo}}"></input>
-        <input class="display_hide" name="is_share" value="{{is_share}}"></input>
-        <input class="display_hide" name="avatarUrl" value="{{avatarUrl}}"></input>
-        <input class="display_hide" name="nickName" value="{{nickName}}"></input>
-        <input class="display_hide" name="is_open_simple" value="{{is_open_simple}}"></input>
+        <input class="display_hide" name="is_pub_hotelinfo" value="0"></input>
+        <input class="display_hide" name="is_share" value="0"></input>
+        <input class="display_hide" name="avatarUrl" value=""></input>
+        <input class="display_hide" name="nickName" value=""></input>
+        <input class="display_hide" name="play_times" value="{{play_times}}"></input>
 
         <!-- 投图片的标题 -->
         <view class='pic_text'>
@@ -48,9 +48,9 @@
           <view class='title'>
             <label>播放时间（默认播放一次）</label>
           </view>
-          <radio-group class="radio-group">
+          <radio-group class="radio-group" bindchange="playTimesChange">
             <label class="items" wx:for="{{item}}" wx:key="key" wx:for-index="index">
-              <radio value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">{{item.name}}</radio>
+              <radio  value="{{item.value}}" checked="{{item.checked}}" >{{item.name}}</radio>
             </label>
           </radio-group>
         </view>
@@ -100,10 +100,10 @@
         <view class="weui-grids grids-frame">
           <view class="weui-grid" wx:for="{{up_imgs}}" wx:key="key" wx:for-item="img" wx:for-index="index">
             <view class="pic_show">
-              <image class="pic_show {{pic_show_cur[index]?'pic_show_cur':''}}" mode='aspectFill' bindtap='up_single_pic' data-img="{{tmp_imgs[index].oss_img}}" data-boxmac="{{box_mac}}" data-openid="{{openid}}" data-imgindex="{{index}}" data-imglen="{{img_lenth}}"
+              <image class="pic_show {{pic_show_cur[index]?'pic_show_cur':''}}" mode='aspectFill' bindtap='up_single_pic' data-img="{{tmp_imgs[index].oss_img}}" data-boxmac="{{box_mac}}" data-play_times="{{play_times}}" data-openid="{{openid}}" data-imgindex="{{index}}" data-imglen="{{img_lenth}}"
                 src="{{img.tmp_img}}"></image>
               <view class='upload_success_frame' wx:if="{{tmp_percent[index].percent >= 100}}">
-                <image style='margin:0 0 0 0;width:38rpx;height:38rpx;' src='/images/icon2/333333_check_alt_512x512.png'></image>
+                <image style='margin:0 0 0 0;width:38rpx;height:38rpx;' src='/images/icon/333333_check_alt_512x512.png'></image>
               </view>
               <view class='upload_mask' wx:if="{{tmp_percent[index].percent < 100}}">
                 <label>{{tmp_percent[index].percent}}%</label>

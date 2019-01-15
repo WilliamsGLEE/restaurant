@@ -22,7 +22,7 @@
           <view class='title'>
             <label>播放时间（默认播放一次）</label>
           </view>
-          <radio-group class="radio-group">
+          <radio-group class="radio-group" bindchange="playTimesChange">
             <label class="items" wx:for="{{item}}" wx:key="key" wx:for-index="index">
               <radio value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">{{item.name}}</radio>
             </label>
@@ -32,13 +32,13 @@
       <input class='display_hide' name="box_mac" value="{{box_mac}}"></input>
       <input class='display_hide' name="openid" value="{{openid}}"></input>
       <input class='display_hide' name="video" value="{{upload_vedio_temp}}"></input>
-      <input class='display_hide' name="is_pub_hotelinfo" value="{{is_pub_hotelinfo}}"></input>
+      <input class='display_hide' name="is_pub_hotelinfo" value="0"></input>
       <input class='display_hide' name="duration" value="{{duration}}"></input>
-      <input class='display_hide' name="is_share" value="{{is_share}}"></input>
-      <input class='display_hide' name="avatarUrl" value="{{avatarUrl}}"></input>
-      <input class='display_hide' name="nickName" value="{{nickName}}"></input>
-      <input class='display_hide' name="is_open_simple" value="{{is_open_simple}}"></input>
-
+      <input class='display_hide' name="is_share" value="0"></input>
+      <input class='display_hide' name="avatarUrl" value=""></input>
+      <input class='display_hide' name="nickName" value=""></input>
+      <input class="display_hide" name="play_times" value="{{play_times}}"></input>
+      
       <view class='page_bottom'>
         <button class="savor-btn savor-btn-size" form-type="submit" hover-class="none" disabled='{{is_btn_disabel}}'>投屏</button>
       </view>

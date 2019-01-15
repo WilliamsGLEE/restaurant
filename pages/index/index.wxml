@@ -2,7 +2,7 @@
 <import src="/pages/template/commons" />
 <view class="container">
   <view class='full_width flex_column_center page-top'>
-    <picker class='box_picker' value="{{boxIndex}}" range="{{boxArray}}">
+    <picker bindchange="boxPickerChange" class='box_picker' value="{{boxIndex}}" range="{{boxArray}}">
       <label>{{boxArray[boxIndex]}}</label>
     </picker>
   </view>
