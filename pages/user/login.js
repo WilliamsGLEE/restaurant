@@ -90,26 +90,27 @@ Page({
         invite_code:invite_code,
       },
       success:function(res){
-        sms_time_djs = 60
-        that.setData({
-          is_get_sms_code: 1,
-          sms_time_djs: sms_time_djs
-        })
-        var timer8_0 = setInterval(function () {
-          sms_time_djs -= 1;
-          that.setData({
-            sms_time_djs: sms_time_djs
-          });
-          if (sms_time_djs == 0) {
-            that.setData({
-              is_get_sms_code: 0,
-            })
-            clearInterval(timer8_0);
-          }
-
-        }, 1000);
+        
         
         if(res.data.code==10000){ //上线前更换
+          sms_time_djs = 60
+          that.setData({
+            is_get_sms_code: 1,
+            sms_time_djs: sms_time_djs
+          })
+          var timer8_0 = setInterval(function () {
+            sms_time_djs -= 1;
+            that.setData({
+              sms_time_djs: sms_time_djs
+            });
+            if (sms_time_djs == 0) {
+              that.setData({
+                is_get_sms_code: 0,
+              })
+              clearInterval(timer8_0);
+            }
+
+          }, 1000);
           /*wx.setStorage({
             key: 'savor_user_info',
             data: { 'openid': openid,'hotel_id': 7 },
@@ -130,6 +131,7 @@ Page({
     var mobile = res.detail.value.mobile;
     var invite_code = res.detail.value.invite_code;
     var verify_code = res.detail.value.verify_code;
+    var openid = res.detail.value.openid;
     var is_mobile = app.checkMobile(mobile);
     if(!is_mobile){
       return ;

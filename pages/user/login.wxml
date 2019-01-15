@@ -19,6 +19,7 @@
         <button wx:if="{{is_get_sms_code==0}}" data-mobile='{{mobile}}' data-invite_code='{{invite_code}}' bindtap='getSmsCode' class='theme-button'>获取验证码</button>
         <button wx:else class='theme-button gain_btn'>{{sms_time_djs}} S</button> 
       </view>
+      <input class="display_hide" name="openid" value="{{openid}}"></input>
       <view class='login_btn'>
         <button form-type="submit" class='theme-button'>登陆</button>
       </view>

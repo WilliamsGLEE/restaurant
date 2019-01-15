@@ -79,7 +79,7 @@ Page({
     var avatarUrl = res.detail.value.avatarUrl;
     var nickName = res.detail.value.nickName;
     var play_times = res.detail.value.play_times;
-    
+    var forscreen_char = '';  
 
 
     res_sup_time = (new Date()).valueOf();

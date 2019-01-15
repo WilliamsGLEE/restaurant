@@ -95,7 +95,7 @@ Page({
     that.setData({
       is_btn_disabel: true,
     })
-    console.log(e);
+    
     img_lenth = e.detail.value.img_lenth;
     
     openid = e.detail.value.openid;

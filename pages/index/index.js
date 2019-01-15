@@ -20,9 +20,10 @@ Page({
     var hotel_id   = user_info.hotel_id;
     var openid  = user_info.openid;
     if (user_info==''){
-      wx.navigateTo({
+      wx.reLaunch({
         url: '/pages/user/login',
       })
+      
     }else {
       var box_mac = user_info.box_mac;
       var boxIndex= user_info.box_index;
@@ -111,5 +112,52 @@ Page({
         url: '/pages/launch/video/index',
       })
     }
-  }
+  },
+  exitForscreen(e) {
+    var that = this;
+    var openid = e.currentTarget.dataset.openid;
+    var box_mac = e.currentTarget.dataset.boxmac;
+    var timestamp = (new Date()).valueOf();
+    wx.request({
+      url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      data: {
+        box_mac: box_mac,
+        msg: '{ "action": 3,"openid":"' + openid + '"}',
+      },
+      success: function (res) {
+        wx.showToast({
+          title: '退出成功',
+          icon: 'none',
+          duration: 2000
+        });
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常，退出失败',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  },//退出投屏结束
+  changeVolume: function (e) {//更改音量
+    var box_mac = e.target.dataset.box_mac;
+    var change_type = e.target.dataset.change_type;
+    var timestamp = (new Date()).valueOf();
+    wx.request({
+      url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      data: {
+        box_mac: box_mac,
+        msg: '{"action":31,"change_type":' + change_type + '}',
+      },
+    })
+  },
 })
