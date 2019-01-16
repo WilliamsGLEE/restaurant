@@ -243,10 +243,12 @@ Page({
   //重新选择视频
   chooseVedio(e) {
     var that = this
+    that.data.item[0].checked = true,
     that.setData({
       
-      
-      is_btn_disabel: false
+      play_times:0,
+      is_btn_disabel: false,
+      item: that.data.item,
     })
     var box_mac = e.currentTarget.dataset.boxmac;
     var openid = e.currentTarget.dataset.openid;

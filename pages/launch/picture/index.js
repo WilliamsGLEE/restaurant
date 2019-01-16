@@ -368,12 +368,13 @@ Page({
   },//指定单张图片投屏结束
   chooseImage(e) {//重新选择照片开始
     var that = this;
-
+    that.data.item[0].checked =true,
     that.setData({
       
       play_times: 0,
       
       is_btn_disabel: false,
+      item:that.data.item,
     })
     openid = e.currentTarget.dataset.openid;
     box_mac = e.currentTarget.dataset.boxmac;

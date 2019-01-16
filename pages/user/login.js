@@ -173,9 +173,10 @@ Page({
       },
       success:function(rt){
         if(rt.data.code==10000){
-          wx.navigateTo({
+          wx.reLaunch({
             url: '/pages/index/index',
           })
+          
           wx.setStorage({
             key: 'savor_user_info',
             data: { 'openid': openid, 'hotel_id': rt.data.result.hotel_id },
