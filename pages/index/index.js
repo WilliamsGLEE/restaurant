@@ -116,7 +116,7 @@ Page({
   exitForscreen(e) {
     var that = this;
     var openid = e.currentTarget.dataset.openid;
-    var box_mac = e.currentTarget.dataset.boxmac;
+    var box_mac = e.currentTarget.dataset.box_mac;
     var timestamp = (new Date()).valueOf();
     wx.request({
       url: 'https://mobile.littlehotspot.com/Netty/Index/index',

@@ -128,7 +128,7 @@
     <view class="page_bottom theme2">
       <view class='button_group'>
         <button class='savor-btn button_space_left' bindtap="chooseImage" data-boxmac="{{box_mac}}" data-openid="{{openid}}" src='/images/button_rechoose_pic.png'>重选照片</button>
-        <button class='savor-btn button_space_right' bindtap="exitForscreen" data-boxmac="{{box_mac}}" src='/images/button_exit_cast_screen.png'>退出投屏</button>
+        <button class='savor-btn button_space_right' bindtap="exitForscreen" data-boxmac="{{box_mac}}" data-openid="{{openid}}" src='/images/button_exit_cast_screen.png'>退出投屏</button>
       </view>
     </view>
 
