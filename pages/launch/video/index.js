@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    play_times: 0,
     item: [],
     updateStatus:0,
   },
