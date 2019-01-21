@@ -182,7 +182,7 @@
 
 .launch_video_page_a > .page_bottom {
   width: 100%;
-  height: 100rpx;
+  height: 150rpx;
   margin: 0rpx;
   display: flex;
   flex-direction: column;
@@ -200,21 +200,21 @@
 }
 
 .launch_video_page_a > .page_bottom > .button_group > button {
-  width: 150rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  border-radius: 25rpx;
+  width: 350rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
   padding: unset;
   border: unset;
-  font-size: 28rpx;
+  font-size: 34rpx;
 }
 
 .launch_video_page_a > .page_bottom > .button_group > .button_space_left {
-  margin-left: 40rpx;
+  margin-left: 20rpx;
 }
 
 .launch_video_page_a > .page_bottom > .button_group > .button_space_right {
-  margin-right: 40rpx;
+  margin-right: 20rpx;
   background-color: #0e1c29;
 }
 
@@ -234,7 +234,7 @@
 
 .launch_video_page_a .launch_history {
   width: 100%;
-  height: calc(100% - 680rpx);
+  height: calc(100% - 730rpx);
 }
 
 /* =============== 打断投屏弹窗开始 =============== */

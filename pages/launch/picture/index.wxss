@@ -38,8 +38,8 @@ image.pic_show_cur {
 }
 
 .upload_mask {
-  width: 224rpx;
-  height: 224rpx;
+  width: 230rpx;
+  height: 230rpx;
   line-height: 224rpx;
   text-align: center;
   position: absolute;
@@ -58,8 +58,21 @@ image.pic_show_cur {
   line-height: 32rpx;
   text-align: center;
   position: absolute;
+  padding: unset;
+  border: unset;
+  margin: unset;
   top: 180rpx;
   left: 180rpx;
+}
+
+.upload_success_frame image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #1cbeb6;
+  padding: unset;
+  border: unset;
+  margin: unset;
 }
 
 /* ================================== 上传图片前 ================================== */
@@ -237,7 +250,7 @@ image.pic_show_cur {
 
 .launch_pic_page_a > .page_bottom {
   width: 100%;
-  height: 100rpx;
+  height: 150rpx;
   margin: 0rpx;
   display: flex;
   flex-direction: column;
@@ -252,21 +265,21 @@ image.pic_show_cur {
 }
 
 .launch_pic_page_a > .page_bottom > .button_group > button {
-  width: 150rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  border-radius: 25rpx;
+  width: 350rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
   padding: unset;
   border: unset;
-  font-size: 28rpx;
+  font-size: 34rpx;
 }
 
 .launch_pic_page_a > .page_bottom > .button_group > .button_space_left {
-  margin-left: 40rpx;
+  margin-left: 20rpx;
 }
 
 .launch_pic_page_a > .page_bottom > .button_group > .button_space_right {
-  margin-right: 40rpx;
+  margin-right: 20rpx;
   background-color: #0e1c29;
 }
 
@@ -280,7 +293,7 @@ image.pic_show_cur {
 
 .launch_pic_page_a .launch_history {
   width: 100%;
-  height: calc(100% - 700rpx);
+  height: calc(100% - 750rpx);
 }
 
 /* =============== 打断投屏弹窗开始 =============== */
