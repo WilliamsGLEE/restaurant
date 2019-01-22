@@ -179,7 +179,7 @@ Page({
           
           wx.setStorage({
             key: 'savor_user_info',
-            data: { 'openid': openid, 'hotel_id': rt.data.result.hotel_id },
+            data: { 'openid': openid, 'hotel_id': rt.data.result.hotel_id,'mobile':mobile },
           })
         }else {
           wx.showToast({

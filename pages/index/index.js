@@ -84,6 +84,7 @@ Page({
   },
   chooseImage:function(res){
     var user_info = wx.getStorageSync("savor_user_info");
+    var mobile = user_info.mobile;
     var box_mac = user_info.box_mac;
     if (box_mac == '' || box_mac == undefined){
       
@@ -93,13 +94,40 @@ Page({
         duration: 2000
       });
     }else {
-      wx.navigateTo({
-        url: '/pages/launch/picture/index',
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Smalldinnerapp/user/checkuser',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          mobile: mobile
+        },
+        success:function(res){
+          if(res.data.code==10000){
+            wx.navigateTo({
+              url: '/pages/launch/picture/index',
+            })
+          }else {
+            wx.showToast({
+              title: '邀请码已失效',
+              icon: 'none',
+              duration: 2000
+            });
+            wx.removeStorageSync('savor_user_info');
+            wx.navigateTo({
+              url: '/pages/user/login',
+            })
+          }
+
+        }
       })
+      
     }
   },
   chooseVideo:function(res){
     var user_info = wx.getStorageSync("savor_user_info");
+    var mobile = user_info.mobile;
     var box_mac = user_info.box_mac;
     if (box_mac == '' || box_mac == undefined) {
       wx.showToast({
@@ -108,8 +136,32 @@ Page({
         duration: 2000
       });
     }else {
-      wx.navigateTo({
-        url: '/pages/launch/video/index',
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Smalldinnerapp/user/checkuser',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          mobile: mobile
+        },
+        success: function (res) {
+          if (res.data.code == 10000) {
+            wx.navigateTo({
+              url: '/pages/launch/video/index',
+            })
+          } else {
+            wx.showToast({
+              title: '邀请码已失效',
+              icon: 'none',
+              duration: 2000
+            });
+            wx.removeStorageSync('savor_user_info');
+            wx.navigateTo({
+              url: '/pages/user/login',
+            })
+          }
+        }
       })
     }
   },
