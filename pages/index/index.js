@@ -69,7 +69,6 @@ Page({
     var box_list = that.data.objectBoxArray;
     
     var box_mac = box_list[boxIndex].box_mac;
-    console.log(box_mac);
     var user_info = wx.getStorageSync("savor_user_info");
     user_info.box_mac = box_mac; 
     user_info.box_index = boxIndex;
