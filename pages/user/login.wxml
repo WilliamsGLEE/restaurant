@@ -21,7 +21,7 @@
       </view>
       <input class="display_hide" name="openid" value="{{openid}}"></input>
       <view class='login_btn'>
-        <button form-type="submit" class='theme-button'>登陆</button>
+        <button form-type="submit" class='theme-button'>登录</button>
       </view>
     </form>
   </view>

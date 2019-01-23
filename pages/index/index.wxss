@@ -12,7 +12,8 @@
 
 .page-top .box_picker {
   width: 80%;
-  height: 60rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   background-color: rgb(15, 37, 57);
 }
