@@ -79,6 +79,7 @@ Page({
 
     that.setData({
       boxIndex:boxIndex,
+      box_mac:box_mac,
     })
   },
   chooseImage:function(res){
