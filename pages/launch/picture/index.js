@@ -112,6 +112,7 @@ Page({
     var mobile_brand = app.globalData.mobile_brand;
     var mobile_model = app.globalData.mobile_model;
     var forscreen_char = e.detail.value.forscreen_char;
+    var play_times = e.detail.value.play_times;
     var upimgs = [];
 
     if (e.detail.value.upimgs0 != '' && e.detail.value.upimgs0 != undefined) {
@@ -154,7 +155,7 @@ Page({
       filename_arr[i] = filename;
       
       wx.uploadFile({
-        url: "http://" + intranet_ip + ":8080/h5/restPicture?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + img_size + '&action=4&resource_type=0&avatarUrl=' + avatarUrl + "&nickName=" + nickName + "&forscreen_nums=" + img_lenth,
+        url: "http://" + intranet_ip + ":8080/h5/restPicture?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + img_size + '&action=4&resource_type=0&avatarUrl=' + avatarUrl + "&nickName=" + nickName + "&forscreen_nums=" + img_lenth + "&play_times=" + play_times,
         filePath: img_url,
         name: 'fileUpload',
         success: function (res) {

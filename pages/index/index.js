@@ -322,4 +322,9 @@ Page({
 
     })
   },
+  gotodownload:function(res){
+    wx.navigateTo({
+      url: '/pages/download/index',
+    })
+  }
 })

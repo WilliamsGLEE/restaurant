@@ -1,17 +1,76 @@
 // pages/download/index.js
+const app = getApp()
+var page = 1; //当前节目单页数
+var api_url = app.globalData.api_url;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    hiddens:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    wx.request({
+      url: api_url +'/Smalldinnerapp11/Download/index',
+      header: {
+        'content-type': 'application/json'
+      },
+      data:{
+        page: 1
+      },
+      success:function(res){
+        if(res.data.code==10000){
+          that.setData({
+            download_list:res.data.result,
+          })
+        }else {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }
+      },
+      fail:function(res){
+        wx.navigateBack({
+          delta: 1,
+        })
+      }
+    })
+  },
+  loadMore:function(res){
+    var that = this;
+
+    page = page + 1;
+    that.setData({
+      hiddens: false,
+    })
+    wx.request({
+      url: api_url + '/Smalldinnerapp11/Download/index',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        page: page
+      },
+      success: function (res) {
+        if (res.data.code == 10000) {
+          that.setData({
+            download_list: res.data.result,
+            hiddens: true,
+          })
+        }else {
+          that.setData({
+            hiddens: true,
+          })
+        }
+      },
+      
+    })
 
   },
 

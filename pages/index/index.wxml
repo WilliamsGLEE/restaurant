@@ -18,7 +18,7 @@
       <image src='/images/icon/f6f3ee_video.png'></image>
       <label>视频上电视</label>
     </button>
-    <button class='btn theme-button'>
+    <button bindtap='gotodownload' class='btn theme-button'>
       <image src='/images/icon/f6f3ee_pic_down.png'></image>
       <label>下载图片模板</label>
     </button>

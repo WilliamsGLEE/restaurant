@@ -93,11 +93,12 @@ Page({
     var mobile_model = app.globalData.mobile_model;
     var resouce_size = res.detail.value.video_size;
     var duration = res.detail.value.duration;
+    var play_times = res.detail.value.play_times;
     var forscreen_id = (new Date()).valueOf();
     var filename = (new Date()).valueOf();
    
     wx.uploadFile({
-      url: 'http://' + intranet_ip + ':8080/h5/restVideo?deviceId=' + openid + '&deviceName=' + mobile_brand + '&web=true&forscreen_id=' + forscreen_id + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + resouce_size + '&duration=' + duration + '&action=2&resource_type=2&avatarUrl=' + avatarUrl + "&nickName=" + nickName,
+      url: 'http://' + intranet_ip + ':8080/h5/restVideo?deviceId=' + openid + '&deviceName=' + mobile_brand + '&web=true&forscreen_id=' + forscreen_id + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + resouce_size + '&duration=' + duration + '&action=2&resource_type=2&avatarUrl=' + avatarUrl + "&nickName=" + nickName + "&play_times=" + play_times,
       filePath: video_url,
       name: 'fileUpload',
       success: function (res) {
