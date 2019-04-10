@@ -6,7 +6,8 @@
     "pages/commons/relief",
     "pages/launch/picture/index",
     "pages/launch/video/index",
-    "pages/user/login"
+    "pages/user/login",
+    "pages/download/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
