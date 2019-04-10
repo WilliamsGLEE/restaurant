@@ -73,7 +73,46 @@ Page({
     })
 
   },
+  downloadimage:function(res){
+    
+    var imageUrl = res.currentTarget.dataset.oss_url;
 
+    // 下载文件  
+    wx.downloadFile({
+      url: imageUrl,
+      success: function (res) {
+        
+
+        // 保存图片到系统相册  
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success(res) {
+            
+            wx.showToast({
+              title: '图片保存成功',
+              icon: 'none',
+              duration: 2000
+            });
+          },
+          fail(res) {
+            wx.showToast({
+              title: '图片保存失败，请重试',
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '图片下载失败，请重试',
+          icon: 'none',
+          duration: 2000
+        });
+      }
+    })
+    
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
