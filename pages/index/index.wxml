@@ -2,30 +2,46 @@
 <import src="/pages/template/commons" />
 <view class="container">
   <view class='full_width flex_column_center page-top'>
-    <picker bindchange="boxPickerChange" class='box_picker' value="{{boxIndex}}" range="{{boxArray}}">
+    <!--<picker bindchange="boxPickerChange" class='box_picker' value="{{boxIndex}}" range="{{boxArray}}">
       <label>{{boxArray[boxIndex]}}</label>
-    </picker>
+    </picker>-->
   </view>
   <view class='page-main'>
     <view wx:if="{{is_link ==1}}" class='tip'>
       <label>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
     </view>
-    <view class='btn' bindtap="chooseImage" data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+    <button class='btn' bindtap="chooseImage" disabled='{{img_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
       <image src='/images/icon/f6f3ee_pic.png'></image>
       <label>照片上电视</label>
-    </view>
-    <view class='btn' bindtap='chooseVideo' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+    </button>
+    <button class='btn' bindtap='chooseVideo' disabled='{{video_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
       <image src='/images/icon/f6f3ee_video.png'></image>
       <label>视频上电视</label>
-    </view>
+    </button>
   </view>
-  <view wx:if="{{boxIndex > 0}}" class='full_width page-bottom'>
+  <view wx:if="{{is_link > 0}}" class='full_width page-bottom'>
     <view class='operation'>
-      <button bindtap='exitForscreen' data-openid='{{openid}}' data-box_mac='{{box_mac}}' class='savor-btn'>退出投屏</button>
-      <button bindtap='changeVolume' data-openid='{{openid}}' data-box_mac='{{box_mac}}' data-change_type='2' class='savor-btn'>音量 + </button>
-      <button bindtap='changeVolume' data-openid='{{openid}}' data-box_mac='{{box_mac}}' data-change_type='1' class='savor-btn'>音量 - </button>
+      <button bindtap='exitForscreen' data-intranet_ip='{{intranet_ip}}' data-openid='{{openid}}' data-box_mac='{{box_mac}}' class='savor-btn'>退出投屏</button>
+      <button bindtap='changeVolume' data-intranet_ip='{{intranet_ip}}' data-openid='{{openid}}' data-box_mac='{{box_mac}}' data-change_type='4' class='savor-btn'>音量 + </button>
+      <button bindtap='changeVolume' data-intranet_ip='{{intranet_ip}}' data-openid='{{openid}}' data-box_mac='{{box_mac}}' data-change_type='3' class='savor-btn'>音量 - </button>
     </view>
   </view>
   <view wx:else class='full_width page-bottom'>
   </view>
+
+  <view class="body-view">
+    <loading hidden="{{hiddens}}" bindchange="loadingChange">正在连接包间wifi,请稍后...</loading>
+  </view>
 </view>
+<!-- 连接WIFI重试 - 弹窗 -->
+<modal show='{{showRetryModal}}' width="80vw" height="300rpx" title-text="" confirmText="" cancelText="">
+  <view style='display: flex;flex-direction: column;align-items: center; font-size: 30rpx;padding-top:60rpx;padding-bottom:50rpx;'>
+    <label style='height: 50rpx;'>当前无线局域网"{{wifi_name}}"</label>
+    <label style='height: 50rpx;'>暂时无法连接</label>
+  </view>
+  <view style='display: flex;flex-direction: row;align-items: center;'>
+    <button style='width: 260rpx; height: 60rpx; line-height: 60rpx; color: #FFF; font-size: 28rpx; margin: auto; padding: 0; border: 0; background-color: rgb(28, 190, 182); border-radius: 30rpx;text-align:center;' bindtap='netRetry'>重试</button>
+    <navigator style='width: 260rpx; height: 60rpx; line-height: 60rpx; color: #FFF; font-size: 28rpx; margin: auto; padding: 0; border: 0; background-color: rgb(28, 190, 182); border-radius: 30rpx;text-align:center;' target="miniProgram" app-id="wxfdf0346934bb672f"
+      path="pages/index/index">进入普通版</navigator>
+  </view>
+</modal>

@@ -31,13 +31,14 @@
       </view>
       <input class='display_hide' name="box_mac" value="{{box_mac}}"></input>
       <input class='display_hide' name="openid" value="{{openid}}"></input>
-      <input class='display_hide' name="video" value="{{upload_vedio_temp}}"></input>
+      <input class='display_hide' name="video_url" value="{{upload_vedio_temp}}"></input>
       <input class='display_hide' name="is_pub_hotelinfo" value="0"></input>
       <input class='display_hide' name="duration" value="{{duration}}"></input>
       <input class='display_hide' name="is_share" value="0"></input>
-      <input class='display_hide' name="avatarUrl" value=""></input>
-      <input class='display_hide' name="nickName" value=""></input>
+      
       <input class="display_hide" name="play_times" value="{{play_times}}"></input>
+      <input class="display_hide" name="intranet_ip" value="{{intranet_ip}}"></input>
+      <input class='display_hide' name="video_size" value="{{video_size}}"> </input>
       
       <view class='page_bottom'>
         <button class="savor-btn savor-btn-size" form-type="submit" hover-class="none" disabled='{{is_btn_disabel}}'>投屏</button>
@@ -76,10 +77,10 @@
     <view class='page_main'>
       <view class='cover full_width'>
         <video src='{{upload_vedio_temp}}'></video>
-        <view>
+        <!-- <view>
           <label class='font_1CBEB6_34'>{{vedio_percent}}%</label>
           <progress percent='{{vedio_percent}}' activeColor='#1CBEB6' backgroundColor="#0e1c29" />
-        </view>
+        </view> -->
       </view>
     </view>
     <view class='page_bottom'>
@@ -100,10 +101,10 @@
     <view class='page_main'>
       <view class='cover full_width'>
         <video src='{{upload_vedio_temp}}'></video>
-        <view>
+        <!-- <view>
           <label class='font_666666_34'>{{vedio_percent}}%</label>
           <progress percent='{{vedio_percent}}' activeColor='#666666' backgroundColor="#0e1c29" />
-        </view>
+        </view> -->
       </view>
     </view>
     <view class='page_bottom'>
@@ -123,7 +124,7 @@
     </view>
     <view class='page_main'>
       <view class='cover'>
-        <video src='{{oss_video_url}}'></video>
+        <video src='{{upload_vedio_temp}}'></video>
         <!-- <view>
             <button wx:if="{{is_replay_disabel==false}}" bindtap='replayVideo' data-openid='{{openid}}' data-box_mac='{{box_mac}}' data-replay_video_url="{{replay_video_url}}" data-duration='{{duration}}' class='replay_this'>再投一次</button>
             <button wx:else class='replay_this disabled-button'>{{djs}}S</button>
@@ -140,8 +141,8 @@
     <!-- 重选 -->
     <view class="page_bottom">
       <view class='button_group flex_row_center'>
-        <button class='savor-btn button_space_left' bindtap='chooseVedio' data-boxmac="{{box_mac}}" data-openid="{{openid}}">重选视频</button>
-        <button class='savor-btn button_space_right' bindtap="exitForscreend" data-boxmac="{{box_mac}}" data-openid="{{openid}}">退出投屏</button>
+        <button class='savor-btn button_space_left' bindtap='chooseVedio' data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}">重选视频</button>
+        <button class='savor-btn button_space_right' bindtap="exitForscreend" data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}">退出投屏</button>
       </view>
     </view>
 

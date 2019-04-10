@@ -2,6 +2,9 @@
 const app = getApp()
 var openid;
 var sms_time_djs;
+var box_mac;
+var api_url = app.globalData.api_url;
+var cache_key = app.globalData.cache_key;
 Page({
 
   /**
@@ -11,7 +14,7 @@ Page({
     mobile:'',                //手机号
     invite_code:'',           //邀请码
     is_get_sms_code:0,        //是否显示获取手机验证码倒计时
-
+    showModal:false
   },
 
   /**
@@ -19,12 +22,15 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    box_mac = options.box_mac;
+    box_mac = '00226D655202';   //上线去掉******************************************************
     if (app.globalData.openid && app.globalData.openid != '') {
       that.setData({
         openid: app.globalData.openid
       })
       openid = app.globalData.openid;
-      
+      //判断用户是否注册
+      userRegister(openid,box_mac);
     } else {
       app.openidCallback = openid => {
         if (openid != '') {
@@ -32,11 +38,158 @@ Page({
             openid: openid
           })
           openid = openid;
-          
+          //判断用户是否注册
+          userRegister(openid,box_mac);
+
         }
       }
+
+    }
+    
+    //判断用户是否注册
+    function userRegister(openid,box_mac){
+      if(openid !='' && openid !=undefined){
+        wx.request({
+          url: api_url+'/Smalldinnerapp11/User/isRegister',
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            openid: openid,
+          },
+          success: function (res) {
+            if(res.data.code==10000){
+              //res.data.result.userinfo.box_mac = box_mac;
+              
+              if (box_mac == undefined || box_mac == 'undefined') {//如果是从微信直接打开的小程序
+                that.setData({
+                  showModal: true,
+                })
+              } else {//如果是从其他小程序跳转过来的
+                that.setData({
+                  box_mac: box_mac,
+                })
+                //判断用户是否授权
+               
+                if (res.data.result.userinfo.is_wx_auth != 2) {
+                  that.setData({
+                    showWXAuthLogin: true
+                  })
+                  wx.setStorage({
+                    key: cache_key + 'userinfo',
+                    data: res.data.result.userinfo,
+                  })
+                } else {
+                  if (res.data.result.userinfo.mobile != '') {
+                    
+                    res.data.result.userinfo.is_login = 1;
+                    wx.setStorage({
+                      key: cache_key + 'userinfo',
+                      data: res.data.result.userinfo,
+                    })
+                    wx.reLaunch({
+                      url: '/pages/index/index?box_mac=' + box_mac,
+                    })
+                  }else {
+                    wx.setStorage({
+                      key: cache_key + 'userinfo',
+                      data: res.data.result.userinfo,
+                    })
+                  }
+                  
+                }
+
+
+              }
+            }
+          }
+        })
+      }
+      
     }
   },
+  //微信用户授权登陆
+  onGetUserInfo:function(res){
+    var that = this;
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
+    openid = user_info.openid;
+    if (res.detail.errMsg == 'getUserInfo:ok') {
+      wx.request({
+        url: api_url+'/Smalldinnerapp11/User/register',
+        data: {
+          'openid': openid,
+          'avatarUrl': res.detail.userInfo.avatarUrl,
+          'nickName': res.detail.userInfo.nickName,
+          'gender': res.detail.userInfo.gender
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          if(res.data.code==10000){
+            that.setData({
+              showWXAuthLogin: false,
+
+            })
+            var mobile = res.data.result.mobile;
+            if (mobile != '') {
+               res.data.result.is_login = 1;
+              wx.setStorage({
+                key: cache_key + 'userinfo',
+                data: res.data.result,
+              });
+              wx.reLaunch({
+                url: '/pages/index/index?box_mac='+box_mac,
+              })
+            }else {
+              wx.setStorage({
+                key: cache_key + 'userinfo',
+                data: res.data.result,
+              });
+            }
+            
+            
+            
+          }else{
+            wx.showToast({
+              title: '微信授权登陆失败，请重试',
+              icon: 'none',
+              duration: 2000
+            });
+            wx.reLaunch({
+              url: '/pages/index/index?box_mac='+box_mac,
+            })
+          }
+        },
+        fail:function(res){
+          wx.showToast({
+            title: '微信登陆失败，请检查您的网络',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      })
+    } else {
+      wx.request({
+        url: api_url +'/Smalldinnerapp11/User/refuseRegister',
+        header: {
+          'content-type': 'application/json'
+        },
+        data:{
+          openid:openid
+        },
+        success:function(){
+          user_info.is_wx_auth = 1;
+          wx.setStorage({
+            key: cache_key + 'userinfo',
+            data: user_info,
+          });
+        }
+      })
+    }
+  },
+
+
   //输入手机号失去焦点
   mobileOnInput:function(res){
     var that = this;
@@ -81,7 +234,7 @@ Page({
       return;
     }
     wx.request({
-      url: 'https://mobile.littlehotspot.com/Smalldinnerapp/sms/sendverifyCode',
+      url: api_url+'/Smalldinnerapp/sms/sendverifyCode',
       header: {
         'content-type': 'application/json'
       },
@@ -161,7 +314,7 @@ Page({
       return;
     }
     wx.request({
-      url: 'https://mobile.littlehotspot.com/Smalldinnerapp/login/login',
+      url: api_url+'/Smalldinnerapp/login/login',
       header: {
         'content-type': 'application/json'
       },
@@ -174,12 +327,13 @@ Page({
       success:function(rt){
         if(rt.data.code==10000){
           wx.reLaunch({
-            url: '/pages/index/index',
+            url: '/pages/index/index?box_mac='+box_mac,
           })
-          
+          var user_info = wx.getStorageSync(cache_key + "userinfo");
+          user_info.is_login = 1;
           wx.setStorage({
-            key: 'savor_user_info',
-            data: { 'openid': openid, 'hotel_id': rt.data.result.hotel_id,'mobile':mobile },
+            key: cache_key+'userinfo',
+            data: user_info,
           })
         }else {
           wx.showToast({
