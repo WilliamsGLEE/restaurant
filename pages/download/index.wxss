@@ -1,1 +1,58 @@
 /* pages/download/index.wxss */
+
+/*************** 头 ***************/
+
+.page-top {
+  height: 0rpx;
+}
+
+/*************** 体 ***************/
+
+.page-main {
+  height: 100%;
+}
+
+.grids-frame {
+  margin-left: 3rpx;
+  padding: 0 20rpx;
+  width: 710rpx;
+}
+
+.grids-frame .weui-grid {
+  position: relative;
+  float: left;
+  width: 355rpx;
+  height: 355rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.grids-frame .weui-grid .element {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.grids-frame .weui-grid:active {
+  background-color: unset;
+}
+
+.grids-frame .weui-grid image {
+  width: 340rpx;
+  height: 340rpx;
+}
+
+.grids-frame .weui-grid button {
+  margin-top: -90rpx;
+  width: 340rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 0rpx;
+}
+
+/*************** 底 ***************/
+
+.page-bottom {
+  height: 0rpx;
+}

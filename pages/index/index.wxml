@@ -10,13 +10,17 @@
     <view wx:if="{{is_link ==1}}" class='tip'>
       <label>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
     </view>
-    <button class='btn' bindtap="chooseImage" disabled='{{img_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+    <button class='btn theme-button' bindtap="chooseImage" disabled='{{img_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
       <image src='/images/icon/f6f3ee_pic.png'></image>
       <label>照片上电视</label>
     </button>
-    <button class='btn' bindtap='chooseVideo' disabled='{{video_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
+    <button class='btn theme-button' bindtap='chooseVideo' disabled='{{video_disable}}' data-boxmac="{{box_mac}}" data-openid="{{openid}}">
       <image src='/images/icon/f6f3ee_video.png'></image>
       <label>视频上电视</label>
+    </button>
+    <button class='btn theme-button'>
+      <image src='/images/icon/f6f3ee_pic_down.png'></image>
+      <label>下载图片模板</label>
     </button>
   </view>
   <view wx:if="{{is_link > 0}}" class='full_width page-bottom'>

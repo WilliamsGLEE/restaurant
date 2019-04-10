@@ -1,2 +1,114 @@
 <!--pages/download/index.wxml-->
-<text>pages/download/index.wxml</text>
+<import src="/pages/template/commons" />
+<view class="container">
+  <view class='full_width page-top'>
+  </view>
+  <scroll-view class='full_width page-main' scroll-y="true" scroll-with-animation="true">
+    <view class="weui-grids grids-frame">
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+      <view class="weui-grid">
+        <view class='element'>
+          <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <button class='theme-button'>下载</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='full_width page-bottom'>
+  </view>
+</view>

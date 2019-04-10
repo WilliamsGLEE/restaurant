@@ -41,7 +41,6 @@
   height: 240rpx;
   line-height: 240rpx;
   margin: 25rpx 0rpx;
-  background-color: rgb(28, 190, 182);
   border-color: transparent;
   border-radius: 10px;
   font-size: 14px;
