@@ -37,6 +37,24 @@ Page({
     })
     var forscreen_id = (new Date()).valueOf();
     var filename = (new Date()).valueOf();
+
+
+    wx.request({
+      url: api_url + '/Smalldinnerapp/playtime/getTimeList',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      success: function (rts) {
+        that.setData({
+          item: rts.data.result,
+          intranet_ip: intranet_ip,
+          openid: openid,
+          box_mac: box_mac,
+        })
+      }
+
+    })
+
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 60,
@@ -44,27 +62,13 @@ Page({
       success: function (res) {
         var video_url = res.tempFilePath
 
-
-        wx.request({
-          url: api_url+'/Smalldinnerapp/playtime/getTimeList',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          success: function (rts) {
-            that.setData({
-              item: rts.data.result,
-              
-              upload_vedio_temp: video_url,
-              intranet_ip: intranet_ip,
-              openid: openid,
-              box_mac: box_mac,
-              duration: res.duration,
-              video_size: res.size,
-              is_forscreen: 1
-            })
-          }
-
+        that.setData({
+          upload_vedio_temp: video_url,
+          duration: res.duration,
+          video_size: res.size,
+          is_forscreen: 1
         })
+        
       },
       fail: function (e) {
         wx.navigateBack({

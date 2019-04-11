@@ -323,8 +323,17 @@ Page({
     })
   },
   gotodownload:function(res){
+    var that = this;
+    that.setData({
+      download_disable:true,
+    })
     wx.navigateTo({
       url: '/pages/download/index',
+      success:function(){
+        that.setData({
+          download_disable: false,
+        })
+      }
     })
   }
 })

@@ -48,25 +48,25 @@ Page({
       is_btn_disabel: true,
     })
 
-    
+    wx.request({
+      url: api_url + '/Smalldinnerapp/playtime/getTimeList',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      success: function (rts) {
+        that.setData({
+          item: rts.data.result,
+        })
+      }
+
+    })
 
     wx.chooseImage({
       count: 6, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success:function(res){
-        wx.request({
-          url: api_url+'/Smalldinnerapp/playtime/getTimeList',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          success:function(rts){
-            that.setData({
-              item:rts.data.result,
-            })
-          }
-
-        })
+        
         
         var img_len = res.tempFilePaths.length;
         var tmp_imgs = [];
@@ -229,7 +229,7 @@ Page({
       openid: openid,
       intranet_ip: intranet_ip,
       is_btn_disabel: true,
-      up_imgs: [],
+      
 
 
     })
@@ -239,6 +239,9 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        that.setData({
+          up_imgs: [],
+        })
         var img_len = res.tempFilePaths.length;
 
         var tmp_imgs = [];
