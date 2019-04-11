@@ -36,7 +36,7 @@ Page({
   onLoad: function(res) {
     var that = this;
     box_mac  = res.box_mac;
-    box_mac = '00226D655202';
+    box_mac = '00226D655202';  //***************************上线去掉 */
     var user_info = wx.getStorageSync(cache_key +"userinfo"); 
     var hotel_id   = user_info.hotel_id;
     var openid  = user_info.openid;
