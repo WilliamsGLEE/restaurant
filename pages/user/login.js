@@ -5,6 +5,7 @@ var sms_time_djs;
 var box_mac;
 var api_url = app.globalData.api_url;
 var cache_key = app.globalData.cache_key;
+var common_appid =  app.globalData.common_appid;
 Page({
 
   /**
@@ -24,7 +25,10 @@ Page({
     var that = this;
     wx.hideShareMenu();
     box_mac = options.box_mac;
-    box_mac = '00226D655202';   //上线去掉******************************************************
+    ///box_mac = '00226D655202';   //上线去掉******************************************************
+    that.setData({
+      common_appid: common_appid
+    })
     if (app.globalData.openid && app.globalData.openid != '') {
       that.setData({
         openid: app.globalData.openid

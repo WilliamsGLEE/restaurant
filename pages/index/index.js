@@ -12,6 +12,7 @@ var wifi_name;
 var wifi_mac;
 var use_wifi_password;
 var forscreen_type;
+var common_appid = app.globalData.common_appid;
 Page({
   data: {
     motto: 'Hello World',
@@ -36,101 +37,107 @@ Page({
   onLoad: function(res) {
     var that = this;
     box_mac  = res.box_mac;
-    box_mac = '00226D655202';  //***************************上线去掉 */
+    //box_mac = '00226D655202';  //***************************上线去掉 */
     var user_info = wx.getStorageSync(cache_key +"userinfo"); 
     var hotel_id   = user_info.hotel_id;
     var openid  = user_info.openid;
+    that.setData({
+      common_appid: common_appid,
+    })
     if (user_info.is_login!=1){
       wx.reLaunch({
         url: '/pages/user/login?box_mac='+box_mac,
       })
       
     }else {
-      that.setData({
-        box_mac: box_mac,
-        openid :openid,
-        hiddens: false,
-      })
-      wx.hideShareMenu();
-      //获取酒楼包间名称
-      wx.request({
-        url: api_url +'/Smalldinnerapp11/Login/getHotelRoomInfo',
-        header: {
-          'content-type': 'application/json'
-        },
-        data: {
+      if (box_mac == undefined || box_mac =='undefined'){
+        that.setData({
+          showModal:true
+        })
+      }else {
+        that.setData({
           box_mac: box_mac,
-        },
-        success:function (res){
-          if(res.data.code==10000){
-            console.log(res);
-            that.setData({
-              
-              hotel_name:res.data.result.hotel_name,
-              room_name :res.data.result.room_name
-            })
-            //链接wifi开始
-            intranet_ip = res.data.result.intranet_ip;
-            wifi_name = res.data.result.wifi_name;
-            wifi_password = res.data.result.wifi_password;
-            use_wifi_password = wifi_password
-
-            if (wifi_name == '' || wifi_mac == '') {
-              
+          openid: openid,
+          hiddens: false,
+        })
+        wx.hideShareMenu();
+        //获取酒楼包间名称
+        wx.request({
+          url: api_url + '/Smalldinnerapp11/Login/getHotelRoomInfo',
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            box_mac: box_mac,
+          },
+          success: function (res) {
+            if (res.data.code == 10000) {
+              console.log(res);
               that.setData({
-                hiddens: true,
-                showRetryModal: true
-              })
-            } else {
-              that.setData({
-                is_link: 1,
-              })
-              if (wifi_password == '') {
-                wifi_password = "未设置wifi密码";
-              }
-              wifi_mac = res.data.result.wifi_mac;
 
-              if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
+                hotel_name: res.data.result.hotel_name,
+                room_name: res.data.result.room_name
+              })
+              //链接wifi开始
+              intranet_ip = res.data.result.intranet_ip;
+              wifi_name = res.data.result.wifi_name;
+              wifi_password = res.data.result.wifi_password;
+              use_wifi_password = wifi_password
+
+              if (wifi_name == '' || wifi_mac == '') {
+
                 that.setData({
-                  hotel_name: res.data.result.hotel_name,
-                  room_name: res.data.result.room_name,
-                  wifi_name: wifi_name,
-                  wifi_password: wifi_password,
-                  use_wifi_password: use_wifi_password,
-                  intranet_ip: intranet_ip,
-                  openid: openid,
+                  hiddens: true,
+                  showRetryModal: true
                 })
-              } else {//如果后台填写了wifi_mac直接链接
+              } else {
                 that.setData({
-                  hotel_name: res.data.result.hotel_name,
-                  room_name: res.data.result.room_name,
-                  wifi_name: wifi_name,
-                  wifi_password: wifi_password,
-                  use_wifi_password: use_wifi_password,
-                  intranet_ip: intranet_ip,
-                  openid: openid
+                  is_link: 1,
                 })
-                
-                that.setData({
-                  hiddens: false,
-                })
-                app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
-                
+                if (wifi_password == '') {
+                  wifi_password = "未设置wifi密码";
+                }
+                wifi_mac = res.data.result.wifi_mac;
+
+                if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
+                  that.setData({
+                    hotel_name: res.data.result.hotel_name,
+                    room_name: res.data.result.room_name,
+                    wifi_name: wifi_name,
+                    wifi_password: wifi_password,
+                    use_wifi_password: use_wifi_password,
+                    intranet_ip: intranet_ip,
+                    openid: openid,
+                  })
+                } else {//如果后台填写了wifi_mac直接链接
+                  that.setData({
+                    hotel_name: res.data.result.hotel_name,
+                    room_name: res.data.result.room_name,
+                    wifi_name: wifi_name,
+                    wifi_password: wifi_password,
+                    use_wifi_password: use_wifi_password,
+                    intranet_ip: intranet_ip,
+                    openid: openid
+                  })
+
+                  that.setData({
+                    hiddens: false,
+                  })
+                  app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
+
+                }
               }
+              //链接wifi结束
             }
-            //链接wifi结束
+          },
+          fail: function (res) {
+            that.setData({
+              hiddens: true,
+              showRetryModal: true
+            })
           }
-        },
-        fail:function(res){
-          that.setData({
-            hiddens: true,
-            showRetryModal: true
-          })
-        }
-      })
-
-      
-      
+        })
+      } 
     }
   },
   netRetry: function (res) {
