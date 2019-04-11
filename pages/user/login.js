@@ -22,6 +22,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wx.hideShareMenu();
     box_mac = options.box_mac;
     box_mac = '00226D655202';   //上线去掉******************************************************
     if (app.globalData.openid && app.globalData.openid != '') {

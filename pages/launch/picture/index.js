@@ -37,8 +37,9 @@ Page({
       // updateStatus: 4 // 上传成功
     });*/
     var that = this;
+    wx.hideShareMenu();
     //var user_info = wx.getStorageSync("savor_user_info");
-    console.log(options);
+    
     openid = options.openid;
     box_mac = options.box_mac;
     intranet_ip = options.intranet_ip;

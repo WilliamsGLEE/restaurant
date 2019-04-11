@@ -16,6 +16,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wx.hideShareMenu();
     wx.request({
       url: api_url +'/Smalldinnerapp11/Download/index',
       header: {

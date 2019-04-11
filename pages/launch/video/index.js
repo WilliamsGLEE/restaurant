@@ -26,6 +26,7 @@ Page({
   onLoad: function(options) {
     
     var that = this;
+    wx.hideShareMenu();
     box_mac = options.box_mac;
     openid = options.openid;
     intranet_ip = options.intranet_ip;
