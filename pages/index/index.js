@@ -44,7 +44,7 @@ Page({
     that.setData({
       common_appid: common_appid,
     })
-    if (user_info.is_login!=1){
+    if (user_info.is_login!=1 || user_info.is_wx_auth !=3){
       wx.reLaunch({
         url: '/pages/user/login?box_mac='+box_mac,
       })
@@ -72,7 +72,6 @@ Page({
           },
           success: function (res) {
             if (res.data.code == 10000) {
-              console.log(res);
               that.setData({
 
                 hotel_name: res.data.result.hotel_name,

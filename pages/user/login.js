@@ -25,7 +25,7 @@ Page({
     var that = this;
     wx.hideShareMenu();
     box_mac = options.box_mac;
-    ///box_mac = '00226D655202';   //上线去掉******************************************************
+    //box_mac = '00226D655202';   //上线去掉******************************************************
     that.setData({
       common_appid: common_appid
     })
@@ -76,7 +76,7 @@ Page({
                 })
                 //判断用户是否授权
                
-                if (res.data.result.userinfo.is_wx_auth != 2) {
+                if (res.data.result.userinfo.is_wx_auth != 3) {
                   that.setData({
                     showWXAuthLogin: true
                   })
@@ -119,59 +119,68 @@ Page({
     var user_info = wx.getStorageSync(cache_key + "userinfo");
     openid = user_info.openid;
     if (res.detail.errMsg == 'getUserInfo:ok') {
-      wx.request({
-        url: api_url+'/Smalldinnerapp11/User/register',
-        data: {
-          'openid': openid,
-          'avatarUrl': res.detail.userInfo.avatarUrl,
-          'nickName': res.detail.userInfo.nickName,
-          'gender': res.detail.userInfo.gender
-        },
-        header: {
-          'content-type': 'application/json'
-        },
-        success: function (res) {
-          if(res.data.code==10000){
-            that.setData({
-              showWXAuthLogin: false,
+      
+      wx.getUserInfo({
+        success(rets) {
+          wx.request({
+            url: api_url + '/Smalldinnerapp11/User/registerCom',
+            data: {
+              'openid': openid,
+              'avatarUrl': rets.userInfo.avatarUrl,
+              'nickName': rets.userInfo.nickName,
+              'gender': rets.userInfo.gender,
+              'session_key': app.globalData.session_key,
+              'iv': rets.iv,
+              'encryptedData': rets.encryptedData
+            },
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              if (res.data.code == 10000) {
+                that.setData({
+                  showWXAuthLogin: false,
 
-            })
-            var mobile = res.data.result.mobile;
-            if (mobile != '') {
-               res.data.result.is_login = 1;
-              wx.setStorage({
-                key: cache_key + 'userinfo',
-                data: res.data.result,
-              });
-              wx.reLaunch({
-                url: '/pages/index/index?box_mac='+box_mac,
-              })
-            }else {
-              wx.setStorage({
-                key: cache_key + 'userinfo',
-                data: res.data.result,
+                })
+                var mobile = res.data.result.mobile;
+                if (mobile != '') {
+                  res.data.result.is_login = 1;
+                  wx.setStorage({
+                    key: cache_key + 'userinfo',
+                    data: res.data.result,
+                  });
+                  wx.reLaunch({
+                    url: '/pages/index/index?box_mac=' + box_mac,
+                  })
+                } else {
+                  wx.setStorage({
+                    key: cache_key + 'userinfo',
+                    data: res.data.result,
+                  });
+                }
+
+
+
+              } else {
+                wx.showToast({
+                  title: '微信授权登陆失败，请重试',
+                  icon: 'none',
+                  duration: 2000
+                });
+                wx.reLaunch({
+                  url: '/pages/index/index?box_mac=' + box_mac,
+                })
+              }
+
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: '微信登陆失败，请重试',
+                icon: 'none',
+                duration: 2000
               });
             }
-            
-            
-            
-          }else{
-            wx.showToast({
-              title: '微信授权登陆失败，请重试',
-              icon: 'none',
-              duration: 2000
-            });
-            wx.reLaunch({
-              url: '/pages/index/index?box_mac='+box_mac,
-            })
-          }
-        },
-        fail:function(res){
-          wx.showToast({
-            title: '微信登陆失败，请检查您的网络',
-            icon: 'none',
-            duration: 2000
-          });
+          })
         }
       })
     } else {
