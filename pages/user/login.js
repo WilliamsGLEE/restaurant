@@ -27,7 +27,8 @@ Page({
     box_mac = options.box_mac;
     //box_mac = '00226D655202';   //上线去掉******************************************************
     that.setData({
-      common_appid: common_appid
+      common_appid: common_appid,
+      box_mac:box_mac,
     })
     if (app.globalData.openid && app.globalData.openid != '') {
       that.setData({
@@ -300,6 +301,7 @@ Page({
     var verify_code = res.detail.value.verify_code;
     var openid = res.detail.value.openid;
     var is_mobile = app.checkMobile(mobile);
+    var box_mac   = res.detail.value.box_mac;
     if(!is_mobile){
       return ;
     }
@@ -328,11 +330,12 @@ Page({
       return;
     }
     wx.request({
-      url: api_url+'/Smalldinnerapp/login/login',
+      url: api_url+'/Smalldinnerapp11/login/login',
       header: {
         'content-type': 'application/json'
       },
       data: {
+        box_mac:box_mac,
         mobile: mobile,
         invite_code: invite_code,
         verify_code: verify_code,

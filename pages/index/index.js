@@ -30,14 +30,17 @@ Page({
     hiddens: true,
 
     showRetryModal: true, //连接WIFI重试弹窗
-
+    bdShowModal:true,    //邀请码酒楼和绑定酒楼不一致
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   
   onLoad: function(res) {
     var that = this;
+    
     box_mac  = res.box_mac;
     //box_mac = '00226D655202';  //***************************上线去掉 */
+    //box_mac = '00226D583D92';
+    //box_mac = '00226D5845CE';
     var user_info = wx.getStorageSync(cache_key +"userinfo"); 
     var hotel_id   = user_info.hotel_id;
     var openid  = user_info.openid;
@@ -63,70 +66,93 @@ Page({
         wx.hideShareMenu();
         //获取酒楼包间名称
         wx.request({
-          url: api_url + '/Smalldinnerapp11/Login/getHotelRoomInfo',
+          url: api_url + '/Smalldinnerapp11/Login/getBindHotelInfo',
           header: {
             'content-type': 'application/json'
           },
           data: {
+            openid:openid,
             box_mac: box_mac,
           },
           success: function (res) {
             if (res.data.code == 10000) {
-              that.setData({
-
-                hotel_name: res.data.result.hotel_name,
-                room_name: res.data.result.room_name
-              })
-              //链接wifi开始
-              intranet_ip = res.data.result.intranet_ip;
-              wifi_name = res.data.result.wifi_name;
-              wifi_password = res.data.result.wifi_password;
-              use_wifi_password = wifi_password
-
-              if (wifi_name == '' || wifi_mac == '') {
-
+              if (res.data.result.bd_status==1){ //绑定正确
                 that.setData({
+
+                  hotel_name: res.data.result.hotel_name,
+                  room_name: res.data.result.room_name
+                })
+                //链接wifi开始
+                intranet_ip = res.data.result.intranet_ip;
+                wifi_name = res.data.result.wifi_name;
+                wifi_password = res.data.result.wifi_password;
+                use_wifi_password = wifi_password
+
+                if (wifi_name == '' || wifi_mac == '') {
+
+                  that.setData({
+                    hiddens: true,
+                    showRetryModal: true
+                  })
+                } else {
+                  that.setData({
+                    is_link: 1,
+                  })
+                  if (wifi_password == '') {
+                    wifi_password = "未设置wifi密码";
+                  }
+                  wifi_mac = res.data.result.wifi_mac;
+
+                  if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
+                    that.setData({
+                      hotel_name: res.data.result.hotel_name,
+                      room_name: res.data.result.room_name,
+                      wifi_name: wifi_name,
+                      wifi_password: wifi_password,
+                      use_wifi_password: use_wifi_password,
+                      intranet_ip: intranet_ip,
+                      openid: openid,
+                    })
+                  } else {//如果后台填写了wifi_mac直接链接
+                    that.setData({
+                      hotel_name: res.data.result.hotel_name,
+                      room_name: res.data.result.room_name,
+                      wifi_name: wifi_name,
+                      wifi_password: wifi_password,
+                      use_wifi_password: use_wifi_password,
+                      intranet_ip: intranet_ip,
+                      openid: openid
+                    })
+
+                    that.setData({
+                      hiddens: false,
+                    })
+                    app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
+
+                  }
+                }
+                //链接wifi结束
+              } else if(res.data.result.bd_status==-1) {//绑定不正确
+                that.setData({
+                  bdShowModal:true,
                   hiddens: true,
-                  showRetryModal: true
+                  bd_hotel_name: res.data.result.hotel_name
                 })
-              } else {
+              } else if(res.data.result.bd_status==0){//未绑定
                 that.setData({
-                  is_link: 1,
+                  hiddens:true
                 })
-                if (wifi_password == '') {
-                  wifi_password = "未设置wifi密码";
-                }
-                wifi_mac = res.data.result.wifi_mac;
-
-                if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
-                  that.setData({
-                    hotel_name: res.data.result.hotel_name,
-                    room_name: res.data.result.room_name,
-                    wifi_name: wifi_name,
-                    wifi_password: wifi_password,
-                    use_wifi_password: use_wifi_password,
-                    intranet_ip: intranet_ip,
-                    openid: openid,
-                  })
-                } else {//如果后台填写了wifi_mac直接链接
-                  that.setData({
-                    hotel_name: res.data.result.hotel_name,
-                    room_name: res.data.result.room_name,
-                    wifi_name: wifi_name,
-                    wifi_password: wifi_password,
-                    use_wifi_password: use_wifi_password,
-                    intranet_ip: intranet_ip,
-                    openid: openid
-                  })
-
-                  that.setData({
-                    hiddens: false,
-                  })
-                  app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
-
-                }
+                wx.removeStorage({
+                  key: cache_key + "userinfo",
+                  success(rest) {
+                    
+                  }
+                })
+                wx.reLaunch({
+                  url: '/pages/user/login?box_mac=' + box_mac,
+                })
               }
-              //链接wifi结束
+              
             }
           },
           fail: function (res) {
