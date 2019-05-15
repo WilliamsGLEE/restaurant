@@ -39,8 +39,8 @@ Page({
     
     box_mac  = res.box_mac;
     //box_mac = '00226D655202';  //***************************上线去掉 */
-    //box_mac = '00226D583D92';
-    //box_mac = '00226D5845CE';
+    //box_mac = '00226D583D92';    //兜率宫
+    //box_mac = '00226D5845CE';   //4G监测
     var user_info = wx.getStorageSync(cache_key +"userinfo"); 
     var hotel_id   = user_info.hotel_id;
     var openid  = user_info.openid;
@@ -61,7 +61,7 @@ Page({
         that.setData({
           box_mac: box_mac,
           openid: openid,
-          hiddens: false,
+          //hiddens: false,
         })
         wx.hideShareMenu();
         //获取酒楼包间名称
@@ -78,60 +78,72 @@ Page({
             if (res.data.code == 10000) {
               if (res.data.result.bd_status==1){ //绑定正确
                 that.setData({
-
                   hotel_name: res.data.result.hotel_name,
                   room_name: res.data.result.room_name
                 })
-                //链接wifi开始
-                intranet_ip = res.data.result.intranet_ip;
-                wifi_name = res.data.result.wifi_name;
-                wifi_password = res.data.result.wifi_password;
-                use_wifi_password = wifi_password
-
-                if (wifi_name == '' || wifi_mac == '') {
-
+                app.globalData.box_type = res.data.result.box_type;
+                if(app.globalData.box_type==2){//二代网络机顶盒采用netty投屏
                   that.setData({
                     hiddens: true,
-                    showRetryModal: true
-                  })
-                } else {
-                  that.setData({
                     is_link: 1,
                   })
-                  if (wifi_password == '') {
-                    wifi_password = "未设置wifi密码";
+
+                }else {
+                  that.setData({
+                    hiddens: false,
+                  })
+                  //链接wifi开始
+                  intranet_ip = res.data.result.intranet_ip;
+                  wifi_name = res.data.result.wifi_name;
+                  wifi_password = res.data.result.wifi_password;
+                  use_wifi_password = wifi_password
+
+                  if (wifi_name == '' || wifi_mac == '') {
+
+                    that.setData({
+                      hiddens: true,
+                      showRetryModal: true
+                    })
+                  } else {
+                    that.setData({
+                      is_link: 1,
+                    })
+                    if (wifi_password == '') {
+                      wifi_password = "未设置wifi密码";
+                    }
+                    wifi_mac = res.data.result.wifi_mac;
+
+                    if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
+                      that.setData({
+                        hotel_name: res.data.result.hotel_name,
+                        room_name: res.data.result.room_name,
+                        wifi_name: wifi_name,
+                        wifi_password: wifi_password,
+                        use_wifi_password: use_wifi_password,
+                        intranet_ip: intranet_ip,
+                        openid: openid,
+                      })
+                    } else {//如果后台填写了wifi_mac直接链接
+                      that.setData({
+                        hotel_name: res.data.result.hotel_name,
+                        room_name: res.data.result.room_name,
+                        wifi_name: wifi_name,
+                        wifi_password: wifi_password,
+                        use_wifi_password: use_wifi_password,
+                        intranet_ip: intranet_ip,
+                        openid: openid
+                      })
+
+                      that.setData({
+                        hiddens: false,
+                      })
+                      app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
+
+                    }
                   }
-                  wifi_mac = res.data.result.wifi_mac;
-
-                  if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
-                    that.setData({
-                      hotel_name: res.data.result.hotel_name,
-                      room_name: res.data.result.room_name,
-                      wifi_name: wifi_name,
-                      wifi_password: wifi_password,
-                      use_wifi_password: use_wifi_password,
-                      intranet_ip: intranet_ip,
-                      openid: openid,
-                    })
-                  } else {//如果后台填写了wifi_mac直接链接
-                    that.setData({
-                      hotel_name: res.data.result.hotel_name,
-                      room_name: res.data.result.room_name,
-                      wifi_name: wifi_name,
-                      wifi_password: wifi_password,
-                      use_wifi_password: use_wifi_password,
-                      intranet_ip: intranet_ip,
-                      openid: openid
-                    })
-
-                    that.setData({
-                      hiddens: false,
-                    })
-                    app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
-
-                  }
+                  //链接wifi结束
                 }
-                //链接wifi结束
+                
               } else if(res.data.result.bd_status==-1) {//绑定不正确
                 that.setData({
                   bdShowModal:true,
@@ -190,47 +202,55 @@ Page({
     })
     var box_mac = res.currentTarget.dataset.boxmac;
     var openid = res.currentTarget.dataset.openid;
+    if(app.globalData.box_type==2){
+      var jump_url = '/pages/launch/picture/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=';
+      wx.navigateTo({
+        url: jump_url,
+      })
+      that.setData({
+        img_disable: false,
+        video_disable: false,
+        birthday_disable: false,
+      })
+    }else {
+      wx.startWifi({
+        success: function () {
 
-    wx.startWifi({
-      success: function () {
+          wx.getConnectedWifi({
+            success: function (res) {
 
-        wx.getConnectedWifi({
-          success: function (res) {
+              var errCode = res.errCode;
+              var ssid = res.wifi.SSID;
+              var jump_url = '/pages/launch/picture/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=' + intranet_ip;
+              if (errCode == 0 && wifi_name == ssid) {
 
-            var errCode = res.errCode;
-            var ssid = res.wifi.SSID;
-            var jump_url = '/pages/launch/picture/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=' + intranet_ip;
-            if (errCode == 0 && wifi_name == ssid) {
+                wx.navigateTo({
+                  url: jump_url,
+                })
+                that.setData({
+                  img_disable: false,
+                  video_disable: false,
+                  birthday_disable: false,
+                })
+              } else {
+                //连接当前wifi
+                //连接成功后跳转
 
-              wx.navigateTo({
-                url: jump_url,
-              })
-              that.setData({
-                img_disable: false,
-                video_disable: false,
-                birthday_disable: false,
-              })
-            } else {
-              //连接当前wifi
-              //连接成功后跳转
-
-              app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 1);
+                app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 1);
 
 
+              }
+            },
+            fail: function (res) {
+              console.log('getConnectedWifi erro');
             }
-          },
-          fail: function (res) {
-            console.log('getConnectedWifi erro');
-          }
-        })
-      },
-      fail: function (res) {
-        console.log('not open wifi');
-      }
-    })
-
-
-    
+          })
+        },
+        fail: function (res) {
+          console.log('not open wifi');
+        }
+      })
+    }
   }, 
   chooseVideo:function(res){
     var that = this;
@@ -242,44 +262,57 @@ Page({
     })
     var box_mac = res.currentTarget.dataset.boxmac;
     var openid = res.currentTarget.dataset.openid;
+    if(app.globalData.box_type==2){
+      var jump_url = '/pages/launch/video/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=';
+      wx.navigateTo({
+        url: jump_url,
+      })
+      that.setData({
+        img_disable: false,
+        video_disable: false,
+        birthday_disable: false,
+      })
+    }else {
+      wx.startWifi({
+        success: function () {
 
-    wx.startWifi({
-      success: function () {
+          wx.getConnectedWifi({
+            success: function (res) {
 
-        wx.getConnectedWifi({
-          success: function (res) {
+              var errCode = res.errCode;
+              var ssid = res.wifi.SSID;
+              var jump_url = '/pages/launch/video/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=' + intranet_ip;
+              if (errCode == 0 && wifi_name == ssid) {
 
-            var errCode = res.errCode;
-            var ssid = res.wifi.SSID;
-            var jump_url = '/pages/launch/video/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=' + intranet_ip;
-            if (errCode == 0 && wifi_name == ssid) {
+                wx.navigateTo({
+                  url: jump_url,
+                })
+                that.setData({
+                  img_disable: false,
+                  video_disable: false,
+                  birthday_disable: false,
+                })
+              } else {
+                //连接当前wifi
+                //连接成功后跳转
 
-              wx.navigateTo({
-                url: jump_url,
-              })
-              that.setData({
-                img_disable: false,
-                video_disable: false,
-                birthday_disable: false,
-              })
-            } else {
-              //连接当前wifi
-              //连接成功后跳转
-
-              app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 2);
+                app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 2);
 
 
+              }
+            },
+            fail: function (res) {
+              console.log('getConnectedWifi erro');
             }
-          },
-          fail: function (res) {
-            console.log('getConnectedWifi erro');
-          }
-        })
-      },
-      fail: function (res) {
-        console.log('not open wifi');
-      }
-    })
+          })
+        },
+        fail: function (res) {
+          console.log('not open wifi');
+        }
+      })
+    }
+
+    
       
     
   },
@@ -290,29 +323,55 @@ Page({
     var timestamp = (new Date()).valueOf();
     
     intranet_ip = e.currentTarget.dataset.intranet_ip;
+    if(app.globalData.box_type==2){
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          box_mac: box_mac,
+          msg: '{ "action": 3,"openid":"' + openid + '"}',
+        },
+        success: function (res) {
+          
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '网络异常，退出失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }else {
+      wx.request({
+        url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
+        success: function (res) {
+          
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fial: function ({ errMsg }) {
 
-    wx.request({
-      url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
-      success: function (res) {
-        console.log(res);
-        wx.navigateBack({
-          delta: 1
-        })
-        wx.showToast({
-          title: '退出成功',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-      fial: function ({ errMsg }) {
-
-        wx.showToast({
-          title: '退出失败',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-    })
+          wx.showToast({
+            title: '退出失败',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+      })
+    }
+    
   },//退出投屏结束
   changeVolume: function (e) {//更改音量
     var box_mac = e.target.dataset.box_mac;
@@ -320,22 +379,47 @@ Page({
     var timestamp = (new Date()).valueOf();
    
     intranet_ip = e.target.dataset.intranet_ip;
-    var change_type_name = '';
-    if (change_type == 3) {
-      change_type_name = '减小音量'
-    } else if (change_type == 4) {
-      change_type_name = '增大音量'
-    }
-    wx.request({
-      url: "http://" + intranet_ip + ":8080/volume?action=" + change_type + "&deviceId=" + openid + "&projectId=" + timestamp + "&web=true",
-      success: function (res) {
-        if (res.data.result == 0) {
-          wx.showToast({
-            title: change_type_name + '成功',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
+
+    if(app.globalData.box_type==2){
+      
+      if (change_type == 3) change_type=1;
+      if (change_type == 4) change_type =2;
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          box_mac: box_mac,
+          msg: '{"action":31,"change_type":' + change_type + '}',
+        },
+      })
+    }else {
+      var change_type_name = '';
+      if (change_type == 3) {
+        change_type_name = '减小音量'
+      } else if (change_type == 4) {
+        change_type_name = '增大音量'
+      }
+      wx.request({
+        url: "http://" + intranet_ip + ":8080/volume?action=" + change_type + "&deviceId=" + openid + "&projectId=" + timestamp + "&web=true",
+        success: function (res) {
+          if (res.data.result == 0) {
+            wx.showToast({
+              title: change_type_name + '成功',
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: '投屏过程中才可控制音量',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+
+        }, fail: function () {
           wx.showToast({
             title: '投屏过程中才可控制音量',
             icon: 'none',
@@ -343,16 +427,11 @@ Page({
           })
         }
 
-      }, fail: function () {
-        wx.showToast({
-          title: '投屏过程中才可控制音量',
-          icon: 'none',
-          duration: 2000
-        })
-      }
 
+      })
+    }
 
-    })
+    
   },
   gotodownload:function(res){
     var that = this;

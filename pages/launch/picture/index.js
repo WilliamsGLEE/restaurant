@@ -104,7 +104,6 @@ Page({
       is_btn_disabel: true,
       hiddens: true,
     })
-    console.log(e.detail.value);
     var user_info = wx.getStorageSync(cache_key+'userinfo');
     var avatarUrl = user_info.avatarUrl;
     var nickName = user_info.nickName;
@@ -115,7 +114,8 @@ Page({
     var forscreen_char = e.detail.value.forscreen_char;
     var play_times = e.detail.value.play_times;
     var upimgs = [];
-
+    var is_pub_hotelinfo = e.detail.value.is_pub_hotelinfo;   //是否公开显示餐厅信息
+    var is_share = e.detail.value.is_share;
     if (e.detail.value.upimgs0 != '' && e.detail.value.upimgs0 != undefined) {
 
       upimgs[0] = { 'img_url': e.detail.value.upimgs0, 'img_size': e.detail.value.upimgsize0 };
@@ -146,45 +146,241 @@ Page({
     if (e.detail.value.upimgs8 != '' && e.detail.value.upimgs8 != undefined) {
       upimgs[8] = { 'img_url': e.detail.value.upimgs8, 'img_size': e.detail.value.upimgsize8 };
     }
-    var forscreen_id = (new Date()).valueOf();
-    var filename_arr = [];
-
-    for (var i = 0; i < img_lenth; i++) {
-      var img_url = upimgs[i].img_url;
-      var img_size = upimgs[i].img_size;
-      var filename = (new Date()).valueOf();
-      filename_arr[i] = filename;
-      
-      wx.uploadFile({
-        url: "http://" + intranet_ip + ":8080/h5/restPicture?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + img_size + '&action=4&resource_type=0&avatarUrl=' + avatarUrl + "&nickName=" + nickName + "&forscreen_nums=" + img_lenth + "&play_times=" + play_times,
-        filePath: img_url,
-        name: 'fileUpload',
+    if(app.globalData.box_type==2){
+      var public_text = '';
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/smallapp21/User/isForscreenIng',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: { box_mac: box_mac },
         success: function (res) {
-          console.log(res)
-        },
-        complete: function (es) {
-          console.log(es)
-        },
-        fial: function ({ errMsg }) {
-          console.log('uploadImage fial,errMsg is', errMsg)
-        },
-      });
+
+          var is_forscreen = res.data.result.is_forscreen;
+          if (is_forscreen == 1) {
+            wx.showModal({
+              title: '确认要打断投屏',
+              content: '当前电视正在进行投屏,继续投屏有可能打断当前投屏中的内容.',
+              success: function (res) {
+                if (res.confirm) {
+
+                  wx.request({
+                    url: 'https://mobile.littlehotspot.com/Smallapp/Index/getOssParams',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    success: function (rest) {
+
+                      policy = rest.data.policy;
+                      signature = rest.data.signature;
+                      uploadOss_multy(policy, signature, upimgs, box_mac, openid, img_lenth, forscreen_char, avatarUrl, nickName, public_text, play_times);
+                      
+                    }
+                  });
+                } else {
+
+                }
+              }
+            })
+          } else {
+
+            wx.request({
+              url: 'https://mobile.littlehotspot.com/Smallapp/Index/getOssParams',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              success: function (rest) {
+
+                policy = rest.data.policy;
+                signature = rest.data.signature;
+                uploadOss_multy(policy, signature, upimgs, box_mac, openid, img_lenth, forscreen_char, avatarUrl, nickName, public_text, play_times);
+              }
+            });
+
+          }
+        }
+      })
+
+
+      function uploadOssNew(policy, signature, img_url, box_mac, openid, timestamp, flag, img_len, forscreen_char, forscreen_id, res_sup_time, avatarUrl, nickName, public_text, play_times) {
+
+        var filename = img_url;
+        var index1 = filename.lastIndexOf(".");
+        var index2 = filename.length;
+        var mobile_brand = app.globalData.mobile_brand;
+        var mobile_model = app.globalData.mobile_model;
+        var order = flag + 1;
+        var postf_t = filename.substring(index1, index2);//后缀名
+        var postf_w = filename.substring(index1 + 1, index2);//后缀名
+
+        var upload_task = wx.uploadFile({
+          url: "https://image.littlehotspot.com",
+          filePath: img_url,
+          name: 'file',
+          header: {
+            'Content-Type': 'image/' + postf_w
+          },
+          formData: {
+            Bucket: "redian-produce",
+            name: img_url,
+            key: "forscreen/resource/" + timestamp + postf_t,
+            policy: policy,
+            OSSAccessKeyId: "LTAITjXOpRHKflOX",
+            sucess_action_status: "200",
+            signature: signature
+
+          },
+
+          success: function (res) {
+
+          },
+          complete: function (es) {
+            tmp_percent[flag] = { "percent": 100 };
+            that.setData({
+              tmp_percent: tmp_percent
+            })
+          },
+          fial: function ({ errMsg }) {
+            console.log('uploadImage fial,errMsg is', errMsg)
+          },
+        });
+        upload_task.onProgressUpdate((res) => {
+          tmp_percent[flag] = { "percent": res.progress };
+          //console.log(res.progress);
+          that.setData({
+            tmp_percent: tmp_percent
+          });
+          if (res.progress == 100) {
+            var res_eup_time = (new Date()).valueOf();
+            wx.request({
+              url: 'https://mobile.littlehotspot.com/Smalldinnerapp/ForscreenLog/recordForScreenPics',
+              header: {
+                'content-type': 'application/json'
+              },
+              data: {
+                forscreen_id: forscreen_id,
+                openid: openid,
+                box_mac: box_mac,
+                action: 4,
+                mobile_brand: mobile_brand,
+                mobile_model: mobile_model,
+                forscreen_char: forscreen_char,
+                public_text: public_text,
+                imgs: '["forscreen/resource/' + timestamp + postf_t + '"]',
+                resource_id: timestamp,
+                res_sup_time: res_sup_time,
+                res_eup_time: res_eup_time,
+                resource_size: res.totalBytesSent,
+                is_pub_hotelinfo: is_pub_hotelinfo,
+                is_share: is_share,
+                small_app_id: 4,
+              },
+              success: function (ret) {
+                wx.request({
+                  url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  method: "POST",
+                  data: {
+                    box_mac: box_mac,
+
+                    msg: '{ "action": 44, "resource_type":2, "url": "forscreen/resource/' + timestamp + postf_t + '", "filename":"' + timestamp + postf_t + '","openid":"' + openid + '","img_nums":' + img_len + ',"forscreen_char":"' + forscreen_char + '","order":' + order + ',"forscreen_id":"' + forscreen_id + '","img_id":"' + timestamp + '","play_times":' + play_times + ',"avatarUrl":"' + avatarUrl + '","nickName":"' + nickName+'"}',
+
+                  },
+                  success: function (result) {
+
+                    that.setData({
+                      updateStatus: 4,
+
+                      percent: 0
+                    })
+                  },
+                });
+
+              }
+            });
+
+          }
+
+        })
+
+      }
+      function uploadOss_multy(policy, signature, upimgs, box_mac, openid, img_len, forscreen_char, avatarUrl, nickName, public_text, play_times) {
+        //console.log(img_len);
+        var tmp_imgs = [];
+        var filename_arr = [];
+        var forscreen_id = (new Date()).valueOf();
+        for (var i = 0; i < img_len; i++) {
+          var res_sup_time = (new Date()).valueOf();
+          
+          var filename = upimgs[i].img_url;
+          var index1 = filename.lastIndexOf(".");
+          var index2 = filename.length;
+          var timestamp = (new Date()).valueOf();
+          postf = filename.substring(index1, index2);//后缀名
+          post_imgs[i] = "forscreen/resource/" + timestamp + postf;
+          filename_arr[i] = timestamp + postf;
+          tmp_imgs[i] = { "oss_img": post_imgs[i] };
+          that.setData({
+            tmp_imgs: tmp_imgs
+          });
+          uploadOssNew(policy, signature, filename, box_mac, openid, timestamp, i, img_len, forscreen_char, forscreen_id, res_sup_time, avatarUrl, nickName, public_text, play_times);
+        }
+        // that.setData({
+        //   showThird: true,
+        //   showTpBt: false
+        // });
+        that.setData({
+          up_imgs: upimgs,
+          filename_arr: filename_arr,
+          is_upload: 1,
+          forscreen_char: forscreen_char,
+          hiddens: true,
+          updateStatus: 4,
+        })
+      }
+    }else {
+      var forscreen_id = (new Date()).valueOf();
+      var filename_arr = [];
+
+      for (var i = 0; i < img_lenth; i++) {
+        var img_url = upimgs[i].img_url;
+        var img_size = upimgs[i].img_size;
+        var filename = (new Date()).valueOf();
+        filename_arr[i] = filename;
+
+        wx.uploadFile({
+          url: "http://" + intranet_ip + ":8080/h5/restPicture?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + img_size + '&action=4&resource_type=0&avatarUrl=' + avatarUrl + "&nickName=" + nickName + "&forscreen_nums=" + img_lenth + "&play_times=" + play_times,
+          filePath: img_url,
+          name: 'fileUpload',
+          success: function (res) {
+            console.log(res)
+          },
+          complete: function (es) {
+            console.log(es)
+          },
+          fial: function ({ errMsg }) {
+            console.log('uploadImage fial,errMsg is', errMsg)
+          },
+        });
+      }
+      that.setData({
+        up_imgs: upimgs,
+        filename_arr: filename_arr,
+        is_upload: 1,
+        forscreen_char: forscreen_char,
+        hiddens: true,
+        updateStatus: 4,
+      })
     }
 
-    console.log(upimgs);
-    that.setData({
-      up_imgs: upimgs,
-      filename_arr: filename_arr,
-      is_upload: 1,
-      forscreen_char: forscreen_char,
-      hiddens: true,
-      updateStatus: 4,
-    })
+    
   }, //多张图片投屏结束(不分享到发现)
   up_single_pic(res) {//指定单张图片投屏开始
 
     var that = this;
-    //console.log(res);
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.boxmac;
     intranet_ip = res.currentTarget.dataset.intranet_ip
@@ -200,24 +396,62 @@ Page({
     var mobile_model = app.globalData.mobile_model;
     var img_url = res.currentTarget.dataset.img_url;
     var choose_key = res.currentTarget.dataset.choose_key;
+    var forscreen_img = 'forscreen/resource/'+filename;
+    var play_times = res.target.dataset.play_times;
     that.setData({
       choose_key: choose_key
     })
+    if(app.globalData.box_type==2){
+      
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          box_mac: box_mac,
+          msg: '{ "action": 42,"resource_type":1, "url": "' + forscreen_img + '", "filename":"' + filename + '","openid":"' + openid + '","forscreen_id":"' + forscreen_id + '","play_times":' + play_times + ',"avatarUrl":"' + avatarUrl + '","nickName":"' + nickName + '"}',
+
+        },
+        success: function (result) {
+          wx.request({
+            url: 'https://mobile.littlehotspot.com/Smalldinnerapp/ForscreenLog/recordForScreenPics',
+            header: {
+              'content-type': 'application/json'
+            },
+            data: {
+              forscreen_id: forscreen_id,
+              openid: openid,
+              box_mac: box_mac,
+              action: 2,
+              resource_type: 1,
+              mobile_brand: mobile_brand,
+              mobile_model: mobile_model,
+              imgs: '["' + forscreen_img + '"]',
+              small_app_id: 4,
+            },
+          });
+        },
+      })
+    }else {
+      wx.uploadFile({
+        url: "http://" + intranet_ip + ":8080/h5/restSingleImg?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + resouce_size + '&action=2&resource_type=1&avatarUrl=' + avatarUrl + "&nickName=" + nickName,
+        filePath: img_url,
+        name: 'fileUpload',
+        success: function (res) {
+          console.log(res)
+        },
+        complete: function (es) {
+          console.log(es)
+        },
+        fial: function ({ errMsg }) {
+          console.log('uploadImage fial,errMsg is', errMsg)
+        },
+      });
+    }
     
-    wx.uploadFile({
-      url: "http://" + intranet_ip + ":8080/h5/singleImg?isThumbnail=1&imageId=20170301&deviceId=" + openid + "&deviceName=" + mobile_brand + "&rotation=90&imageType=1&web=true&forscreen_id=" + forscreen_id + '&forscreen_char=' + forscreen_char + '&filename=' + filename + '&device_model=' + mobile_model + '&resource_size=' + resouce_size + '&action=2&resource_type=1&avatarUrl=' + avatarUrl + "&nickName=" + nickName,
-      filePath: img_url,
-      name: 'fileUpload',
-      success: function (res) {
-        console.log(res)
-      },
-      complete: function (es) {
-        console.log(es)
-      },
-      fial: function ({ errMsg }) {
-        console.log('uploadImage fial,errMsg is', errMsg)
-      },
-    });
+    
   },//指定单张图片投屏结束
   chooseImage(res) {//重新选择照片开始
     var that = this;
@@ -263,31 +497,62 @@ Page({
   exitForscreen(res) {
     var that = this;
     openid = res.currentTarget.dataset.openid;
-    box_mac = res.currentTarget.dataset.boxmac;
+    box_mac = res.currentTarget.dataset.box_mac;
     intranet_ip = res.currentTarget.dataset.intranet_ip;
+    if(app.globalData.box_type==2){
+      
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          box_mac: box_mac,
+          msg: '{ "action": 3,"openid":"' + openid + '"}',
+        },
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '网络异常，退出失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }else {
+      wx.request({
+        url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fial: function ({ errMsg }) {
 
-    wx.request({
-      url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
-      success: function (res) {
-        console.log(res);
-        wx.navigateBack({
-          delta: 1
-        })
-        wx.showToast({
-          title: '退出成功',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-      fial: function ({ errMsg }) {
-
-        wx.showToast({
-          title: '退出失败',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-    })
+          wx.showToast({
+            title: '退出失败',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+      })
+    }
+    
   },//退出投屏结束
   /**
    * 生命周期函数--监听页面初次渲染完成
