@@ -30,7 +30,6 @@ Page({
     box_mac = options.box_mac;
     openid = options.openid;
     intranet_ip = options.intranet_ip;
-    console.log(intranet_ip)
     that.setData({
       box_mac: box_mac,
       openid: openid,
@@ -349,7 +348,6 @@ Page({
     wx.request({
       url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
       success: function (res) {
-        console.log(res);
         wx.navigateBack({
           delta: 1
         })
@@ -359,7 +357,7 @@ Page({
           duration: 2000
         });
       },
-      fial: function ({ errMsg }) {
+      fail: function ({ errMsg }) {
 
         wx.showToast({
           title: '退出失败',

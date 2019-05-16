@@ -241,8 +241,8 @@ Page({
               tmp_percent: tmp_percent
             })
           },
-          fial: function ({ errMsg }) {
-            console.log('uploadImage fial,errMsg is', errMsg)
+          fail: function ({ errMsg }) {
+            console.log('uploadImage fail,errMsg is', errMsg)
           },
         });
         upload_task.onProgressUpdate((res) => {
@@ -361,8 +361,8 @@ Page({
           complete: function (es) {
             console.log(es)
           },
-          fial: function ({ errMsg }) {
-            console.log('uploadImage fial,errMsg is', errMsg)
+          fail: function ({ errMsg }) {
+            console.log('uploadImage fail,errMsg is', errMsg)
           },
         });
       }
@@ -415,24 +415,40 @@ Page({
 
         },
         success: function (result) {
-          wx.request({
-            url: 'https://mobile.littlehotspot.com/Smalldinnerapp/ForscreenLog/recordForScreenPics',
-            header: {
-              'content-type': 'application/json'
-            },
-            data: {
-              forscreen_id: forscreen_id,
-              openid: openid,
-              box_mac: box_mac,
-              action: 2,
-              resource_type: 1,
-              mobile_brand: mobile_brand,
-              mobile_model: mobile_model,
-              imgs: '["' + forscreen_img + '"]',
-              small_app_id: 4,
-            },
-          });
+          if(result.data.code==10000){
+            wx.request({
+              url: 'https://mobile.littlehotspot.com/Smalldinnerapp/ForscreenLog/recordForScreenPics',
+              header: {
+                'content-type': 'application/json'
+              },
+              data: {
+                forscreen_id: forscreen_id,
+                openid: openid,
+                box_mac: box_mac,
+                action: 2,
+                resource_type: 1,
+                mobile_brand: mobile_brand,
+                mobile_model: mobile_model,
+                imgs: '["' + forscreen_img + '"]',
+                small_app_id: 4,
+              },
+            });
+          }else {
+            wx.showToast({
+              title: '投屏失败，请重试',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+          
         },
+        fail:function(res){
+          wx.showToast({
+            title: '投屏失败，请重试',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       })
     }else {
       wx.uploadFile({
@@ -443,10 +459,15 @@ Page({
           console.log(res)
         },
         complete: function (es) {
-          console.log(es)
+          //console.log(es)
         },
-        fial: function ({ errMsg }) {
-          console.log('uploadImage fial,errMsg is', errMsg)
+        fail: function ({ errMsg }) {
+          wx.showToast({
+            title: '投屏失败，请重试',
+            icon:'none',
+            duration:2000,
+          })
+          //console.log('uploadImage fail,errMsg is', errMsg)
         },
       });
     }
@@ -542,7 +563,7 @@ Page({
             duration: 2000
           });
         },
-        fial: function ({ errMsg }) {
+        fail: function ({ errMsg }) {
 
           wx.showToast({
             title: '退出失败',

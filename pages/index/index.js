@@ -53,7 +53,7 @@ Page({
       })
       
     }else {
-      if (box_mac == undefined || box_mac =='undefined'){
+      if (typeof (box_mac) == 'undefined' ){
         that.setData({
           showModal:true
         })
@@ -242,12 +242,31 @@ Page({
               }
             },
             fail: function (res) {
-              console.log('getConnectedWifi erro');
+              that.setData({
+                hiddens: true,
+                showRetryModal: true,
+              })
+              wx.showToast({
+                title: '连接wifi错误',
+                icon: 'none',
+                duration: 2000
+              })
+              
+              //console.log('getConnectedWifi erro');
             }
           })
         },
         fail: function (res) {
-          console.log('not open wifi');
+          that.setData({
+            hiddens:true,
+            showRetryModal:true,
+          })
+          wx.showToast({
+            title: '请打开您的wifi',
+            icon: 'none',
+            duration: 2000
+          })
+          //console.log('not open wifi');
         }
       })
     }
@@ -302,12 +321,30 @@ Page({
               }
             },
             fail: function (res) {
-              console.log('getConnectedWifi erro');
+              that.setData({
+                hiddens: true,
+                showRetryModal: true,
+              })
+              wx.showToast({
+                title: '连接wifi错误',
+                icon: 'none',
+                duration: 2000
+              })
+              //console.log('getConnectedWifi erro');
             }
           })
         },
         fail: function (res) {
-          console.log('not open wifi');
+          that.setData({
+            hiddens: true,
+            showRetryModal: true,
+          })
+          wx.showToast({
+            title: '请打开您的wifi',
+            icon: 'none',
+            duration: 2000
+          })
+          //console.log('not open wifi');
         }
       })
     }
@@ -361,7 +398,7 @@ Page({
             duration: 2000
           });
         },
-        fial: function ({ errMsg }) {
+        fail: function ({ errMsg }) {
 
           wx.showToast({
             title: '退出失败',
