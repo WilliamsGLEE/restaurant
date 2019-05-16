@@ -342,30 +342,61 @@ Page({
   exitForscreend(res) {
     var that = this;
     openid = res.currentTarget.dataset.openid;
-    box_mac = res.currentTarget.dataset.boxmac;
+    box_mac = res.currentTarget.dataset.box_mac;
     intranet_ip = res.currentTarget.dataset.intranet_ip;
+    if(app.globalData.box_type==2){
+      wx.request({
+        url: 'https://mobile.littlehotspot.com/Netty/Index/index',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        data: {
+          box_mac: box_mac,
+          msg: '{ "action": 3,"openid":"' + openid + '"}',
+        },
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '网络异常，退出失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }else {
+      wx.request({
+        url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+          wx.showToast({
+            title: '退出成功',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+        fail: function ({ errMsg }) {
 
-    wx.request({
-      url: "http://" + intranet_ip + ":8080/h5/stop?deviceId=" + openid + "&web=true",
-      success: function (res) {
-        wx.navigateBack({
-          delta: 1
-        })
-        wx.showToast({
-          title: '退出成功',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-      fail: function ({ errMsg }) {
-
-        wx.showToast({
-          title: '退出失败',
-          icon: 'none',
-          duration: 2000
-        });
-      },
-    })
+          wx.showToast({
+            title: '退出失败',
+            icon: 'none',
+            duration: 2000
+          });
+        },
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
