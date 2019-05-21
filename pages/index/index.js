@@ -414,7 +414,8 @@ Page({
     var box_mac = e.target.dataset.box_mac;
     var change_type = e.target.dataset.change_type;
     var timestamp = (new Date()).valueOf();
-   
+    var user_info = wx.getStorageSync(cache_key + "userinfo"); 
+    var openid = user_info.openid;
     intranet_ip = e.target.dataset.intranet_ip;
 
     if(app.globalData.box_type==2){
