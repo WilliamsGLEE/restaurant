@@ -179,7 +179,9 @@ Page({
                     }
                   });
                 } else {
-
+                  that.setData({
+                    is_btn_disabel:false,
+                  })
                 }
               }
             })

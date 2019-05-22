@@ -121,7 +121,9 @@ Page({
 
                   uploadVedio(video_url, box_mac, openid, res_sup_time, is_pub_hotelinfo, is_share, duration, avatarUrl, nickName, play_times);
                 } else {
-
+                  that.setData({
+                    is_btn_disabel:false,
+                  })
                 }
               }
             })
@@ -265,28 +267,50 @@ Page({
         filePath: video_url,
         name: 'fileUpload',
         success: function (res) {
-          that.setData({
+          var res_data = JSON.parse(res.data);
+          if(res_data.result==0){
+            that.setData({
 
-            updateStatus: 4,
-            upload_vedio_temp: video_url,
-            filename: filename,
-            resouce_size: resouce_size,
-            duration: duration,
-            intranet_ip: intranet_ip,
-            hiddens: true,
-          })
+              updateStatus: 4,
+              upload_vedio_temp: video_url,
+              filename: filename,
+              resouce_size: resouce_size,
+              duration: duration,
+              intranet_ip: intranet_ip,
+              hiddens: true,
+            })
+            wx.showToast({
+              title: '投屏成功',
+              icon: 'none',
+              duration: 2000
+            });
+          }else {
+            that.setData({
+              hiddens: true,
+              updateStatus:0,
+              is_btn_disabel:false
+            })
+            wx.showToast({
+              title: '视频投屏失败,请重试',
+              icon: 'none',
+              duration: 2000
+            });
+            // wx.reLaunch({
+            //   url: '/pages/index/index?box_mac=' + box_mac,
+            // })
+          }
+          
         }, fail: function ({ errMsg }) {
           that.setData({
             hiddens: true,
+            updateStatus: 0,
+            is_btn_disabel:false
           })
           wx.showToast({
-            title: '视频投屏失败',
+            title: '视频投屏失败,请重试',
             icon: 'none',
             duration: 2000
           });
-          wx.reLaunch({
-            url: '/pages/index/index?box_mac=' + box_mac,
-          })
         },
       })
     }  
