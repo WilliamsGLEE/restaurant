@@ -47,7 +47,7 @@ App({
               if (reswifi.errCode == 12006) {
 
                 wx.showToast({
-                  title: '请打开您手机的GPS定位开关',
+                  title: 'wifi链接失败或您的手机未打开GPS定位',
                   icon: 'none',
 
                   duration: 5000,
