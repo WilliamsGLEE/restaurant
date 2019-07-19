@@ -1,0 +1,64 @@
+/* pages/message/list.wxss */
+
+.scroll {
+  background: #dedee4;
+}
+
+.integral {
+  color: #fff;
+  background: #1cbeb6;
+}
+
+.profit {
+  color: #fff;
+  background: rgb(255, 112, 66);
+}
+
+.remind {
+  color: #fff;
+  background: rgb(241, 205, 73);
+}
+
+.row {
+  width: calc(100vw - 40rpx);
+  height: 110rpx;
+  padding: 5rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  justify-items: center;
+  border-bottom: 2rpx solid #fff;
+}
+
+.row > .icon {
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 30rpx;
+}
+
+.row > .msg {
+  width: calc(100% - 130rpx);
+  font-size: 28rpx;
+  margin-left: 10rpx;
+}
+
+.row > .msg > .title {
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row > .msg > .date-time {
+  color: rgb(153, 153, 153);
+}
+
+.row > .fold {
+  width: 20rpx;
+  font-size: 40rpx;
+  color: rgb(102, 102, 102);
+}
