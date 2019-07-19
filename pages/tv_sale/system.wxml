@@ -60,7 +60,7 @@
     <view class='tab-bar theme7'>
       <view class='tab-title selected'>活动促销</view>
       <view class='dividing-line'></view>
-      <navigator class='tab-title'>我的活动</navigator>
+      <navigator url='/pages/tv_sale/mine' class='tab-title'>我的活动</navigator>
     </view>
 
     <view class='row full_width theme7'>
