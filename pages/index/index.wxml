@@ -14,7 +14,7 @@
 
   <!-- 主要功能面板 -->
   <view class='main-function-panel full_width theme7'>
-    <button bindtap="chooseImage " disabled='{{img_disable}}' data-boxmac="{{box_mac}} " data-openid="{{openid}}">
+    <button bindtap="chooseImage" disabled='{{img_disable}}' data-boxmac="{{box_mac}} " data-openid="{{openid}}">
       <image class='icon' src='/images/icon/DEA852_pic.png'></image>
       <view class='title'>照片上电视</view>
       <image class='fold' src='/images/icon/999999_right.png'></image>

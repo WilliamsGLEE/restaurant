@@ -101,7 +101,7 @@ Page({
     var filename = (new Date()).valueOf();
     var is_pub_hotelinfo = res.detail.value.is_pub_hotelinfo;
     var is_share = res.detail.value.is_share;
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       wx.request({
         url: 'https://mobile.littlehotspot.com/smallapp21/User/isForscreenIng',
         headers: {
@@ -369,7 +369,7 @@ Page({
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
     intranet_ip = res.currentTarget.dataset.intranet_ip;
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',
         headers: {

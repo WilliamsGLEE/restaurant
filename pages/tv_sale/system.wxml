@@ -62,7 +62,48 @@
       <view class='dividing-line'></view>
       <navigator url='/pages/tv_sale/mine' class='tab-title'>我的活动</navigator>
     </view>
-
+    <view class='row full_width theme7'>
+      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+      <view class='goods'>
+        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+        <view class='infomation full_width'>
+          <view class='price theme-font2'>￥ 6999元</view>
+          <view class='discount theme-font5'>返利 1000积分</view>
+        </view>
+      </view>
+      <view class='operate'>
+        <button class='btn-menu'>节目单播放</button>
+        <button class='btn-tv'>电视播放</button>
+      </view>
+    </view>
+    <view class='row full_width theme7'>
+      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+      <view class='goods'>
+        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+        <view class='infomation full_width'>
+          <view class='price theme-font2'>￥ 6999元</view>
+          <view class='discount theme-font5'>返利 1000积分</view>
+        </view>
+      </view>
+      <view class='operate'>
+        <button class='btn-menu'>节目单播放</button>
+        <button class='btn-tv'>电视播放</button>
+      </view>
+    </view>
+    <view class='row full_width theme7'>
+      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+      <view class='goods'>
+        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+        <view class='infomation full_width'>
+          <view class='price theme-font2'>￥ 6999元</view>
+          <view class='discount theme-font5'>返利 1000积分</view>
+        </view>
+      </view>
+      <view class='operate'>
+        <button class='btn-menu'>节目单播放</button>
+        <button class='btn-tv'>电视播放</button>
+      </view>
+    </view>
     <view class='row full_width theme7'>
       <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
       <view class='goods'>

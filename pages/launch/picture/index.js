@@ -146,7 +146,7 @@ Page({
     if (e.detail.value.upimgs8 != '' && e.detail.value.upimgs8 != undefined) {
       upimgs[8] = { 'img_url': e.detail.value.upimgs8, 'img_size': e.detail.value.upimgsize8 };
     }
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       var public_text = '';
       wx.request({
         url: 'https://mobile.littlehotspot.com/smallapp21/User/isForscreenIng',
@@ -410,7 +410,7 @@ Page({
     that.setData({
       choose_key: choose_key
     })
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',
@@ -529,7 +529,7 @@ Page({
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
     intranet_ip = res.currentTarget.dataset.intranet_ip;
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',

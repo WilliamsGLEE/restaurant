@@ -36,24 +36,64 @@ Page({
   
   onLoad: function(res) {
     var that = this;
-    
-    box_mac  = res.box_mac;
-    //box_mac = '00226D655202';  //***************************上线去掉 */
-    //box_mac = '00226D583D92';    //兜率宫
-    //box_mac = '00226D5845CE';   //4G监测
-    var user_info = wx.getStorageSync(cache_key +"userinfo"); 
-    var hotel_id   = user_info.hotel_id;
-    var openid  = user_info.openid;
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
+    var hotel_id = user_info.hotel_id;
+    var openid = user_info.openid;
     that.setData({
       common_appid: common_appid,
     })
+    if (typeof (res.q) != 'undefined') {//签到码
+      var q = decodeURIComponent(options.q);
+      var selemite = q.indexOf("?");
+      box_mac = q.substring(selemite + 3, q.length);
+
+      wx.request({//签到
+        url: api_url +'Smalldinnerapp11/index/qiandao',
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          openid: openid,
+          box_mac: box_mac,
+        },
+        success:function(res){
+          if(res.data.code==10000){
+            wx.showToast({
+              title: '签到',
+              icon:'success',
+              duration:'2000'
+            })
+          }else if(res.data.code==10029){//签到过了
+            wx.showToast({
+              title: '您今天已签到',
+              icon: 'success',
+              duration: '2000'
+            })
+          }else {
+            wx.showToast({
+              title: '签到失败，请重新签到',
+              icon: 'success',
+              duration: '2000'
+            })
+          }
+        }
+      })
+    } else if (typeof (res.box_mac) != 'undefined'){
+      box_mac = res.box_mac;
+    }else {
+      box_mac = wx.getStorageSync('savor_link_box_mac');
+    }
+    //box_mac = '00226D655202';  //***************************上线去掉 */
+    //box_mac = '00226D583D92';    //兜率宫
+    //box_mac = '00226D5845CE';   //4G监测
+    
     if (user_info.is_login!=1 || user_info.is_wx_auth !=3){
       wx.reLaunch({
         url: '/pages/user/login?box_mac='+box_mac,
       })
       
     }else {
-      if (typeof (box_mac) == 'undefined' ){
+      if (typeof (box_mac) == 'undefined' || box_mac==''){
         that.setData({
           showModal:true
         })
@@ -87,8 +127,17 @@ Page({
                     hiddens: true,
                     is_link: 1,
                   })
-
-                }else {
+                  app.globalData.is_zhilian = 1;
+                  wx.setStorageSync('savor_link_box_mac', box_mac);
+                }else if(res.data.result.is_cuxiao == 1){
+                  that.setData({
+                    hiddens: true,
+                    is_link: 1,
+                  })
+                  app.globalData.is_zhilian = 1;
+                  wx.setStorageSync('savor_link_box_mac', box_mac);
+                }
+                else {
                   that.setData({
                     hiddens: false,
                   })
@@ -137,7 +186,7 @@ Page({
                       that.setData({
                         hiddens: false,
                       })
-                      app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
+                      app.connectHotelwifi(box_mac,openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that)
 
                     }
                   }
@@ -188,7 +237,7 @@ Page({
         showRetryModal: true,
       })
     } else {
-      app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, '', 0);
+      app.connectHotelwifi(box_mac,openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, '', 0);
     }
 
   },
@@ -202,7 +251,7 @@ Page({
     })
     var box_mac = res.currentTarget.dataset.boxmac;
     var openid = res.currentTarget.dataset.openid;
-    if(app.globalData.box_type==2){
+    if(app.globalData.is_zhilian==1){
       var jump_url = '/pages/launch/picture/index?box_mac=' + box_mac + '&openid=' + openid + '&intranet_ip=';
       wx.navigateTo({
         url: jump_url,
@@ -236,7 +285,7 @@ Page({
                 //连接当前wifi
                 //连接成功后跳转
 
-                app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 1);
+                app.connectHotelwifi(box_mac,openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 1);
 
 
               }
@@ -315,7 +364,7 @@ Page({
                 //连接当前wifi
                 //连接成功后跳转
 
-                app.connectHotelwifi(openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 2);
+                app.connectHotelwifi(box_mac,openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url, forscreen_type = 2);
 
 
               }
