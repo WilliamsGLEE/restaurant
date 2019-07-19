@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showPageType:1,
     play_list:[],  //节目单播放列表
     sale_list:[],  //促销活动列表
   },

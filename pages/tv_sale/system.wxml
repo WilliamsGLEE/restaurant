@@ -58,95 +58,174 @@
   <!-- 活动促销面板 -->
   <view class='sale-panel full_width'>
     <view class='tab-bar theme7'>
-      <view class='tab-title selected'>活动促销</view>
+      <view class='tab-title{{showPageType == 1 ? " selected" : ""}}'>活动促销</view>
       <view class='dividing-line'></view>
-      <navigator url='/pages/tv_sale/mine' class='tab-title'>我的活动</navigator>
+      <view class='tab-title{{showPageType == 2 || showPageType == 3 ? " selected" : ""}}'>我的活动</view>
     </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+
+    <!-- 活动促销 -->
+    <block wx:if="{{showPageType == 1}}">
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
-      </view>
-    </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
-      </view>
-    </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
-      </view>
-    </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
-      </view>
-    </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL
-          SALUTE）38年苏格兰 威士忌 700ML</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL SALUTE）38年苏格兰 威士忌 700ML皇家礼炮（ROYAL
+            SALUTE）38年苏格兰 威士忌 700ML</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
-      </view>
-    </view>
-    <view class='row full_width theme7'>
-      <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-      <view class='goods'>
-        <view class='title theme-font2'>皇家礼炮</view>
-        <view class='infomation full_width'>
-          <view class='price theme-font2'>￥ 6999元</view>
-          <view class='discount theme-font5'>返利 1000积分</view>
+      <view class='row full_width theme7'>
+        <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <view class='goods'>
+          <view class='title theme-font2'>皇家礼炮</view>
+          <view class='infomation full_width'>
+            <view class='price theme-font2'>￥ 6999元</view>
+            <view class='discount theme-font5'>返利 1000积分</view>
+          </view>
+        </view>
+        <view class='operate'>
+          <button class='btn-menu'>节目单播放</button>
+          <button class='btn-tv'>电视播放</button>
         </view>
       </view>
-      <view class='operate'>
-        <button class='btn-menu'>节目单播放</button>
-        <button class='btn-tv'>电视播放</button>
+    </block>
+
+    <!-- 我的活动[添加] -->
+    <block wx:if="{{showPageType == 2}}">
+      <view class='ads-add theme7'>
+        <form>
+          <view class='btn-add full_width'>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+            <view>上传图片/视频</view>
+          </view>
+          <view class='row full_width'>
+            <label>输入价格</label>
+            <input type='digit' placeholder='元  ' placeholder-style='text-align: right;'></input>
+          </view>
+          <view class='row full_width'>
+            <label>活动时间</label>
+            <view>
+              <picker mode='date'>
+                <label>2019.07.01</label>
+                <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+              </picker>
+              <label>~</label>
+              <picker mode='date'>
+                <label>2019.07.31</label>
+                <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+              </picker>
+            </view>
+          </view>
+          <view class='row full_width'>
+            <label>活动范围</label>
+            <radio-group>
+              <radio checked='true'>全部</radio>
+              <radio>包间</radio>
+              <radio>非包间</radio>
+            </radio-group>
+          </view>
+          <button class='btn-submit theme-button'>添加活动</button>
+        </form>
       </view>
-    </view>
+    </block>
+
+    <!-- 我的活动[列表] -->
+    <block wx:if="{{showPageType == 3}}">
+      <view class='ads-list theme7'>
+        <view class='pic full_width'>
+          <image class='status' src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <image class='photo full_height full_width' src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        </view>
+        <view class='row full_width'>
+          <label class='theme-font3'>价格</label>
+          <view class='theme-font2'>5999元</view>
+        </view>
+        <view class='row full_width'>
+          <label class='theme-font3'>活动时间</label>
+          <view class='theme-font2'>
+            <view>2019.07.01 11:00</view>
+            <label>~</label>
+            <view>2019.07.31 12:00</view>
+          </view>
+        </view>
+        <view class='row full_width'>
+          <label class='theme-font3'>活动范围</label>
+          <view class='theme-font2'>本餐厅全部电视</view>
+        </view>
+        <view class='row full_width'>
+          <button class='btn-edit theme-button6'>修改</button>
+          <button class='btn-menu theme-button'>节目单播放</button>
+          <button class='btn-tv theme-button'>电视播放</button>
+        </view>
+      </view>
+    </block>
+
+    <!-- 默认 -->
+    <block wx:else>
+    </block>
+
   </view>
 
 </view>
