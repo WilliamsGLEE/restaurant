@@ -61,14 +61,13 @@ Page({
       }
 
     })
-
     wx.chooseImage({
       count: 6, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success:function(res){
-        
-        
+      success: function (res) {
+
+
         var img_len = res.tempFilePaths.length;
         var tmp_imgs = [];
         for (var i = 0; i < img_len; i++) {
@@ -79,15 +78,16 @@ Page({
           img_lenth: img_len,
           intranet_ip: intranet_ip,
           is_btn_disabel: false,
-          
+
         })
       },
-      fail:function(e){
+      fail: function (e) {
         wx.navigateBack({
           delta: 1,
         })
       }
-    })  
+    })
+     
   },
   playTimesChange:function(res){
     var that = this;
@@ -367,6 +367,13 @@ Page({
             console.log('uploadImage fail,errMsg is', errMsg)
           },
         });
+        sleep(1);
+      }
+      function sleep(delay) {
+        var start = (new Date()).getTime();
+        while ((new Date()).getTime() - start < delay) {
+          continue;
+        }
       }
       that.setData({
         up_imgs: upimgs,
@@ -491,7 +498,6 @@ Page({
 
 
     })
-
     wx.chooseImage({
       count: 6, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -516,6 +522,7 @@ Page({
         })
       }
     })
+    
   },//重新选择照片结束
   exitForscreen(res) {
     var that = this;

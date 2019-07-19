@@ -54,7 +54,6 @@ Page({
       }
 
     })
-
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 60,
@@ -68,7 +67,7 @@ Page({
           video_size: res.size,
           is_forscreen: 1
         })
-        
+
       },
       fail: function (e) {
         wx.navigateBack({
@@ -76,6 +75,7 @@ Page({
         })
       }
     })
+    
 
   },
   forscreen_video: function (res) {
@@ -348,7 +348,7 @@ Page({
         that.setData({
           updateStatus: 0,
           upload_vedio_temp: res.tempFilePath,
-          is_btn_disabel:false,
+          is_btn_disabel: false,
           intranet_ip: intranet_ip,
           openid: openid,
           box_mac: box_mac,
@@ -356,9 +356,10 @@ Page({
           video_size: res.size,
           is_forscreen: 1
         })
-        
+
       }
     })
+    
     
     
   },
