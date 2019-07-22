@@ -1,7 +1,7 @@
 <!--pages/mine/index.wxml-->
 <import src="/pages/template/commons" />
 <view class="container theme-main">
-  <view class='full_width'>
+  <scroll-view class='full_width full_height' scroll-y="true" scroll-with-animation="true">
 
     <!-- 用户信息面板 -->
     <view class='user-info-panel full_width theme7'>
@@ -124,5 +124,5 @@
       </view>
 
     </view>
-  </view>
+  </scroll-view>
 </view>

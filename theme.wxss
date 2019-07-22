@@ -91,6 +91,10 @@
   color: #eb6877;
 }
 
+.theme-font6 {
+  color: #ed6035;
+}
+
 .theme-main {
   color: #333;
   background-color: #ededed;
