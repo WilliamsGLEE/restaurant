@@ -88,11 +88,11 @@ Page({
     var box_list = that.data.objectBoxArray;
 
     var box_mac = box_list[boxIndex].box_mac;
-    var user_info = wx.getStorageSync("savor_user_info");
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
     user_info.box_mac = box_mac;
     user_info.box_index = boxIndex;
     wx.setStorage({
-      key: 'savor_user_info',
+      key: cache_key + "userinfo",
       data: user_info,
     })
 
@@ -102,7 +102,7 @@ Page({
     })
   },
   chooseImage: function (res) {
-    var user_info = wx.getStorageSync("savor_user_info");
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
     var mobile = user_info.mobile;
     var box_mac = user_info.box_mac;
     if (box_mac == '' || box_mac == undefined) {
@@ -133,7 +133,7 @@ Page({
               icon: 'none',
               duration: 2000
             });
-            wx.removeStorageSync('savor_user_info');
+            wx.removeStorageSync(cache_key + "userinfo");
             wx.navigateTo({
               url: '/pages/user/login',
             })
@@ -145,7 +145,7 @@ Page({
     }
   },
   chooseVideo: function (res) {
-    var user_info = wx.getStorageSync("savor_user_info");
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
     var mobile = user_info.mobile;
     var box_mac = user_info.box_mac;
     if (box_mac == '' || box_mac == undefined) {
@@ -175,7 +175,7 @@ Page({
               icon: 'none',
               duration: 2000
             });
-            wx.removeStorageSync('savor_user_info');
+            wx.removeStorageSync(cache_key + "userinfo");
             wx.navigateTo({
               url: '/pages/user/login',
             })

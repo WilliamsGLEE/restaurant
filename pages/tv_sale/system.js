@@ -5,6 +5,7 @@ var box_mac;
 var openid;
 var page = 1;
 var common_appid = app.globalData.common_appid;
+var cache_key = app.globalData.cache_key; 
 Page({
 
   /**
@@ -14,6 +15,7 @@ Page({
     showPageType:1,
     play_list:[],  //节目单播放列表
     sale_list:[],  //促销活动列表
+    room_type:1,   //活动范围1：全部 2：包间 3：非包间
   },
 
   /**
@@ -21,49 +23,41 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    box_mac = wx.getStorageSync('savor_link_box_mac');
-    var user_info = wx.getStorageSync('savor:dinners:userinfo');
+    var user_info  = wx.getStorageSync(cache_key + "userinfo");
     openid = user_info.openid;
-    if(box_mac==''){
-      console.log(box_mac);
-      that.setData({
-        showModal: true
-      })
-    }else {
-      wx.request({//节目单播放列表
-        url: api_url +'/aaa/bb/cc',
-        header: {
-          'content-type': 'application/json'
-        },
-        data:{
-          box_mac:box_mac,
-        },
-        success:function(res){
-          if(res.data.code==10000){
-            that.setData({
-              play_list:res.data.result,
-            })
-          }
+    wx.request({//节目单播放列表
+      url: api_url + '/aaa/bb/cc',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        box_mac: box_mac,
+      },
+      success: function (res) {
+        if (res.data.code == 10000) {
+          that.setData({
+            play_list: res.data.result,
+          })
         }
-      })
-      wx.request({ //促销活动列表
-        url: api_url+'/aaa/bbb/ccc',
-        header: {
-          'content-type': 'application/json'
-        },
-        data:{
-          box_mac:box_mac,
-          page  :1,
-        },
-        success:function(res){
-          if(res.data.code ==10000){
-            that.setData({
-              sale_list:res.data.result,
-            })
-          }
+      }
+    })
+    wx.request({ //促销活动列表
+      url: api_url + '/aaa/bbb/ccc',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        box_mac: box_mac,
+        page: 1,
+      },
+      success: function (res) {
+        if (res.data.code == 10000) {
+          that.setData({
+            sale_list: res.data.result,
+          })
         }
-      })
-    }
+      }
+    })
   },
   delProgramPlay:function(e){
     var that = this;
@@ -173,6 +167,14 @@ Page({
         })
       }
     })
+  },
+  selectXxk:function(res){
+    var that = this;
+    var status = res.currentTarget.dataset.status;
+    that.setData({
+      showPageType : status
+    })
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

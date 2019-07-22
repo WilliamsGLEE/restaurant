@@ -58,9 +58,9 @@
   <!-- 活动促销面板 -->
   <view class='sale-panel full_width'>
     <view class='tab-bar theme7'>
-      <view class='tab-title{{showPageType == 1 ? " selected" : ""}}'>活动促销</view>
+      <view bindtap="selectXxk" data-status="1" class='tab-title{{showPageType == 1 ? " selected" : ""}}'>活动促销</view>
       <view class='dividing-line'></view>
-      <view class='tab-title{{showPageType == 2 || showPageType == 3 ? " selected" : ""}}'>我的活动</view>
+      <view bindtap="selectXxk" data-status="2" class='tab-title{{showPageType == 2 || showPageType == 3 ? " selected" : ""}}'>我的活动</view>
     </view>
 
     <!-- 活动促销 -->
@@ -168,12 +168,12 @@
             <label>活动时间</label>
             <view>
               <picker mode='date'>
-                <label>2019.07.01</label>
+                <label></label>
                 <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
               </picker>
               <label>~</label>
               <picker mode='date'>
-                <label>2019.07.31</label>
+                <label></label>
                 <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
               </picker>
             </view>
@@ -186,6 +186,7 @@
               <radio>非包间</radio>
             </radio-group>
           </view>
+          <input class='display_hide' name="room_type" value="{{room_type}}"></input>
           <button class='btn-submit theme-button'>添加活动</button>
         </form>
       </view>
