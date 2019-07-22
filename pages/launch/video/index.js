@@ -27,9 +27,10 @@ Page({
     
     var that = this;
     wx.hideShareMenu();
-    box_mac = options.box_mac;
-    openid = options.openid;
-    intranet_ip = options.intranet_ip;
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
+
+    openid = user_info.openid;
+    box_mac = user_info.box_mac;
     that.setData({
       box_mac: box_mac,
       openid: openid,
@@ -47,7 +48,6 @@ Page({
       success: function (rts) {
         that.setData({
           item: rts.data.result,
-          intranet_ip: intranet_ip,
           openid: openid,
           box_mac: box_mac,
         })
@@ -87,7 +87,6 @@ Page({
     })
     openid = res.detail.value.openid;
     box_mac = res.detail.value.box_mac;
-    intranet_ip = res.detail.value.intranet_ip;
     var user_info = wx.getStorageSync(cache_key+'userinfo');
     var avatarUrl = user_info.avatarUrl;
     var nickName = user_info.nickName;
@@ -257,7 +256,6 @@ Page({
           filename: "forscreen/resource/" + timestamp + postf_t,
           resouce_size: resouce_size,
           duration: duration,
-          intranet_ip: intranet_ip,
           hiddens: true,
         })
       }
@@ -276,7 +274,6 @@ Page({
               filename: filename,
               resouce_size: resouce_size,
               duration: duration,
-              intranet_ip: intranet_ip,
               hiddens: true,
             })
             wx.showToast({
@@ -336,7 +333,6 @@ Page({
       box_mac: box_mac,
       openid: openid
     })
-    var intranet_ip = e.currentTarget.dataset.intranet_ip;
     var forscreen_id = (new Date()).valueOf();
     var filename = (new Date()).valueOf();
     wx.chooseVideo({
@@ -349,7 +345,6 @@ Page({
           updateStatus: 0,
           upload_vedio_temp: res.tempFilePath,
           is_btn_disabel: false,
-          intranet_ip: intranet_ip,
           openid: openid,
           box_mac: box_mac,
           duration: res.duration,
@@ -368,7 +363,6 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
-    intranet_ip = res.currentTarget.dataset.intranet_ip;
     if(app.globalData.is_zhilian==1){
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',

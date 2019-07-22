@@ -38,11 +38,10 @@ Page({
     });*/
     var that = this;
     wx.hideShareMenu();
-    //var user_info = wx.getStorageSync("savor_user_info");
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
     
-    openid = options.openid;
-    box_mac = options.box_mac;
-    intranet_ip = options.intranet_ip;
+    openid = user_info.openid;
+    box_mac = user_info.box_mac;
     that.setData({
       box_mac: box_mac,
       openid: openid,
@@ -76,7 +75,6 @@ Page({
         that.setData({
           up_imgs: tmp_imgs,
           img_lenth: img_len,
-          intranet_ip: intranet_ip,
           is_btn_disabel: false,
 
         })
@@ -108,7 +106,6 @@ Page({
     var avatarUrl = user_info.avatarUrl;
     var nickName = user_info.nickName;
     var img_lenth = e.detail.value.img_lenth;
-    var intranet_ip = e.detail.value.intranet_ip;
     var mobile_brand = app.globalData.mobile_brand;
     var mobile_model = app.globalData.mobile_model;
     var forscreen_char = e.detail.value.forscreen_char;
@@ -392,7 +389,6 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.boxmac;
-    intranet_ip = res.currentTarget.dataset.intranet_ip
 
     var user_info = wx.getStorageSync(cache_key+'userinfo');
     var avatarUrl = user_info.avatarUrl;
@@ -487,12 +483,10 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
-    intranet_ip = res.currentTarget.dataset.intranet_ip
 
     that.setData({
       box_mac: box_mac,
       openid: openid,
-      intranet_ip: intranet_ip,
       is_btn_disabel: true,
       
 
@@ -515,7 +509,6 @@ Page({
         that.setData({
           up_imgs: tmp_imgs,
           img_lenth: img_len,
-          intranet_ip: intranet_ip,
           updateStatus: 0,
           is_btn_disabel: false,
           forscreen_char: ''
@@ -528,7 +521,6 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
-    intranet_ip = res.currentTarget.dataset.intranet_ip;
     if(app.globalData.is_zhilian==1){
       
       wx.request({

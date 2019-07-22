@@ -3,11 +3,11 @@
 <view class="container theme-main">
 
   <!-- 机顶盒连接信息 -->
-  <picker class='full_width' range="{{array}}" bindchange="bindPickerChange">
+  <picker class='full_width' range="{{objectBoxArray}}" bindchange="bindPickerChange">
     <view wx:if="{{is_link == 1}}" class='box-link full_width theme7'>
       <image src='/images/icon/FFFFFF_linked.png'></image>
       <view class='full_width'>
-        <label class='info'>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
+        <label class='info'>您已成功链接{{room_name}}电视</label>
         <label class='btn-choose theme-font'>切换</label>
       </view>
     </view>

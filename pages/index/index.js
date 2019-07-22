@@ -15,7 +15,9 @@ var forscreen_type;
 var common_appid = app.globalData.common_appid;
 Page({
   data: {
-    array: ['美国', '中国', '巴西', '日本'], index: 0,
+    objectBoxArray: [],
+    box_list :[], 
+    index: 0,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -60,6 +62,16 @@ Page({
       })
     }
     else {
+      if(typeof(user_info.box_mac!='undefined')){
+        var box_name = user_info.box_name;
+        that.setData({
+          openid:openid,
+          box_mac:user_info.box_mac,
+          is_link :1,
+          room_name:box_name
+        })
+
+      }
       var hotel_id = user_info.hotel_id;
       //获取酒楼包间列表
       wx.request({
@@ -73,7 +85,8 @@ Page({
         success:function(res){
           if(res.data.code==10000){
             that.setData({
-              objectBoxArray:res.data.result
+              objectBoxArray:res.data.result.box_name_list,
+              box_list:res.data.result.box_list
             })
           }
         }
@@ -247,10 +260,24 @@ Page({
     })
   },
   bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      is_link: 1,
-      index: e.detail.value
-    })
+    console.log(e);
+    var keys = e.detail.value;
+    var box_list = this.data.box_list;
+    var user_info = wx.getStorageSync(cache_key + "userinfo");
+    if(keys>0){
+      box_mac = box_list[keys].box_mac;
+      user_info.box_mac = box_mac;
+      user_info.box_name = box_list[keys].name;
+      wx.setStorageSync(cache_key + "userinfo", user_info);
+      this.setData({
+        is_link :1,
+        room_name: box_list[keys].name,
+        box_mac:box_mac
+      })
+    }
+    // this.setData({
+    //   is_link: 1,
+    //   index: e.detail.value
+    // })
   }
 })

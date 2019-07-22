@@ -297,6 +297,6 @@ App({
     cache_key:'savor:dinners:',
     common_appid:'wxfdf0346934bb672f',
     box_type:0,
-    is_zhilian:0,
+    is_zhilian:1,
   }
 })
