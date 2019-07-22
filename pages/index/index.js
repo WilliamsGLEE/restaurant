@@ -15,6 +15,7 @@ var forscreen_type;
 var common_appid = app.globalData.common_appid;
 Page({
   data: {
+    array: ['美国', '中国', '巴西', '日本'], index: 0,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -243,6 +244,13 @@ Page({
           download_disable: false,
         })
       }
+    })
+  },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      is_link: 1,
+      index: e.detail.value
     })
   }
 })

@@ -101,7 +101,30 @@
   font-size: 28rpx;
 }
 
-.box-link > image {
+.box-link > .full_width {
+  text-align: center;
+}
+
+.box-link > .full_width > .info {
+  min-width: 50rpx;
+  max-width: calc(100% - 90rpx);
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.box-link > .full_width > .btn-choose {
+  width: 60rpx;
+  margin-left: 30rpx;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.box-link image {
   width: 40rpx;
   height: 40rpx;
   margin: 8rpx;
@@ -206,19 +229,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 24rpx;
 }
 
 .box-panel > .scroll  .box-list > .box > .light {
   position: relative;
-  width: 40rpx;
-  height: 40rpx;
+  width: 70rpx;
+  height: 70rpx;
   border-radius: 50%;
 }
 
-.box-panel > .scroll  .box-list > .box > .light > view {
+.box-panel > .scroll  .box-list > .box > .light > image {
   position: absolute;
-  width: 26rpx;
-  height: 26rpx;
+  width: 64rpx;
+  height: 64rpx;
   border-radius: 50%;
   z-index: 5;
   margin: auto; /*以下五个属性为水平垂直居中的方法*/
@@ -228,8 +252,29 @@
   bottom: 0;
 }
 
+.box-panel > .scroll  .box-list > .box > .light > view {
+  position: absolute;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  z-index: 5;
+  margin: auto; /*以下五个属性为水平垂直居中的方法*/
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .box-panel > .scroll  .box-list > .box > .name {
-  font-size: 24rpx;
+  width: 90rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .green-light {
@@ -237,7 +282,15 @@
 }
 
 .green-light > view {
-  background-color: #1cbeb6;
+  background-color: #fff;
+}
+
+.red-light {
+  background-color: rgba(235, 104, 119, 0.46);
+}
+
+.red-light > view {
+  background-color: #fff;
 }
 
 .grey-light {
@@ -245,5 +298,5 @@
 }
 
 .grey-light > view {
-  background-color: #999;
+  background-color: #fff;
 }

@@ -3,14 +3,22 @@
 <view class="container theme-main">
 
   <!-- 机顶盒连接信息 -->
-  <view wx:if="{{is_link == 1}}" class='box-link full_width theme7'>
-    <image src='/images/icon/FFFFFF_linked.png'></image>
-    <label>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
-  </view>
-  <view wx:else class='box-link full_width theme7'>
-    <image src='/images/icon/FFFFFF_unlink.png'></image>
-    <label>您还未链接电视</label>
-  </view>
+  <picker class='full_width' range="{{array}}" bindchange="bindPickerChange">
+    <view wx:if="{{is_link == 1}}" class='box-link full_width theme7'>
+      <image src='/images/icon/FFFFFF_linked.png'></image>
+      <view class='full_width'>
+        <label class='info'>您已成功链接“{{hotel_name}}”的{{room_name}}电视</label>
+        <label class='btn-choose theme-font'>切换</label>
+      </view>
+    </view>
+    <view wx:else class='box-link full_width theme7'>
+      <image src='/images/icon/FFFFFF_unlink.png'></image>
+      <view class='full_width'>
+        <label class='info'>您还未链接电视</label>
+        <label class='btn-choose theme-font'>连接</label>
+      </view>
+    </view>
+  </picker>
 
   <!-- 主要功能面板 -->
   <view class='main-function-panel full_width theme7'>
@@ -45,157 +53,157 @@
       <view class='weui-grids box-list full_width'>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          </view>
+          <view class='name'>19999999999999999999999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light green-light'>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light green-light theme-font3'>
+            <view>签到</view>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light green-light theme-font3'>
+            <view>签到</view>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light green-light theme-font3'>
+            <view>签到</view>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light red-light'>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light red-light theme-font3'>
+            <view>签到</view>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light red-light'>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light grey-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light grey-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light grey-light theme-font3'>
+            <view>签到</view>
+          </view>
+          <view class='name'>1999</view>
+        </view>
+        <view class='weui-grid box'>
+          <view class='light grey-light theme-font3'>
+            <view>签到</view>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light grey-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light grey-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
         <view class='weui-grid box'>
           <view class='light grey-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light grey-light'>
-            <view></view>
-          </view>
-          <view class='name'>1999</view>
-        </view>
-        <view class='weui-grid box'>
-          <view class='light grey-light'>
-            <view></view>
+            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
         </view>
@@ -275,8 +283,8 @@
   <view style='display: flex;flex-direction: column;align-items: center; font-size: 30rpx;'>
     <label style='height: 50rpx;'>您绑定的酒楼信息有误，请删除小程序后重新进入</label>
     <label style='height: 50rpx;'>或者联系小热点管理员</label>
-    
-    
+
+
   </view>
 </modal>
 <!-- 邀请码对应的酒楼和链接电视对应的酒楼不一致 - 弹窗 -->
