@@ -161,7 +161,7 @@
               <image src='/images/icon/999999_upload.png'></image>
               <view>
                 <view class='theme-font' bindtap="chooseImg">上传图片</view>
-                <view class='theme-font' bindtap="chooseVedio">上传视频</view>
+                <view class='theme-font' bindtap="chooseVideo">上传视频</view>
               </view>
             </block>
             <block wx:if="{{myChoosed == 1}}">
@@ -170,7 +170,7 @@
             </block>
             <block wx:if="{{myChoosed == 2}}">
               <view class='clear theme-font' bindtap="clearGoodsImg" data-goods_img_type="2">重选</view>
-              <video class="choosed-video"></video>
+              <video class="choosed-video" src="{{filename}}"></video>
             </block>
           </view>
 
@@ -212,24 +212,24 @@
     <block wx:if="{{showPageType == 3}}">
       <view class='ads-list theme7'>
         <view class='pic full_width'>
-          <image class='status' src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-          <image class='photo full_height full_width' src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+          <image class='status' src='{{check_status_img}}'></image>
+          <image class='photo full_height full_width' src='{{filename}}'></image>
         </view>
         <view class='row full_width'>
           <label class='theme-font3'>价格</label>
-          <view class='theme-font2'>5999元</view>
+          <view class='theme-font2'>{{price}}元</view>
         </view>
         <view class='row full_width'>
           <label class='theme-font3'>活动时间</label>
           <view class='theme-font2'>
-            <view>2019.07.01 11:00</view>
+            <view>{{start_date}}</view>
             <label>~</label>
-            <view>2019.07.31 12:00</view>
+            <view>{{end_date}}</view>
           </view>
         </view>
         <view class='row full_width'>
           <label class='theme-font3'>活动范围</label>
-          <view class='theme-font2'>本餐厅全部电视</view>
+          <view class='theme-font2'>{{room_desc}}</view>
         </view>
         <view class='row full_width'>
           <button class='btn-edit theme-button6'>修改</button>

@@ -21,7 +21,8 @@ Page({
     play_list:[],  //节目单播放列表
     sale_list:[],  //促销活动列表
     room_type:1,   //活动范围1：全部 2：包间 3：非包间
-    room_arr: [{ 'id': 1, 'name': '全部', 'checked': true }, { 'id': 2, 'name': '包间', 'checked': false }, { 'id': 3, 'name': '非包间', 'checked': false }],
+    room_arr: [{ 'id': 1, 'name': '全部', 'checked': true,'desc':'本餐厅全部电视'}, { 'id': 2, 'name': '包间', 'checked': false,'desc':'本餐厅包间电视'}, { 'id': 3, 'name': '非包间', 'checked': false,'desc':'本餐厅非包间电视' }],
+    check_status_arr: [{ 'status': 0, 'name': '审核中', 'img': 'http://oss.littlehotspot.com/media/resource/z8YQnmsySD.png' }, { 'status': 1, 'name': '审核通过', 'img': 'http://oss.littlehotspot.com/media/resource/RiifNKCWeT.png' }, { 'status': 2, 'name': '未审核通过', 'img':'http://oss.littlehotspot.com/media/resource/8Xyk3NtmzS.png'}],
     start_date:'', //活动开始时间
     end_date:'',   //活动结束时间
 
@@ -214,6 +215,7 @@ Page({
     
     
   },
+  //上传图片
   chooseImg:function(res){
     var that =this;
     wx.chooseImage({
@@ -276,6 +278,70 @@ Page({
       },
     })
   },
+  //上传视频
+  chooseVideo:function(){
+    var that = this;
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success: function (res) {
+        console.log(res);
+        var filename = res.tempFilePath;
+        var index1 = filename.lastIndexOf(".");
+        var index2 = filename.length;
+        var postf = filename.substring(index1, index2);//后缀名
+        var timestamp = (new Date()).valueOf();
+        var oss_img = "forscreen/resource/" + timestamp + postf;
+        console.log(oss_img);
+        var postf_w = filename.substring(index1 + 1, index2);//后缀名
+        wx.request({
+          url: api_url + '/Smallapp/Index/getOssParams',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          success: function (rest) {
+            signature = rest.data.signature;
+            policy = rest.data.policy;
+            accessid = rest.data.accessid;
+            wx.uploadFile({
+              url: oss_upload_url,
+              filePath: filename,
+              name: 'file',
+              header: {
+                'Content-Type': 'image/' + postf_w
+              },
+              formData: {
+                Bucket: "redian-produce",
+                name: filename,
+                key: "forscreen/resource/" + timestamp + postf,
+                policy: policy,
+                OSSAccessKeyId: accessid,
+                sucess_action_status: "200",
+                signature: signature
+
+              },
+
+              success: function (res) {
+                that.setData({
+                  myChoosed: 2,
+                  filename: filename,
+                  goods_img: oss_img
+                })
+              },
+              complete: function (es) {
+
+              },
+              fail: function ({ errMsg }) {
+
+              },
+            });
+
+          }
+        });
+      },
+    })
+  },
   //切换最大值
   setMaxPrice: function (res) {
     var totalNums = res.detail.value;
@@ -329,6 +395,8 @@ Page({
     var end_date   = res.detail.value.end_date;
     var price      = res.detail.value.price;
     var room_type  = res.detail.value.room_type;
+    var room_arr = this.data.room_arr;
+    var check_status_arr = this.data.check_status_arr;
     if(goods_img==''){
       wx.showToast({
         title: '请上传图片/视频',
@@ -387,8 +455,21 @@ Page({
         room_type:room_type
       },
       success:function(res){
+        for (var i = 0;i<room_arr.length;i++){
+          if(room_arr[i].id==room_type){
+            var room_desc = room_arr[i].desc;
+            break;
+          }
+        }
+        var check_status_img = check_status_arr[0].img
         that.setData({
-          showPageType:3
+          showPageType:3,
+          price:price,
+          start_date:start_date,
+          end_date:end_date,
+          room_type: room_type,
+          room_desc:room_desc,
+          check_status_img: check_status_img
         })
       }
     })
