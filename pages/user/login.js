@@ -2,7 +2,6 @@
 const app = getApp()
 var openid;
 var sms_time_djs;
-var box_mac;
 var api_url = app.globalData.api_url;
 var cache_key = app.globalData.cache_key;
 var common_appid =  app.globalData.common_appid;
@@ -24,11 +23,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.hideShareMenu();
-    box_mac = options.box_mac;
-    //box_mac = '00226D655202';   //上线去掉******************************************************
     that.setData({
       common_appid: common_appid,
-      box_mac:box_mac,
     })
     if (app.globalData.openid && app.globalData.openid != '') {
       that.setData({
@@ -36,7 +32,7 @@ Page({
       })
       openid = app.globalData.openid;
       //判断用户是否注册
-      userRegister(openid,box_mac);
+      userRegister(openid);
     } else {
       app.openidCallback = openid => {
         if (openid != '') {
@@ -45,7 +41,7 @@ Page({
           })
           openid = openid;
           //判断用户是否注册
-          userRegister(openid,box_mac);
+          userRegister(openid);
 
         }
       }
@@ -53,7 +49,7 @@ Page({
     }
     
     //判断用户是否注册
-    function userRegister(openid,box_mac){
+    function userRegister(openid){
       if(openid !='' && openid !=undefined){
         wx.request({
           url: api_url+'/Smalldinnerapp11/User/isRegister',
@@ -64,47 +60,33 @@ Page({
             openid: openid,
           },
           success: function (res) {
+            console.log(res);
             if(res.data.code==10000){
-              //res.data.result.userinfo.box_mac = box_mac;
-              
-              if (box_mac == undefined || box_mac == 'undefined') {//如果是从微信直接打开的小程序
+              if (res.data.result.userinfo.is_wx_auth != 3) {
                 that.setData({
-                  showModal: true,
+                  showWXAuthLogin: true
                 })
-              } else {//如果是从其他小程序跳转过来的
-                that.setData({
-                  box_mac: box_mac,
+                wx.setStorage({
+                  key: cache_key + 'userinfo',
+                  data: res.data.result.userinfo,
                 })
-                //判断用户是否授权
-               
-                if (res.data.result.userinfo.is_wx_auth != 3) {
-                  that.setData({
-                    showWXAuthLogin: true
-                  })
+              } else {
+                if (res.data.result.userinfo.mobile != '') {
+
+                  res.data.result.userinfo.is_login = 1;
                   wx.setStorage({
                     key: cache_key + 'userinfo',
                     data: res.data.result.userinfo,
                   })
+                  wx.reLaunch({
+                    url: '/pages/index/index',
+                  })
                 } else {
-                  if (res.data.result.userinfo.mobile != '') {
-                    
-                    res.data.result.userinfo.is_login = 1;
-                    wx.setStorage({
-                      key: cache_key + 'userinfo',
-                      data: res.data.result.userinfo,
-                    })
-                    wx.reLaunch({
-                      url: '/pages/index/index?box_mac=' + box_mac,
-                    })
-                  }else {
-                    wx.setStorage({
-                      key: cache_key + 'userinfo',
-                      data: res.data.result.userinfo,
-                    })
-                  }
-                  
+                  wx.setStorage({
+                    key: cache_key + 'userinfo',
+                    data: res.data.result.userinfo,
+                  })
                 }
-
 
               }
             }
@@ -146,12 +128,13 @@ Page({
                 var mobile = res.data.result.mobile;
                 if (mobile != '') {
                   res.data.result.is_login = 1;
+                  
                   wx.setStorage({
                     key: cache_key + 'userinfo',
                     data: res.data.result,
                   });
                   wx.reLaunch({
-                    url: '/pages/index/index?box_mac=' + box_mac,
+                    url: '/pages/index/index',
                   })
                 } else {
                   wx.setStorage({
@@ -169,7 +152,7 @@ Page({
                   duration: 2000
                 });
                 wx.reLaunch({
-                  url: '/pages/index/index?box_mac=' + box_mac,
+                  url: '/pages/index/index',
                 })
               }
 
@@ -301,7 +284,6 @@ Page({
     var verify_code = res.detail.value.verify_code;
     var openid = res.detail.value.openid;
     var is_mobile = app.checkMobile(mobile);
-    var box_mac   = res.detail.value.box_mac;
     if(!is_mobile){
       return ;
     }
@@ -330,12 +312,12 @@ Page({
       return;
     }
     wx.request({
-      url: api_url+'/Smalldinnerapp11/login/login',
+      url: api_url+'/Smalldinnerapp/login/login',
       header: {
         'content-type': 'application/json'
       },
       data: {
-        box_mac:box_mac,
+        //box_mac:box_mac,
         mobile: mobile,
         invite_code: invite_code,
         verify_code: verify_code,
@@ -344,10 +326,11 @@ Page({
       success:function(rt){
         if(rt.data.code==10000){
           wx.reLaunch({
-            url: '/pages/index/index?box_mac='+box_mac,
+            url: '/pages/index/index',
           })
           var user_info = wx.getStorageSync(cache_key + "userinfo");
           user_info.is_login = 1;
+          user_info.hotel_id = rt.data.result.hotel_id;
           wx.setStorage({
             key: cache_key+'userinfo',
             data: user_info,

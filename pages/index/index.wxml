@@ -271,7 +271,14 @@
     </navigator>
   </view>
 </modal>
-
+<modal show='{{showHotelErr}}' width="90vw" height="250rpx" title-text="温馨提示" confirmText="" cancelText="">
+  <view style='display: flex;flex-direction: column;align-items: center; font-size: 30rpx;'>
+    <label style='height: 50rpx;'>您绑定的酒楼信息有误，请删除小程序后重新进入</label>
+    <label style='height: 50rpx;'>或者联系小热点管理员</label>
+    
+    
+  </view>
+</modal>
 <!-- 邀请码对应的酒楼和链接电视对应的酒楼不一致 - 弹窗 -->
 <modal show='{{bdShowModal}}' width="90vw" height="300rpx" title-text="温馨提示" confirmText="" cancelText="">
   <view style='display: flex;flex-direction: column;align-items: center; font-size: 30rpx;'>
