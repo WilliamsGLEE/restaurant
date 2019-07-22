@@ -160,16 +160,16 @@
             <block wx:if="{{myChoosed == 0}}">
               <image src='/images/icon/999999_upload.png'></image>
               <view>
-                <view class='theme-font'>上传图片</view>
-                <view class='theme-font'>上传视频</view>
+                <view class='theme-font' bindtap="chooseImg">上传图片</view>
+                <view class='theme-font' bindtap="chooseVedio">上传视频</view>
               </view>
             </block>
             <block wx:if="{{myChoosed == 1}}">
-              <view class='clear theme-font'>清空</view>
-              <image class="choosed-pic" src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+              <view class='clear theme-font' bindtap="clearGoodsImg" data-goods_img_type="1">重选</view>
+              <image class="choosed-pic" src='{{filename}}'></image>
             </block>
             <block wx:if="{{myChoosed == 2}}">
-              <view class='clear theme-font'>清空</view>
+              <view class='clear theme-font' bindtap="clearGoodsImg" data-goods_img_type="2">重选</view>
               <video class="choosed-video"></video>
             </block>
           </view>

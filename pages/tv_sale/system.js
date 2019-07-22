@@ -3,9 +3,13 @@ const app = getApp()
 var api_url = app.globalData.api_url;
 var box_mac;
 var openid;
+var policy;
+var signature;
+var accessid;
 var page = 1;
 var common_appid = app.globalData.common_appid;
 var cache_key = app.globalData.cache_key; 
+var oss_upload_url = app.globalData.oss_upload_url;
 Page({
 
   /**
@@ -210,6 +214,68 @@ Page({
     
     
   },
+  chooseImg:function(res){
+    var that =this;
+    wx.chooseImage({
+      count: 1, // 默认6
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function(res) {
+        var filename = res.tempFilePaths[0];
+        var index1 = filename.lastIndexOf(".");
+        var index2 = filename.length;
+        var postf = filename.substring(index1, index2);//后缀名
+        var timestamp = (new Date()).valueOf();
+        var oss_img = "forscreen/resource/" + timestamp + postf;
+        console.log(oss_img);
+        var postf_w = filename.substring(index1 + 1, index2);//后缀名
+        wx.request({
+          url: api_url + '/Smallapp/Index/getOssParams',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          success: function (rest) {
+            signature = rest.data.signature;
+            policy    = rest.data.policy;
+            accessid = rest.data.accessid;
+            wx.uploadFile({
+              url: oss_upload_url,
+              filePath: filename,
+              name: 'file',
+              header: {
+                'Content-Type': 'image/' + postf_w
+              },
+              formData: {
+                Bucket: "redian-produce",
+                name: filename,
+                key: "forscreen/resource/" + timestamp + postf,
+                policy: policy,
+                OSSAccessKeyId: accessid,
+                sucess_action_status: "200",
+                signature: signature
+
+              },
+
+              success: function (res) {
+                that.setData({
+                  myChoosed:1,
+                  filename:filename,
+                  goods_img: oss_img
+                })
+              },
+              complete: function (es) {
+                
+              },
+              fail: function ({ errMsg }) {
+                
+              },
+            });
+            
+          }
+        });
+      },
+    })
+  },
   //切换最大值
   setMaxPrice: function (res) {
     var totalNums = res.detail.value;
@@ -338,7 +404,16 @@ Page({
       }
     }
   },
-
+  clearGoodsImg:function(res){
+    var that = this;
+    var goods_img_type = res.currentTarget.dataset.goods_img_type;
+    
+    that.setData({
+      myChoosed:0,
+      filename:'',
+      goods_img:''
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

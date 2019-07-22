@@ -62,7 +62,7 @@ Page({
       })
     }
     else {
-      if(typeof(user_info.box_mac!='undefined')){
+      if(typeof(user_info.box_mac)!='undefined'){
         var box_name = user_info.box_name;
         that.setData({
           openid:openid,
