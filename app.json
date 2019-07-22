@@ -11,7 +11,8 @@
     "pages/tv_sale/system",
     "pages/tv_sale/mine",
     "pages/message/list",
-    "pages/mine/index"
+    "pages/mine/index",
+    "pages/mine/exchange"
   ],
   "window": {
     "backgroundTextStyle": "light",
