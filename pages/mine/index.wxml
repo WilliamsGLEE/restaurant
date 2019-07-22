@@ -1,2 +1,128 @@
 <!--pages/mine/index.wxml-->
-<text>pages/mine/index.wxml</text>
+<import src="/pages/template/commons" />
+<view class="container theme-main">
+  <view class='full_width'>
+
+    <!-- 用户信息面板 -->
+    <view class='user-info-panel full_width theme7'>
+      <image class='head-img' src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+      <view class='nickname theme-font2'>奔波儿灞与灞波儿奔</view>
+    </view>
+
+    <!-- 收益概况面板 -->
+    <view class='profit-profile-panel full_width theme7'>
+      <view class='title theme-font3'>积分收益（分）</view>
+      <view class='info'>
+        <label class='theme-font5'>23450</label>
+        <button class='theme-font5'>兑换</button>
+      </view>
+    </view>
+
+    <!-- 收益详情面板 -->
+    <view class='profit-details-panel full_width theme7'>
+      <view class='title theme-font3'>收益明细</view>
+
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>开机2小时</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+20</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>电视互动6人</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+60</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+1000</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+10000</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+10000000</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>开机2小时</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+20</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>电视互动6人</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+60</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+1000</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+10000</view>
+      </view>
+      <view class='row'>
+        <view class='record'>
+          <view class='cause full_width'>
+            <view class='where'>VIP1包间</view>
+            <view class='clause'>销售XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX * 1</view>
+          </view>
+          <view class='date-time full_width theme-font3'>2019.07.20</view>
+        </view>
+        <view class='profit theme-font5'>+10000000</view>
+      </view>
+
+    </view>
+  </view>
+</view>

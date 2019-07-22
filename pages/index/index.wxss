@@ -108,9 +108,9 @@
 .box-link > .full_width > .info {
   min-width: 50rpx;
   max-width: calc(100% - 90rpx);
-  overflow: hidden;
   display: inline-block;
   vertical-align: middle;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: right;
