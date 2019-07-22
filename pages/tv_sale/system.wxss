@@ -241,9 +241,40 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   justify-content: center;
 }
 
+.sale-panel > .ads-add .btn-add > view {
+  width: 260rpx;
+  margin-top: 59rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sale-panel > .ads-add .btn-add > view > view {
+  text-decoration: underline;
+}
+
 .sale-panel > .ads-add .btn-add > image {
   width: 50rpx;
   height: 41rpx;
+}
+
+.sale-panel > .ads-add .btn-add > .clear {
+  width: 60rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin: auto auto auto calc(100% - 60rpx);
+  text-align: right;
+  text-decoration: underline;
+  z-index: 1;
+}
+
+.sale-panel > .ads-add .btn-add > .choosed-pic,
+.sale-panel > .ads-add .btn-add > .choosed-video {
+  margin-top: -50rpx;
+  width: calc(100% - 2rpx);
+  height: calc(100% - 2rpx);
+  z-index: 0;
 }
 
 .sale-panel > .ads-add .price, .sale-panel > .ads-add .time-quantum,
@@ -283,12 +314,13 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .sale-panel > .ads-add .row > view > picker label {
   width: 120rpx;
   height: 30rpx;
+  display: inline-block;
   vertical-align: middle;
   font-size: 20rpx;
   margin-right: 5rpx;

@@ -157,10 +157,23 @@
       <view class='ads-add theme7'>
         <form bindsubmit="pubAct">
           <view class='btn-add full_width'>
-            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
-            <view>上传图片/视频</view>
+            <block wx:if="{{myChoosed == 0}}">
+              <image src='/images/icon/999999_upload.png'></image>
+              <view>
+                <view class='theme-font'>上传图片</view>
+                <view class='theme-font'>上传视频</view>
+              </view>
+            </block>
+            <block wx:if="{{myChoosed == 1}}">
+              <view class='clear theme-font'>清空</view>
+              <image class="choosed-pic" src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+            </block>
+            <block wx:if="{{myChoosed == 2}}">
+              <view class='clear theme-font'>清空</view>
+              <video class="choosed-video"></video>
+            </block>
           </view>
-          
+
           <view class='row full_width'>
             <label>输入价格</label>
             <input name='price' type="number" placeholder='最高9999元  ' placeholder-style='text-align: right;' focus="{{price_focus}}" bindinput='setMaxPrice'></input>
@@ -170,20 +183,20 @@
             <view>
               <picker mode='date' bindchange="bindDateChange" start="2019-01-01" end="2022-12-31" data-date_type="1">
                 <label>{{start_date}}</label>
-                <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+                <image src='/images/icon/999999_calendar.png'></image>
               </picker>
               <label>~</label>
               <picker mode='date' bindchange="bindDateChange" start="2019-01-01" end="2022-12-31" data-date_type="2">
                 <label>{{end_date}}</label>
-                <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+                <image src='/images/icon/999999_calendar.png'></image>
               </picker>
             </view>
           </view>
           <view class='row full_width'>
             <label>活动范围</label>
-            <radio-group  bindchange="radioChange">
-              <radio bindtap = "changeRoomType"  wx:for="{{room_arr}}" wx:for-item="bean" wx:key="bean.id" value="{{bean.id}}" checked = "{{bean.checked}}" data-room_type="{{bean.id}}">{{bean.name}}</radio>
-              
+            <radio-group bindchange="radioChange">
+              <radio bindtap="changeRoomType" wx:for="{{room_arr}}" wx:for-item="bean" wx:key="bean.id" value="{{bean.id}}" checked="{{bean.checked}}" data-room_type="{{bean.id}}">{{bean.name}}</radio>
+
             </radio-group>
           </view>
           <input class='display_hide' name="goods_img" value="{{goods_img}}"> </input>
