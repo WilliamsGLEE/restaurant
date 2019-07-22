@@ -155,39 +155,42 @@
     <!-- 我的活动[添加] -->
     <block wx:if="{{showPageType == 2}}">
       <view class='ads-add theme7'>
-        <form>
+        <form bindsubmit="pubAct">
           <view class='btn-add full_width'>
             <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
             <view>上传图片/视频</view>
           </view>
+          
           <view class='row full_width'>
             <label>输入价格</label>
-            <input type='digit' placeholder='元  ' placeholder-style='text-align: right;'></input>
+            <input name='price' type="number" placeholder='最高9999元  ' placeholder-style='text-align: right;' focus="{{price_focus}}" bindinput='setMaxPrice'></input>
           </view>
           <view class='row full_width'>
             <label>活动时间</label>
             <view>
-              <picker mode='date'>
-                <label></label>
+              <picker mode='date' bindchange="bindDateChange" start="2019-01-01" end="2022-12-31" data-date_type="1">
+                <label>{{start_date}}</label>
                 <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
               </picker>
               <label>~</label>
-              <picker mode='date'>
-                <label></label>
+              <picker mode='date' bindchange="bindDateChange" start="2019-01-01" end="2022-12-31" data-date_type="2">
+                <label>{{end_date}}</label>
                 <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
               </picker>
             </view>
           </view>
           <view class='row full_width'>
             <label>活动范围</label>
-            <radio-group>
-              <radio checked='true'>全部</radio>
-              <radio>包间</radio>
-              <radio>非包间</radio>
+            <radio-group  bindchange="radioChange">
+              <radio bindtap = "changeRoomType"  wx:for="{{room_arr}}" wx:for-item="bean" wx:key="bean.id" value="{{bean.id}}" checked = "{{bean.checked}}" data-room_type="{{bean.id}}">{{bean.name}}</radio>
+              
             </radio-group>
           </view>
+          <input class='display_hide' name="goods_img" value="{{goods_img}}"> </input>
           <input class='display_hide' name="room_type" value="{{room_type}}"></input>
-          <button class='btn-submit theme-button'>添加活动</button>
+          <input class='display_hide' name="start_date" value="{{start_date}}"></input>
+          <input class='display_hide' name="end_date" value="{{end_date}}"></input>
+          <button class='btn-submit theme-button' form-type="submit">添加活动</button>
         </form>
       </view>
     </block>
