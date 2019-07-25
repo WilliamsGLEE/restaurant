@@ -295,6 +295,7 @@ App({
     mobile_model: '',
     api_url:'https://mobile.littlehotspot.com',
     oss_upload_url: 'https://image.littlehotspot.com',
+    oss_url: 'https://oss.littlehotspot.com',
     cache_key:'savor:dinners:',
     common_appid:'wxfdf0346934bb672f',
     box_type:0,

@@ -51,13 +51,21 @@
     <view class='title full_width theme-font3'>包间信息</view>
     <scroll-view class='scroll full_width' scroll-y="true" scroll-with-animation="true">
       <view class='weui-grids box-list full_width'>
-        <view class='weui-grid box'>
-          <view class='light green-light'>
-            <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
+        <block wx:for="{{sign_box_list}}"  wx:for-item="bean" wx:key="key" wx:for-index="index">
+        <view class='weui-grid box' wx:if="{{bean.status==2}}">
+          <view class='light green-light' >
+            <image src='{{bean.user.avatarUrl}}'></image>
           </view>
-          <view class='name'>19999999999999999999999</view>
+          <view class='name'>{{bean.name}}</view>
         </view>
-        <view class='weui-grid box'>
+        <view class='weui-grid box' wx:if="{{bean.status==1}}" bindtap="signIn" data-box_mac="{{bean.box_mac}}" data-keys="{{index}}">
+          <view class='light green-light theme-font3'>
+            <view>签到</view>
+          </view>
+          <view class='name'>{{bean.name}}</view>
+        </view>
+        </block>
+        <!-- <view class='weui-grid box'>
           <view class='light green-light'>
             <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
@@ -206,7 +214,7 @@
             <image src='http://oss.littlehotspot.com/WeChat/MiniProgram/LaunchScreen/source/images/imgs/default.jpeg'></image>
           </view>
           <view class='name'>1999</view>
-        </view>
+        </view> -->
       </view>
     </scroll-view>
   </view>

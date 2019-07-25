@@ -13,6 +13,7 @@ var wifi_mac;
 var use_wifi_password;
 var forscreen_type;
 var common_appid = app.globalData.common_appid;
+var sign_box_list; //签到包间
 Page({
   data: {
     objectBoxArray: [],
@@ -36,6 +37,7 @@ Page({
     bdShowModal:true,    //邀请码酒楼和绑定酒楼不一致
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     showHotelErr:false,
+    sign_box_list:[] //签到包间
   },
   
   onLoad: function(res) {
@@ -87,6 +89,25 @@ Page({
             that.setData({
               objectBoxArray:res.data.result.box_name_list,
               box_list:res.data.result.box_list
+            })
+          }
+        }
+      })
+      //获取当前酒楼包间签到信息
+      wx.request({
+        url: api_url +'/Smalldinnerapp11/user/getSigninBoxList',
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          hotel_id: hotel_id,
+          openid:openid,
+        },success:function(res){
+          console.log(res);
+          if(res.data.code==10000){
+            sign_box_list = res.data.result;
+            that.setData({
+              sign_box_list:sign_box_list
             })
           }
         }
@@ -279,5 +300,49 @@ Page({
     //   is_link: 1,
     //   index: e.detail.value
     // })
+  },
+  signIn:function(e){
+    var that = this;
+    var box_mac = e.currentTarget.dataset.box_mac;
+    var keys = e.currentTarget.dataset.keys;
+    var user_info = wx.getStorageSync('savor:dinners:userinfo');
+    openid = user_info.openid;
+    //sign_box_list
+    wx.request({
+      url: api_url +'/Smalldinnerapp11/user/signin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data:{
+        box_mac:box_mac,
+        openid:openid,
+      },
+      success:function(res){
+        if(res.data.code==10000){
+          for(var i=0;i<sign_box_list.length;i++){
+            if(keys==i){
+              sign_box_list[i].status = 2;
+              sign_box_list[i].user = {"avatarUrl": user_info.avatarUrl ,"nickName": user_info.nickName ,"openid": user_info.openid ,"user_id":user_info.user_id};
+            }
+          }
+          console.log(sign_box_list);
+          that.setData({
+            sign_box_list:sign_box_list,
+          })
+          wx.showToast({
+            title: '签到成功，请重试',
+            icon: 'none',
+            duration: 2000
+          })
+        }else {
+          wx.showToast({
+            title: '签到失败，请重试',
+            icon:'none',
+            duration:2000
+          })
+        }
+      }
+    })
+
   }
 })

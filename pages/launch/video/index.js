@@ -228,7 +228,7 @@ Page({
                   method: "POST",
                   data: {
                     box_mac: box_mac,
-                    msg: '{ "action":42, "url": "forscreen/resource/' + timestamp + postf_t + '", "filename":"' + timestamp + postf_t + '","openid":"' + openid + '","resource_type":2,"video_id":"' + timestamp + '","forscreen_id":"' + res_eup_time + '","play_times":' + play_times + '}',
+                    msg: '{"action":42, "url": "forscreen/resource/' + timestamp + postf_t + '", "filename":"' + timestamp + postf_t + '","openid":"' + openid + '","resource_type":2,"video_id":"' + timestamp + '","forscreen_id":"' + res_eup_time + '","play_times":' + play_times + '}',
                   },
                   success: function (result) {
 

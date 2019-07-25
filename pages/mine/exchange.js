@@ -1,4 +1,10 @@
 // pages/mine/exchange.js
+const app = getApp()
+var api_url = app.globalData.api_url;
+var box_mac;
+var openid;
+var cache_key = app.globalData.cache_key;
+var page = 1;
 Page({
 
   /**
@@ -12,9 +18,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
-
+  loadMore: function (res) {
+    
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
