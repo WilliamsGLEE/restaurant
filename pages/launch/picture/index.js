@@ -38,10 +38,11 @@ Page({
     });*/
     var that = this;
     wx.hideShareMenu();
-    var user_info = wx.getStorageSync(cache_key + "userinfo");
+    //var user_info = wx.getStorageSync("savor_user_info");
     
-    openid = user_info.openid;
-    box_mac = user_info.box_mac;
+    openid = options.openid;
+    box_mac = options.box_mac;
+    intranet_ip = options.intranet_ip;
     that.setData({
       box_mac: box_mac,
       openid: openid,
@@ -60,13 +61,14 @@ Page({
       }
 
     })
+
     wx.chooseImage({
       count: 6, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-
-
+      success:function(res){
+        
+        
         var img_len = res.tempFilePaths.length;
         var tmp_imgs = [];
         for (var i = 0; i < img_len; i++) {
@@ -75,17 +77,17 @@ Page({
         that.setData({
           up_imgs: tmp_imgs,
           img_lenth: img_len,
+          intranet_ip: intranet_ip,
           is_btn_disabel: false,
-
+          
         })
       },
-      fail: function (e) {
+      fail:function(e){
         wx.navigateBack({
           delta: 1,
         })
       }
-    })
-     
+    })  
   },
   playTimesChange:function(res){
     var that = this;
@@ -106,6 +108,7 @@ Page({
     var avatarUrl = user_info.avatarUrl;
     var nickName = user_info.nickName;
     var img_lenth = e.detail.value.img_lenth;
+    var intranet_ip = e.detail.value.intranet_ip;
     var mobile_brand = app.globalData.mobile_brand;
     var mobile_model = app.globalData.mobile_model;
     var forscreen_char = e.detail.value.forscreen_char;
@@ -143,7 +146,7 @@ Page({
     if (e.detail.value.upimgs8 != '' && e.detail.value.upimgs8 != undefined) {
       upimgs[8] = { 'img_url': e.detail.value.upimgs8, 'img_size': e.detail.value.upimgsize8 };
     }
-    if(app.globalData.is_zhilian==1){
+    if(app.globalData.box_type==2){
       var public_text = '';
       wx.request({
         url: 'https://mobile.littlehotspot.com/smallapp21/User/isForscreenIng',
@@ -364,13 +367,6 @@ Page({
             console.log('uploadImage fail,errMsg is', errMsg)
           },
         });
-        sleep(1);
-      }
-      function sleep(delay) {
-        var start = (new Date()).getTime();
-        while ((new Date()).getTime() - start < delay) {
-          continue;
-        }
       }
       that.setData({
         up_imgs: upimgs,
@@ -389,6 +385,7 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.boxmac;
+    intranet_ip = res.currentTarget.dataset.intranet_ip
 
     var user_info = wx.getStorageSync(cache_key+'userinfo');
     var avatarUrl = user_info.avatarUrl;
@@ -406,7 +403,7 @@ Page({
     that.setData({
       choose_key: choose_key
     })
-    if(app.globalData.is_zhilian==1){
+    if(app.globalData.box_type==2){
       
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',
@@ -483,15 +480,18 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
+    intranet_ip = res.currentTarget.dataset.intranet_ip
 
     that.setData({
       box_mac: box_mac,
       openid: openid,
+      intranet_ip: intranet_ip,
       is_btn_disabel: true,
       
 
 
     })
+
     wx.chooseImage({
       count: 6, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -509,19 +509,20 @@ Page({
         that.setData({
           up_imgs: tmp_imgs,
           img_lenth: img_len,
+          intranet_ip: intranet_ip,
           updateStatus: 0,
           is_btn_disabel: false,
           forscreen_char: ''
         })
       }
     })
-    
   },//重新选择照片结束
   exitForscreen(res) {
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
-    if(app.globalData.is_zhilian==1){
+    intranet_ip = res.currentTarget.dataset.intranet_ip;
+    if(app.globalData.box_type==2){
       
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',

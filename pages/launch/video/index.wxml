@@ -37,6 +37,7 @@
       <input class='display_hide' name="is_share" value="0"></input>
       
       <input class="display_hide" name="play_times" value="{{play_times}}"></input>
+      <input class="display_hide" name="intranet_ip" value="{{intranet_ip}}"></input>
       <input class='display_hide' name="video_size" value="{{video_size}}"> </input>
       
       <view class='page_bottom'>
@@ -140,8 +141,8 @@
     <!-- 重选 -->
     <view class="page_bottom">
       <view class='button_group flex_row_center'>
-        <button class='savor-btn button_space_left' bindtap='chooseVedio'  data-box_mac="{{box_mac}}" data-openid="{{openid}}">重选视频</button>
-        <button class='savor-btn button_space_right' bindtap="exitForscreend"  data-box_mac="{{box_mac}}" data-openid="{{openid}}">退出投屏</button>
+        <button class='savor-btn button_space_left' bindtap='chooseVedio' data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}">重选视频</button>
+        <button class='savor-btn button_space_right' bindtap="exitForscreend" data-intranet_ip='{{intranet_ip}}' data-box_mac="{{box_mac}}" data-openid="{{openid}}">退出投屏</button>
       </view>
     </view>
 

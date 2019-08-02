@@ -27,10 +27,9 @@ Page({
     
     var that = this;
     wx.hideShareMenu();
-    var user_info = wx.getStorageSync(cache_key + "userinfo");
-
-    openid = user_info.openid;
-    box_mac = user_info.box_mac;
+    box_mac = options.box_mac;
+    openid = options.openid;
+    intranet_ip = options.intranet_ip;
     that.setData({
       box_mac: box_mac,
       openid: openid,
@@ -48,12 +47,14 @@ Page({
       success: function (rts) {
         that.setData({
           item: rts.data.result,
+          intranet_ip: intranet_ip,
           openid: openid,
           box_mac: box_mac,
         })
       }
 
     })
+
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 60,
@@ -67,7 +68,7 @@ Page({
           video_size: res.size,
           is_forscreen: 1
         })
-
+        
       },
       fail: function (e) {
         wx.navigateBack({
@@ -75,7 +76,6 @@ Page({
         })
       }
     })
-    
 
   },
   forscreen_video: function (res) {
@@ -87,6 +87,7 @@ Page({
     })
     openid = res.detail.value.openid;
     box_mac = res.detail.value.box_mac;
+    intranet_ip = res.detail.value.intranet_ip;
     var user_info = wx.getStorageSync(cache_key+'userinfo');
     var avatarUrl = user_info.avatarUrl;
     var nickName = user_info.nickName;
@@ -100,7 +101,7 @@ Page({
     var filename = (new Date()).valueOf();
     var is_pub_hotelinfo = res.detail.value.is_pub_hotelinfo;
     var is_share = res.detail.value.is_share;
-    if(app.globalData.is_zhilian==1){
+    if(app.globalData.box_type==2){
       wx.request({
         url: 'https://mobile.littlehotspot.com/smallapp21/User/isForscreenIng',
         headers: {
@@ -228,7 +229,7 @@ Page({
                   method: "POST",
                   data: {
                     box_mac: box_mac,
-                    msg: '{"action":42, "url": "forscreen/resource/' + timestamp + postf_t + '", "filename":"' + timestamp + postf_t + '","openid":"' + openid + '","resource_type":2,"video_id":"' + timestamp + '","forscreen_id":"' + res_eup_time + '","play_times":' + play_times + '}',
+                    msg: '{ "action":42, "url": "forscreen/resource/' + timestamp + postf_t + '", "filename":"' + timestamp + postf_t + '","openid":"' + openid + '","resource_type":2,"video_id":"' + timestamp + '","forscreen_id":"' + res_eup_time + '","play_times":' + play_times + '}',
                   },
                   success: function (result) {
 
@@ -256,6 +257,7 @@ Page({
           filename: "forscreen/resource/" + timestamp + postf_t,
           resouce_size: resouce_size,
           duration: duration,
+          intranet_ip: intranet_ip,
           hiddens: true,
         })
       }
@@ -274,6 +276,7 @@ Page({
               filename: filename,
               resouce_size: resouce_size,
               duration: duration,
+              intranet_ip: intranet_ip,
               hiddens: true,
             })
             wx.showToast({
@@ -333,6 +336,7 @@ Page({
       box_mac: box_mac,
       openid: openid
     })
+    var intranet_ip = e.currentTarget.dataset.intranet_ip;
     var forscreen_id = (new Date()).valueOf();
     var filename = (new Date()).valueOf();
     wx.chooseVideo({
@@ -344,17 +348,17 @@ Page({
         that.setData({
           updateStatus: 0,
           upload_vedio_temp: res.tempFilePath,
-          is_btn_disabel: false,
+          is_btn_disabel:false,
+          intranet_ip: intranet_ip,
           openid: openid,
           box_mac: box_mac,
           duration: res.duration,
           video_size: res.size,
           is_forscreen: 1
         })
-
+        
       }
     })
-    
     
     
   },
@@ -363,7 +367,8 @@ Page({
     var that = this;
     openid = res.currentTarget.dataset.openid;
     box_mac = res.currentTarget.dataset.box_mac;
-    if(app.globalData.is_zhilian==1){
+    intranet_ip = res.currentTarget.dataset.intranet_ip;
+    if(app.globalData.box_type==2){
       wx.request({
         url: 'https://mobile.littlehotspot.com/Netty/Index/index',
         headers: {

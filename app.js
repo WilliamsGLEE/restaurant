@@ -1,6 +1,6 @@
 //app.js
 App({
-  connectHotelwifi: function (box_mac,openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url = '', forscreen_type = 0) {
+  connectHotelwifi: function (openid, wifi_mac, wifi_name, use_wifi_password, intranet_ip, that, jump_url = '', forscreen_type = 0) {
     if (wifi_mac == '') {//如果后台未填写wifi_mac  获取wifi列表自动链接
       wx.startWifi({
         success: function (reswifi) {
@@ -79,7 +79,6 @@ App({
                 wx.getConnectedWifi({
                   success: function (scres) {
                     if (scres.wifi.SSID == wifi_name) {//如果当前连接wifi正确
-                      wx.setStorageSync('savor_link_box_mac', box_mac);
                       if (forscreen_type == 0) {
                         wx.showToast({
                           title: 'wifi链接成功',
@@ -294,11 +293,8 @@ App({
     mobile_brand: '',
     mobile_model: '',
     api_url:'https://mobile.littlehotspot.com',
-    oss_upload_url: 'https://image.littlehotspot.com',
-    oss_url: 'https://oss.littlehotspot.com',
     cache_key:'savor:dinners:',
     common_appid:'wxfdf0346934bb672f',
     box_type:0,
-    is_zhilian:1,
   }
 })

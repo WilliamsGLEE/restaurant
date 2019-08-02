@@ -57,16 +57,6 @@
   background-color: #05101a;
 }
 
-.theme-button5 {
-  color: #fff;
-  background-color: #666;
-}
-
-.theme-button6 {
-  color: #fff;
-  background-color: #333;
-}
-
 .theme-font {
   color: #1cbeb6;
 }
@@ -85,17 +75,4 @@
 
 .theme-font4 {
   color: #fff;
-}
-
-.theme-font5 {
-  color: #eb6877;
-}
-
-.theme-font6 {
-  color: #ed6035;
-}
-
-.theme-main {
-  color: #333;
-  background-color: #ededed;
 }
